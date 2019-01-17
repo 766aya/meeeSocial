@@ -21,7 +21,31 @@
             <a href="javascript:;" :class="lang === 'zh' ? 'active': ''" class="change-lang-btn" @click="changeLanguage('zh')">中文</a>
           </div>
         </div>
-        <div class="h50 menu-layout"></div>
+        <div class="h50 menu-layout">
+          <div class="menus">
+            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
+              <router-link
+                class="menu-item"
+                :class="menuChildrenShow === index ? 'router-link-active' : ''"
+                :to="{ path: item.router }">
+                {{ item.label }}
+              </router-link>
+              <div class="menu-dropdown" v-show="menuChildrenShow === index">
+                <router-link
+                  v-for="menu in item.children"
+                  :key="menu.label"
+                  class="menu-children"
+                  :to="{path: menu.router}">
+                  {{ menu.label }}
+                </router-link>
+              </div>
+            </div>
+          </div>
+          <div class="search" @mouseout="clearIsSearch">
+            <a href="javascript:;" class="iconfont icon-sousuo search-btn" @click="search" :class="isSearch ? 'active' : ''">搜索</a>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -33,7 +57,42 @@ export default {
   data () {
     return {
       email: 'contact@meetsocial.cn',
-      lang: 'zh'
+      lang: 'zh',
+      menuList: [
+        {
+          label: '飞书服务',
+          router: '/1',
+          children: [
+            {
+              label: '服务介绍',
+              router: '/11'
+            }, {
+              label: '飞书优势',
+              router: '/12'
+            }
+          ]
+        }, {
+          label: '成功案例',
+          router: '/2',
+          children: [
+            {
+              label: '游戏案例',
+              router: '/21'
+            }, {
+              label: 'APP案例',
+              router: '/22'
+            }, {
+              label: '品牌案例',
+              router: '/23'
+            }, {
+              label: '电商案例',
+              router: '/24'
+            }
+          ]
+        }
+      ],
+      menuChildrenShow: -1,
+      isSearch: false
     }
   },
   methods: {
@@ -41,6 +100,22 @@ export default {
     changeLanguage (lang) {
       this.lang = lang
       this.$i18n.locale = lang
+    },
+    // 菜单经过显示
+    changeMenuShow (index) {
+      this.menuChildrenShow = index
+    },
+    // 清除菜单显示
+    clearMenuShow () {
+      this.menuChildrenShow = -1
+    },
+    search () {
+      if (!this.isSearch) {
+        this.isSearch = !this.isSearch
+      }
+    },
+    clearIsSearch () {
+      this.isSearch = false
     }
   },
   created () {
@@ -83,7 +158,6 @@ export default {
       display: flex;
       width: 1300px;
       height: 100%;
-      overflow: hidden;
       .logo-layout {
         display: flex;
         justify-content: center;
@@ -125,7 +199,73 @@ export default {
           }
         }
         .menu-layout {
-          color: #FFFFFF;
+          flex-direction: row;
+          justify-content: flex-end;
+          .menus {
+            display: flex;
+            flex-direction: row;
+            .menu-box {
+              position: relative;
+              margin: 0px 10px;
+              .menu-item {
+                display: block;
+                background: rgba($color: #003399, $alpha: 0);
+                color: #000000;
+                text-decoration: none;
+                padding: 5px 0px;
+                width: 110px;
+                text-align: center;
+                // transition: 0.3s;
+                &:hover {
+                  background: #003399;
+                  color: #FFFFFF;
+                }
+                &.router-link-active {
+                  background: #003399;
+                  color: #FFFFFF;
+                }
+              }
+              .menu-dropdown {
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                .menu-children {
+                  display: block;
+                  width: 110px;
+                  padding: 5px 0px;
+                  color: #FFFFFF;
+                  text-align: center;
+                  background: #003399;
+                  text-decoration: none;
+                  transition: 0.3s;
+                  border-bottom: 1px solid #2872ED;
+                  &:first-child {
+                    border-top: 1px solid #2872ED;
+                  }
+                  &:hover {
+                    background: #2872ED;
+                  }
+                }
+              }
+            }
+          }
+          .search {
+            .search-btn {
+              display: block;
+              padding: 5px 10px;
+              color: #FFFFFF;
+              text-decoration: none;
+              line-height: 25px;
+              font-size: 14px;
+              background: #2872ED;
+              &:hover {
+                background: #003399;
+              }
+              &.active {
+                background: #003399;
+              }
+            }
+          }
         }
       }
     }
