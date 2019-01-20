@@ -17,10 +17,6 @@ export default new Router({
       meta: {
         label: 'routerMap.service.index'
       }
-    }, {
-      path: '/about',
-      name: 'about',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     }
   ]
 })
