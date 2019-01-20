@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="header" @mouseleave="clearIsSearch">
     <div class="main">
       <div class="logo-layout">
         <img class="logo" src="https://www.meetsocial.cn/templates/default/images/logo-new.png" alt="logo">
@@ -23,27 +23,28 @@
         </div>
         <div class="h50 menu-layout">
           <div class="menus">
-            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
+            <div v-for="(item, index) in menuList" :key="$t(item.label)" class="menu-box" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
               <router-link
                 class="menu-item"
                 :class="menuChildrenShow === index ? 'router-link-active' : ''"
                 :to="{ path: item.router }">
-                {{ item.label }}
+                {{ $t(item.label) }}
               </router-link>
               <div class="menu-dropdown" v-show="menuChildrenShow === index">
-                <router-link
-                  v-for="menu in item.children"
-                  :key="menu.label"
-                  class="menu-children"
-                  :to="{path: menu.router}">
-                  {{ menu.label }}
-                </router-link>
+                <div v-for="menu in item.children" :key="$t(menu.label)">
+                  <router-link v-if="!menu.type" class="menu-children" :to="menu.router">{{ $t(menu.label) }}</router-link>
+                  <a v-else class="menu-children" href="javascript:;" @click="anchorLink(menu.router)">{{ $t(menu.label) }}</a>
+                </div>
               </div>
             </div>
           </div>
-          <div class="search" @mouseout="clearIsSearch">
-            <a href="javascript:;" class="iconfont icon-sousuo search-btn" @click="search" :class="isSearch ? 'active' : ''">搜索</a>
-
+          <div class="search">
+            <a href="javascript:;" class="iconfont icon-sousuo search-btn" @click="search" :class="isSearch ? 'active' : ''">{{ $t('header.search') }}</a>
+            <transition name="fade">
+              <div class="search-content" v-show="isSearch" :class="isSearch ? 'active' : ''">
+                <input type="text" autocomplete="off" v-model="searchData">
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -60,39 +61,42 @@ export default {
       lang: 'zh',
       menuList: [
         {
-          label: '飞书服务',
-          router: '/1',
+          label: 'routerMap.service.index',
+          router: '/service',
           children: [
             {
-              label: '服务介绍',
-              router: '/11'
+              label: 'routerMap.service.explain',
+              router: '/service#service',
+              type: 1
             }, {
-              label: '飞书优势',
-              router: '/12'
+              label: 'routerMap.service.advantage',
+              router: '/service#advantage',
+              type: 1
             }
           ]
         }, {
-          label: '成功案例',
+          label: 'routerMap.case.index',
           router: '/2',
           children: [
             {
-              label: '游戏案例',
+              label: 'routerMap.case.geme',
               router: '/21'
             }, {
-              label: 'APP案例',
+              label: 'routerMap.case.app',
               router: '/22'
             }, {
-              label: '品牌案例',
+              label: 'routerMap.case.brand',
               router: '/23'
             }, {
-              label: '电商案例',
+              label: 'routerMap.case.ec',
               router: '/24'
             }
           ]
         }
       ],
       menuChildrenShow: -1,
-      isSearch: false
+      isSearch: false,
+      searchData: ''
     }
   },
   methods: {
@@ -111,11 +115,27 @@ export default {
     },
     search () {
       if (!this.isSearch) {
-        this.isSearch = !this.isSearch
+        this.isSearch = true
+      } else {
+        console.log(this.searchData)
       }
     },
     clearIsSearch () {
       this.isSearch = false
+      this.searchData = ''
+    },
+    anchorLink (url) {
+      let route = this.$route
+      let urlList = url.split('#')
+      let id = urlList[1]
+      if (urlList[0] === route.path) {
+        document.querySelector(`#${id}`).scrollIntoView(true)
+      } else {
+        this.$router.push({ path: urlList[0] })
+        this.$nextTick(() => {
+          document.querySelector(`#${id}`).scrollIntoView(true)
+        })
+      }
     }
   },
   created () {
@@ -125,10 +145,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  *::selection {
-    background: #2872ED;
-    color: #FFFFFF;
-  }
   .h50 {
     display: flex;
     height: 50%;
@@ -138,12 +154,18 @@ export default {
       margin-left: 15px;
     }
   }
+  .fade-enter-active, .fade-leave-active {
+    transition: 0.5s;
+    width: 150px;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    width: 0px;
+  }
   .iconfont {
     &.gray {
       color: #999999;
       a {
         color: inherit;
-        text-decoration: none;
       }
     }
     &::before {
@@ -156,7 +178,8 @@ export default {
     .main {
       margin: 0 auto;
       display: flex;
-      width: 1300px;
+      width: 100%;
+      max-width: 1300px;
       height: 100%;
       .logo-layout {
         display: flex;
@@ -178,13 +201,11 @@ export default {
           .brand {
             padding: 5px 10px;
             line-height: 30px;
-            text-decoration: none;
             background: #2872ED;
             color: #FFFFFF;
           }
           .change-lang-btn {
             color: #999999;
-            text-decoration: none;
             font-size: 14px;
             &:hover {
               color: #2872ED;
@@ -211,11 +232,9 @@ export default {
                 display: block;
                 background: rgba($color: #003399, $alpha: 0);
                 color: #000000;
-                text-decoration: none;
                 padding: 5px 0px;
                 width: 110px;
                 text-align: center;
-                // transition: 0.3s;
                 &:hover {
                   background: #003399;
                   color: #FFFFFF;
@@ -229,6 +248,7 @@ export default {
                 position: absolute;
                 display: flex;
                 flex-direction: column;
+                z-index: 9999;
                 .menu-children {
                   display: block;
                   width: 110px;
@@ -236,7 +256,6 @@ export default {
                   color: #FFFFFF;
                   text-align: center;
                   background: #003399;
-                  text-decoration: none;
                   transition: 0.3s;
                   border-bottom: 1px solid #2872ED;
                   &:first-child {
@@ -250,19 +269,47 @@ export default {
             }
           }
           .search {
+            position: relative;
             .search-btn {
               display: block;
-              padding: 5px 10px;
+              height: 40px;
+              width: 70px;
+              text-align: center;
               color: #FFFFFF;
-              text-decoration: none;
-              line-height: 25px;
+              line-height: 40px;
               font-size: 14px;
               background: #2872ED;
+              z-index: 1000;
+              transition: 0.5s;
               &:hover {
                 background: #003399;
               }
               &.active {
                 background: #003399;
+              }
+            }
+            .search-content {
+              position: absolute;
+              top: 0;
+              right: 70px;
+              height: 40px;
+              background: #2872ED;
+              line-height: 40px;
+              overflow: hidden;
+              z-index: 999;
+              &.active {
+                background: #003399;
+              }
+              input {
+                margin: 0;
+                padding: 0 0 0 5px;
+                margin: 0 10px;
+                border: none;
+                height: 24px;
+                width: 125px;
+                &:focus {
+                  outline: none;
+                }
               }
             }
           }
