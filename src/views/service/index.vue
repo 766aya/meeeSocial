@@ -14,6 +14,7 @@
       </s-side-box>
     </s-advantage>
     <s-latest-case></s-latest-case>
+    <s-channel></s-channel>
   </div>
 </template>
 
@@ -22,13 +23,16 @@ import service from './service'
 import advantage from './advantage'
 import sideBox from './sideBox'
 import latestCase from './latestCase'
+import channel from './channel'
+
 export default {
   name: 'service',
   components: {
     'sService': service,
     'sAdvantage': advantage,
     'sSideBox': sideBox,
-    'sLatestCase': latestCase
+    'sLatestCase': latestCase,
+    'sChannel': channel
   },
   data () {
     return {

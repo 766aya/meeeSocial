@@ -24,7 +24,7 @@ module.exports = {
     },
     case: {
       index: 'success Case',
-      geme: 'game Case',
+      game: 'game Case',
       app: 'APP Case',
       brand: 'brand Case',
       ec: 'E-Commerce Case'
@@ -49,6 +49,7 @@ module.exports = {
     },
     learnMore: 'Learn more >',
     moreCase: 'More Case >',
+    channelConsultation: 'Channel Consultation >',
     latestCase: 'Latest Case'
   }
 }

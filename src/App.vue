@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <fixed-box></fixed-box>
     <header-layout></header-layout>
     <router-view/>
     <footer-layout></footer-layout>
@@ -9,9 +10,10 @@
 <script>
 import headerLayout from '@/components/header/index'
 import footerLayout from '@/components/footer/index'
+import fixedBox from '@/components/fixedBox/index'
 
 export default {
-  components: { headerLayout, footerLayout }
+  components: { headerLayout, footerLayout, fixedBox }
 }
 </script>
 
