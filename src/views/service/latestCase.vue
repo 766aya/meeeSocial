@@ -2,14 +2,18 @@
   <div id="latestCase">
     <h1 class="gov-title">{{ $t('service.latestCase') }}</h1>
     <div class="content">
-
+      <case-tabs></case-tabs>
       <a :href="learnMoreUrl" target="_blank" class="learn-more-btn">{{ $t('service.moreCase') }}</a>
     </div>
   </div>
 </template>
 
 <script>
+import caseTabs from './caseTabs'
+
 export default {
+  name: 'latestCase',
+  components: { caseTabs },
   data () {
     return {
       learnMoreUrl: ''
@@ -24,7 +28,9 @@ export default {
     padding: 45px 0px;
   }
   .content {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
+    min-width: 1000px;
     display: flex;
     margin: 0 auto;
     flex-direction: column;

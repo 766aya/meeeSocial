@@ -24,7 +24,7 @@ module.exports = {
     },
     case: {
       index: '成功案例',
-      geme: '游戏案例',
+      game: '游戏案例',
       app: 'APP案例',
       brand: '品牌案例',
       ec: '电商案例'
@@ -49,6 +49,7 @@ module.exports = {
     },
     learnMore: '了解更多 >',
     moreCase: '更多案例 >',
+    channelConsultation: '渠道资讯 >',
     latestCase: '最新案例'
   }
 }

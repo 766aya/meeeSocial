@@ -36,7 +36,7 @@
           rows="10"
           :placeholder="$t('footer.name')">
         </textarea>
-        <a href="">{{ $t('footer.submit') }}</a>
+        <a href="javascript:;" class="learn-more-btn">{{ $t('footer.submit') }}</a>
       </div>
     </div>
   </div>

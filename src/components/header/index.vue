@@ -79,7 +79,7 @@ export default {
           router: '/2',
           children: [
             {
-              label: 'routerMap.case.geme',
+              label: 'routerMap.case.game',
               router: '/21'
             }, {
               label: 'routerMap.case.app',
