@@ -11,8 +11,8 @@
         {{ $t(item.i18n) }}
       </a>
     </div>
-    <div class="content-bar">
-      <el-carousel :interval="3000" type="card" height="400px" v-for="(items, key) in carouselList" :key="key" v-show="key === actived">
+    <div class="content-bar" v-for="(items, key) in carouselList" :key="key" v-show="key === actived">
+      <el-carousel :interval="3000" type="card" height="400px" v-if="key === actived">
         <el-carousel-item v-for="item in items" :key="item.name" class="carousel-item">
           <a class="carousel-link" :href="item.router" target="_blank">
             <div class="img-box">
@@ -113,6 +113,52 @@ export default {
             name: 'ofo',
             pName: 'routerMap.case.app',
             router: 'https://www.meetsocial.cn/case/19.html'
+          }
+        ],
+        brand: [
+          {
+            img: 'https://www.meetsocial.cn/upload/case/1530580715536700385.jpg',
+            name: 'iDEAL of Sweden',
+            pName: 'routerMap.case.brand',
+            router: 'https://www.meetsocial.cn/case/41.html'
+          }, {
+            img: 'https://www.meetsocial.cn/upload/case/1529888977186589346.jpg',
+            name: 'InMyFace.com',
+            pName: 'routerMap.case.brand',
+            router: 'https://www.meetsocial.cn/case/34.html'
+          }, {
+            img: 'https://www.meetsocial.cn/upload/case/1529887136241604556.jpg',
+            name: '途风',
+            pName: 'routerMap.case.brand',
+            router: 'https://www.meetsocial.cn/case/32.html'
+          }, {
+            img: 'https://www.meetsocial.cn/upload/case/1529888038373268070.jpg',
+            name: 'App Mahal',
+            pName: 'routerMap.case.brand',
+            router: 'https://www.meetsocial.cn/case/31.html'
+          }
+        ],
+        ec: [
+          {
+            img: 'https://www.meetsocial.cn/upload/case/1530581031473434033.jpg',
+            name: 'iDEAL of Sweden',
+            pName: 'routerMap.case.ec',
+            router: 'https://www.meetsocial.cn/case/42.html'
+          }, {
+            img: 'https://www.meetsocial.cn/upload/case/1530572532639684818.jpg',
+            name: 'Panli',
+            pName: 'routerMap.case.ec',
+            router: 'https://www.meetsocial.cn/case/39.html'
+          }, {
+            img: 'https://www.meetsocial.cn/upload/case/1529951528502291971.jpg',
+            name: 'PUFII',
+            pName: 'routerMap.case.ec',
+            router: 'https://www.meetsocial.cn/case/38.html'
+          }, {
+            img: 'https://www.meetsocial.cn/upload/case/1528746174613061040.jpg',
+            name: 'Cilory.com',
+            pName: 'routerMap.case.ec',
+            router: 'https://www.meetsocial.cn/case/18.html'
           }
         ]
       },
