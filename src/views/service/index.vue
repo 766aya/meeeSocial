@@ -14,7 +14,8 @@
       </s-side-box>
     </s-advantage>
     <s-latest-case></s-latest-case>
-    <s-channel></s-channel>
+    <channel></channel>
+    <s-faq></s-faq>
   </div>
 </template>
 
@@ -23,7 +24,7 @@ import service from './service'
 import advantage from './advantage'
 import sideBox from './sideBox'
 import latestCase from './latestCase'
-import channel from './channel'
+import faq from './faq'
 
 export default {
   name: 'service',
@@ -32,7 +33,7 @@ export default {
     'sAdvantage': advantage,
     'sSideBox': sideBox,
     'sLatestCase': latestCase,
-    'sChannel': channel
+    'sFaq': faq
   },
   data () {
     return {

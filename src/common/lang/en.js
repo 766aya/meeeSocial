@@ -50,6 +50,7 @@ module.exports = {
     learnMore: 'Learn more >',
     moreCase: 'More Case >',
     channelConsultation: 'Channel Consultation >',
-    latestCase: 'Latest Case'
+    latestCase: 'Latest Case',
+    faq: 'FAQ'
   }
 }

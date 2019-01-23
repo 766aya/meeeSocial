@@ -10,6 +10,7 @@ import '@/style/common.scss'
 
 import banner from '@/components/banner'
 import crumbs from '@/components/crumbs'
+import channel from '@/components/channel'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -17,6 +18,7 @@ Vue.use(VueI18n)
 
 Vue.component('banner', banner)
 Vue.component('crumbs', crumbs)
+Vue.component('channel', channel)
 
 const i18n = new VueI18n({
   locale: 'en', // 语言标识

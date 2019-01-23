@@ -30,6 +30,7 @@ export default {
     width: 100%;
     height: 400px;
     background: url(https://www.meetsocial.cn/templates/default/images/fuwu_bg.gif) no-repeat center center;
+    margin: 50px 0;
     .side-box {
       width: 50%;
       display: flex;

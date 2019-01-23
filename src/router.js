@@ -17,6 +17,13 @@ export default new Router({
       meta: {
         label: 'routerMap.service.index'
       }
+    }, {
+      name: 'case',
+      path: '/case',
+      component: () => import('./views/case/index'),
+      meta: {
+        label: 'routerMap.case.index'
+      }
     }
   ]
 })

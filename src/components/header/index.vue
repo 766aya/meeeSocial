@@ -76,7 +76,7 @@ export default {
           ]
         }, {
           label: 'routerMap.case.index',
-          router: '/2',
+          router: '/case',
           children: [
             {
               label: 'routerMap.case.game',
