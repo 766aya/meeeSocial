@@ -1,7 +1,9 @@
 <template>
   <div id="fixed-box">
     <a href="javascript:;" class="item weixin iconfont icon-weixin">
-      <img class="" src="https://www.meetsocial.cn/templates/default/images/ewm.jpg">
+      <transition name="fade">
+        <img class="img" src="https://www.meetsocial.cn/templates/default/images/ewm.jpg">
+      </transition>
     </a>
     <a href="javascript:;" class="item iconfont icon-weibo"></a>
     <a href="javascript:;" class="item iconfont icon-facebook"></a>
@@ -16,7 +18,8 @@ export default {
     return {
       isTop: true,
       timer: null,
-      isShow: false
+      isShow: false,
+      weixinShow: false
     }
   },
   methods: {
@@ -84,12 +87,25 @@ export default {
   .weixin {
     position: relative;
     img {
+      display: none;
       height: 100px;
       width: 100px;
       position: absolute;
-      right: 60px;
+      right: 0px;
       top: 50%;
       margin-top: -50px;
     }
+    &:hover {
+      img {
+        right: 60px;
+        display: block;
+      }
+    }
+  }
+  .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 </style>
