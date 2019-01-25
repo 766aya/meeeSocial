@@ -53,12 +53,12 @@
       </div>
     </div>
     <div class="content">
-      <a class="item" href="javascript:;" v-for="(item, index) in contentList" :key="index">
+      <router-link class="item" :to="{path: '/case/appCase/43'}" href="javascript:;" v-for="(item, index) in contentList" :key="index">
         <img :src="item.img">
         <h3>{{ item.title }}</h3>
         <p>{{ item.desc }}</p>
         <span>{{ item.createTime }}</span>
-      </a>
+      </router-link>
     </div>
     <div class="pagination">
       <el-pagination

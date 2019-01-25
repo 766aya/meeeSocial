@@ -5,8 +5,13 @@
         <router-link class="link-style" :to="{path: '/'}">{{ $t('crumbs.index') }}</router-link>
         <span class="distance">></span>
       </div>
-      <div v-for="(item, index) in routerList" :key="$t(item.name)">
-        <router-link :class=" routerList.length-1 === index ? 'link' : 'link-style'" :to="{path: routerList.length-1 === index ? '' : item.path}">{{ $t(item.name) }}</router-link>
+      <div v-for="(item, index) in routerList" :key="index">
+        <router-link
+          :class=" routerList.length-1 === index ? 'link' : 'link-style'"
+          :to="{path: routerList.length-1 === index ? '' : item.path}"
+        >
+          {{ item.text === true ? item.name : $t(item.name) }}
+        </router-link>
         <span class="distance" v-if="routerList.length-1 !== index">></span>
       </div>
     </div>
@@ -15,13 +20,15 @@
 
 <script>
 export default {
-  props: {
-    routerList: {
-      type: Array,
-      default: () => {
-        return []
-      }
+  data () {
+    return {
+      routerList: []
     }
+  },
+  created () {
+    this.routerList = this.$route.matched.map(item => {
+      return { name: item.meta.label, path: item.path, text: item.meta.text }
+    })
   }
 }
 </script>
