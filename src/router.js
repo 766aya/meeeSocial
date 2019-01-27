@@ -22,13 +22,15 @@ export default new Router({
       path: '/case',
       component: () => import('@/views/case/index'),
       meta: {
-        label: 'routerMap.case.index'
+        label: '成功案例',
+        text: true
       }
     }, {
       path: '/case/appcase',
       component: () => import('@/views/case/appCase/layout'),
       meta: {
-        label: 'routerMap.case.index'
+        label: 'APP案例',
+        text: true
       },
       children: [
         {
@@ -40,6 +42,13 @@ export default new Router({
           }
         }
       ]
+    }, {
+      path: '/qudaozixun',
+      component: () => import('@/views/qudaozixun/index'),
+      meta: {
+        label: '渠道资讯',
+        text: true
+      }
     }
   ]
 })

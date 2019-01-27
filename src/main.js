@@ -23,7 +23,7 @@ Vue.component('channel', channel)
 Vue.component('govDesc', description)
 
 const i18n = new VueI18n({
-  locale: 'en', // 语言标识
+  locale: 'zh', // 语言标识
   messages: {
     'zh': require('./common/lang/zh'),
     'en': require('./common/lang/en')

@@ -2,7 +2,7 @@
   <div id="crumbs">
     <div class="content">
       <div>
-        <router-link class="link-style" :to="{path: '/'}">{{ $t('crumbs.index') }}</router-link>
+        <router-link class="link-style" :to="{path: '/'}">{{ '首页' }}</router-link>
         <span class="distance">></span>
       </div>
       <div v-for="(item, index) in routerList" :key="index">

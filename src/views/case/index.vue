@@ -3,7 +3,7 @@
     <div class="banner">
       <img class="img" src="https://www.meetsocial.cn/templates/default/images/nybanner2.gif">
     </div>
-    <crumbs :routerList="routerList"></crumbs>
+    <crumbs></crumbs>
     <case-change></case-change>
     <channel></channel>
   </div>
@@ -17,12 +17,7 @@ export default {
   components: { caseChange },
   data () {
     return {
-      routerList: [
-        {
-          name: this.$route.meta.label,
-          path: this.$route.fullPath
-        }
-      ]
+
     }
   }
 }

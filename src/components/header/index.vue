@@ -11,29 +11,27 @@
           </div>
           <div class="iconfont icon-dianhua gray">400-869-9583</div>
           <div>
-            <a href="https://www.meetsocial.cn/drive" class="brand">
-            {{ $t("header.brand") }}
-            </a>
+            <a href="https://www.meetsocial.cn/drive" class="brand">逸途</a>
           </div>
           <div>
-            <a href="javascript:;" :class="lang === 'en' ? 'active': ''" class="change-lang-btn" @click="changeLanguage('en')">en</a>
+            <a href="javascript:;" :class="lang === 'en' ? 'active': ''" class="change-lang-btn" @click="changeLanguage('')">en</a>
             <span class="change-lang-line">|</span>
-            <a href="javascript:;" :class="lang === 'zh' ? 'active': ''" class="change-lang-btn" @click="changeLanguage('zh')">中文</a>
+            <a href="javascript:;" :class="lang === 'zh' ? 'active': ''" class="change-lang-btn" @click="changeLanguage('')">中文</a>
           </div>
         </div>
         <div class="h50 menu-layout">
           <div class="menus">
-            <div v-for="(item, index) in menuList" :key="$t(item.label)" class="menu-box" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
+            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
               <router-link
                 class="menu-item"
                 :class="menuChildrenShow === index ? 'router-link-active' : ''"
                 :to="{ path: item.router }">
-                {{ $t(item.label) }}
+                {{ item.label }}
               </router-link>
               <div class="menu-dropdown" v-show="menuChildrenShow === index">
-                <div v-for="menu in item.children" :key="$t(menu.label)">
-                  <router-link v-if="!menu.type" class="menu-children" :to="menu.router">{{ $t(menu.label) }}</router-link>
-                  <a v-else class="menu-children" href="javascript:;" @click="anchorLink(menu.router)">{{ $t(menu.label) }}</a>
+                <div v-for="menu in item.children" :key="menu.label">
+                  <router-link v-if="!menu.type" class="menu-children" :to="menu.router">{{ menu.label }}</router-link>
+                  <a v-else class="menu-children" href="javascript:;" @click="anchorLink(menu.router)">{{ menu.label }}</a>
                 </div>
               </div>
             </div>
@@ -61,37 +59,58 @@ export default {
       lang: 'zh',
       menuList: [
         {
-          label: 'routerMap.service.index',
+          label: '飞书服务',
           router: '/service',
           children: [
             {
-              label: 'routerMap.service.explain',
+              label: '服务介绍',
               router: '/service#service',
               type: 1
             }, {
-              label: 'routerMap.service.advantage',
+              label: '飞书优势',
               router: '/service#advantage',
               type: 1
             }
           ]
         }, {
-          label: 'routerMap.case.index',
+          label: '成功案例',
           router: '/case',
           children: [
             {
-              label: 'routerMap.case.app',
+              label: '游戏案例',
               router: '/21'
             }, {
-              label: 'routerMap.case.app',
+              label: 'APP案例',
               router: '/22'
             }, {
-              label: 'routerMap.case.brand',
+              label: '品牌案例',
               router: '/23'
             }, {
-              label: 'routerMap.case.ec',
+              label: '电商案例',
               router: '/24'
             }
           ]
+        }, {
+          label: '渠道资讯',
+          router: '/qudaozixun'
+        }, {
+          label: '体验中心',
+          router: '/tiyanzhongxin'
+        }, {
+          label: '逸途',
+          router: '/yitu'
+        }, {
+          label: '营销学院',
+          router: '/yingxiaoxueyuan'
+        }, {
+          label: '最新动态',
+          router: '/zuixindongtai'
+        }, {
+          label: '驱动技术',
+          router: '/qudongjishu'
+        }, {
+          label: '关于我们',
+          router: '/about'
         }
       ],
       menuChildrenShow: -1,
@@ -103,7 +122,7 @@ export default {
     // 语言切换
     changeLanguage (lang) {
       this.lang = lang
-      this.$i18n.locale = lang
+      // this.$i18n.locale = lang
     },
     // 菜单经过显示
     changeMenuShow (index) {
@@ -227,13 +246,12 @@ export default {
             flex-direction: row;
             .menu-box {
               position: relative;
-              margin: 0px 10px;
               .menu-item {
                 display: block;
                 background: rgba($color: #003399, $alpha: 0);
                 color: #000000;
                 padding: 5px 0px;
-                width: 110px;
+                width: 80px;
                 text-align: center;
                 &:hover {
                   background: #003399;
@@ -251,7 +269,7 @@ export default {
                 z-index: 9999;
                 .menu-children {
                   display: block;
-                  width: 110px;
+                  width: 80px;
                   padding: 5px 0px;
                   color: #FFFFFF;
                   text-align: center;
