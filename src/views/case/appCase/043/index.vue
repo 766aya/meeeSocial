@@ -4,9 +4,9 @@
       <img class="content-img" src="https://www.meetsocial.cn/upload/case/1530581244184797658.jpg">
       <img class="head-img" src="https://www.meetsocial.cn/upload/case/1530581242883970794.png">
     </div>
-    <el-row>
+    <div class="general-title">
       Jump Ramp
-    </el-row>
+    </div>
   </div>
 </template>
 
@@ -19,15 +19,15 @@ export default {
 
 <style lang="scss" scoped>
   #case043 {
-    width: 1200px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     .header-img {
       position: relative;
-      width: 100%;
+      width: 1200px;
       height: 400px;
-      margin: 75px 0;
+      margin: 75px auto;
       .content-img {
         width: 100%;
       }
@@ -38,6 +38,7 @@ export default {
         top: 100%;
         left: 75px;
         margin-top: -75px;
+        border: 1px solid #333333;
       }
     }
   }
