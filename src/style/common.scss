@@ -13,7 +13,10 @@ a {
 .gov-title {
   position: relative;
   text-align: center;
-  font-weight: normal;
+  font-weight: 700;
+  font-size: 30px;
+  margin-bottom: 30px;
+  margin-top: 20px;
   &::before {
     content: "";
     position: absolute;

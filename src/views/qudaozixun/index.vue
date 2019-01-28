@@ -21,15 +21,30 @@
       </s-side-box>
     </s-advantage>
     <latestCase></latestCase>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName" class="tabs-content">
       <el-tab-pane label="常见问题" name="first">
-
+        <div class="change-content">
+          <router-link class="change-item" v-for="item in dataList" :key="item.id" :to="{path: item.router}">
+            <span class="title">{{ item.title }}</span>
+            <span class="create-time">{{ item.createTime }}</span>
+          </router-link>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="营销百科" name="second">
-
+        <div class="change-content">
+          <router-link class="change-item" v-for="item in dataList" :key="item.id" :to="{path: item.router}">
+            <span class="title">{{ item.title }}</span>
+            <span class="create-time">{{ item.createTime }}</span>
+          </router-link>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="行业资讯" name="third">
-
+        <div class="change-content">
+          <router-link class="change-item" v-for="item in dataList" :key="item.id" :to="{path: item.router}">
+            <span class="title">{{ item.title }}</span>
+            <span class="create-time">{{ item.createTime }}</span>
+          </router-link>
+        </div>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -39,7 +54,7 @@
 import advantage from '../service/advantage'
 import sideBox from '../service/sideBox'
 import latestCase from '../service/latestCase'
-
+import dataList from './data.json'
 export default {
   name: 'qudaozixun',
   components: {
@@ -72,12 +87,13 @@ export default {
           desc: 'service.sideFour.desc'
         }
       ],
-      activeName: ''
+      activeName: 'first',
+      dataList: dataList
     }
   },
   methosd: {
     handleClick (tab, event) {
-      console.log(tab, event)
+      console.log(this.activeName)
     }
   }
 }
@@ -103,6 +119,30 @@ export default {
       min-width: 1200px;
       background: url(https://www.meetsocial.cn/templates/default/images/ditch_bg2.gif) no-repeat center center;
       height: 785px;
+    }
+    .tabs-content {
+      width: 1200px;
+      margin: 50px auto;
+    }
+    .change-content {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .change-item {
+        width: 50%;
+        line-height: 40px;
+        display: flex;
+        .title {
+          flex: 1;
+          padding-left: 10px;
+        }
+        .create-time {
+          flex: 1;
+          display: flex;
+          justify-content: flex-end;
+          padding-right: 10px;
+        }
+      }
     }
   }
 </style>

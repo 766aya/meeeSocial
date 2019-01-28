@@ -49,6 +49,13 @@ export default new Router({
         label: '渠道资讯',
         text: true
       }
+    }, {
+      path: '/yingxiaoxueyuan',
+      component: () => import('@/views/yingxiaoxueyuan/index'),
+      meta: {
+        label: '营销学院',
+        text: true
+      }
     }
   ]
 })
