@@ -22,6 +22,9 @@
     </s-advantage>
     <latestCase></latestCase>
     <el-tabs v-model="activeName" class="tabs-content">
+      <div class="learn-more">
+        <el-button size="small" type="primary" @click="learnMore">更多 ></el-button>
+      </div>
       <el-tab-pane label="常见问题" name="first">
         <div class="change-content">
           <router-link class="change-item" v-for="item in dataList" :key="item.id" :to="{path: item.router}">
@@ -91,9 +94,12 @@ export default {
       dataList: dataList
     }
   },
-  methosd: {
+  methods: {
     handleClick (tab, event) {
       console.log(this.activeName)
+    },
+    learnMore () {
+      this.$router.push({ path: '/' })
     }
   }
 }
@@ -123,6 +129,12 @@ export default {
     .tabs-content {
       width: 1200px;
       margin: 50px auto;
+      .learn-more {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        padding-right: 20px;
+      }
     }
     .change-content {
       display: flex;
