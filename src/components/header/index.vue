@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="search">
-            <a href="javascript:;" class="iconfont icon-sousuo search-btn" @click="search" :class="isSearch ? 'active' : ''">{{ $t('header.search') }}</a>
+            <a href="javascript:;" class="iconfont icon-sousuo search-btn" @click="search" :class="isSearch ? 'active' : ''">搜索</a>
             <transition name="fade">
               <div class="search-content" v-show="isSearch" :class="isSearch ? 'active' : ''">
                 <input type="text" autocomplete="off" v-model="searchData">

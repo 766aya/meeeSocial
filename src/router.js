@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     {
       path: '/',
@@ -15,7 +15,7 @@ export default new Router({
       path: '/service',
       component: () => import('@/views/service'),
       meta: {
-        label: 'routerMap.service.index'
+        label: '飞书服务'
       }
     }, {
       name: 'case',

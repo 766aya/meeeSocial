@@ -2,11 +2,11 @@
   <div class="content">
     <div class="lside side-box">
       <img src="https://www.meetsocial.cn/templates/default/images/fuwu_img1.png">
-      <a :href="fuwuUrl1" target="_blank" class="learn-more-btn">{{ $t('service.channelConsultation') }}</a>
+      <a :href="fuwuUrl1" target="_blank" class="learn-more-btn">渠道资讯 ></a>
     </div>
     <div class="rside side-box">
       <img src="https://www.meetsocial.cn/templates/default/images/fuwu_img2.png">
-      <a :href="fuwuUrl2" target="_blank" class="learn-more-btn">{{ $t('service.channelConsultation') }}</a>
+      <a :href="fuwuUrl2" target="_blank" class="learn-more-btn">渠道资讯 ></a>
     </div>
   </div>
 </template>

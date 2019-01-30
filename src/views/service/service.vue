@@ -1,7 +1,7 @@
 <template>
   <div id="service">
     <div class="content">
-      <h1 class="gov-title">{{$t('routerMap.service.index')}}</h1>
+      <h1 class="gov-title">飞书服务</h1>
       <p class="text title-text">{{ titleText.zh }}</p>
       <p class="text title-text">{{ titleText.en }}</p>
       <div class="main">

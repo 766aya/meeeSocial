@@ -2,10 +2,10 @@
   <div id="FAQ">
     <div class="content">
       <div class="header">
-        <div class="title">{{ $t('service.faq') }}</div>
+        <div class="title">常见问题解答</div>
         <div class="more">
           <router-link :to="{path: '/'}">
-            {{ $t('service.learnMore') }}
+            了解更多 >
           </router-link>
         </div>
       </div>

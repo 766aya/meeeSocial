@@ -1,9 +1,9 @@
 <template>
   <div id="advantage">
-    <h1 class="gov-title">{{ $t('routerMap.service.advantage') }}</h1>
+    <h1 class="gov-title">飞书优势</h1>
     <div class="content">
       <slot></slot>
-      <a :href="learnMoreUrl" target="_blank" class="learn-more-btn">{{ $t('service.learnMore') }}</a>
+      <a :href="learnMoreUrl" target="_blank" class="learn-more-btn">了解更多 ></a>
     </div>
   </div>
 </template>

@@ -10,33 +10,33 @@
           v-model="formData.name"
           type="text"
           autocomplete="off"
-          :placeholder="$t('footer.name')">
+          placeholder="请输入您的姓名">
         <input
           class="text-input"
           v-model="formData.telphone"
           type="text"
           autocomplete="off"
-          :placeholder="$t('footer.telphone')">
+          placeholder="请输入您的电话">
         <input
           class="text-input"
           v-model="formData.email"
           type="text"
           autocomplete="off"
-          :placeholder="$t('footer.email')">
+          placeholder="请输入您的邮箱">
         <input
           class="text-input"
           v-model="formData.company"
           type="text"
           autocomplete="off"
-          :placeholder="$t('footer.name')">
+          placeholder="请输入您的姓名">
         <textarea
           class="text-input text-textarea"
           v-model="formData.demand"
           cols="30"
           rows="10"
-          :placeholder="$t('footer.name')">
+          placeholder="请输入您的需求内容">
         </textarea>
-        <a href="javascript:;" class="learn-more-btn">{{ $t('footer.submit') }}</a>
+        <a href="javascript:;" class="learn-more-btn">提交</a>
       </div>
     </div>
   </div>

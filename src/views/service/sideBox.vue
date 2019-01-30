@@ -5,14 +5,14 @@
         <img :src="img">
       </div>
       <div class="text-box">
-        <h1 class="title">{{ $t(title) }}</h1>
-        <p class="desc">{{ $t(desc) }}</p>
+        <h1 class="title">{{ title }}</h1>
+        <p class="desc">{{ desc }}</p>
       </div>
     </template>
     <template v-if="position === 'right'">
       <div class="text-box">
-        <h1 class="title">{{ $t(title) }}</h1>
-        <p class="desc">{{ $t(desc) }}</p>
+        <h1 class="title">{{ title }}</h1>
+        <p class="desc">{{ desc }}</p>
       </div>
       <div class="img-box right">
         <img :src="img">

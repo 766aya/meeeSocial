@@ -10,7 +10,7 @@
           :class=" routerList.length-1 === index ? 'link' : 'link-style'"
           :to="{path: routerList.length-1 === index ? '' : item.path}"
         >
-          {{ item.text === true ? item.name : $t(item.name) }}
+          {{ item.name }}
         </router-link>
         <span class="distance" v-if="routerList.length-1 !== index">></span>
       </div>

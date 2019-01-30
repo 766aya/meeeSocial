@@ -1,9 +1,9 @@
 <template>
   <div id="latestCase">
-    <h1 class="gov-title">{{ $t('service.latestCase') }}</h1>
+    <h1 class="gov-title">最新案例</h1>
     <div class="content">
       <case-tabs></case-tabs>
-      <a :href="learnMoreUrl" target="_blank" class="learn-more-btn">{{ $t('service.moreCase') }}</a>
+      <a :href="learnMoreUrl" target="_blank" class="learn-more-btn">更多案例 ></a>
     </div>
   </div>
 </template>
