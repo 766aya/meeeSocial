@@ -52,7 +52,10 @@
         <img src="https://www.meetsocial.cn/templates/default/images/xue_img9.jpg">
       </div>
       <div class="text-box">
-        <h1 class="title">行业资讯</h1>
+        <div class="title">
+          <span class="title">行业资讯</span>
+          <router-link class="learn-more" :to="{path: '/'}">更多</router-link>
+        </div>
         <p class="desc">
           <ul>
             <li>
@@ -79,6 +82,12 @@
         </p>
       </div>
     </div>
+    <div class="tips-box">
+      <h3 class="title">热门标签</h3>
+      <div class="tips-content">
+        <router-link class="tip-item" v-for="(item, index) in tipsData" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,6 +96,7 @@ import classesData from './classes.json'
 import yingxiaobaike from './yingxiaobaike.json'
 import baipishu from './baipishu.json'
 import faqData from './faq.json'
+import tipsData from './tips.json'
 
 export default {
   name: 'yingxiaoxueyuan',
@@ -96,12 +106,17 @@ export default {
       yingxiaobaike: yingxiaobaike,
       baipishu: baipishu,
       faqData: faqData,
+      tipsData: tipsData,
       activeName: 'yingxiaobaike'
     }
   },
   methods: {
     learnMore () {
-      this.$message.success('查看更多')
+      if (this.activeName === 'yingxiaobaike') {
+        this.$router.push({ path: '/yingxiaoxueyuan/wiki' })
+      } else {
+        this.$router.push({ path: '/yingxiaoxueyuan/paper' })
+      }
     }
   }
 }
@@ -170,7 +185,7 @@ export default {
     }
   }
   .faq-box {
-    width: 1200px;
+    width: calc(1200px - 60px);
     margin: 0 auto 50px auto;
     padding: 30px;
     background: #F4F4F4;
@@ -212,9 +227,10 @@ export default {
   }
   .hangyezixun {
     width: 1200px;
-    margin: 0 auto;
+    margin: 50px auto;
     display: flex;
     flex-direction: row;
+    background: #F4F4F4;
     .img-box {
       width: 400px;
       height: 100%;
@@ -252,11 +268,36 @@ export default {
       .title {
         color: #333333;
         font-size: 24px;
+        font-weight: 700;
+        display: flex;
+        flex-direction: row;
+        .title {
+          width: 200px;
+        }
+        .learn-more {
+          flex: 1;
+          text-align: right;
+        }
       }
       .desc {
         color: #666666;
         font-size: 16px;
         line-height: 45px;
+      }
+    }
+  }
+  .tips-box {
+    width: 1200px;
+    margin: 50px auto;
+    .tips-content {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      .tip-item {
+        line-height: 30px;
+        padding: 0px 10px;
+        margin: 0px 10px;
       }
     }
   }

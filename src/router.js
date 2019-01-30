@@ -56,6 +56,13 @@ export default new Router({
         label: '营销学院',
         text: true
       }
+    }, {
+      path: '/yingxiaoxueyuan/wiki',
+      component: () => import('@/views/yingxiaoxueyuan/wiki'),
+      meta: {
+        label: '营销百科',
+        text: true
+      }
     }
   ]
 })
