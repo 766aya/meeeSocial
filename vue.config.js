@@ -5,7 +5,17 @@ module.exports = {
       template: 'index.html'
     }
   },
-
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://rest.apizza.net/mock/db091d195cf63d55a8a1575f696ba9e5',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    }
+  },
   configureWebpack: {
     externals: {
       vue: 'Vue',

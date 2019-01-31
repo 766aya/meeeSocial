@@ -1,5 +1,5 @@
 <template>
-  <div id="yingxiaoxueyuan">
+  <div id="marketing">
     <div class="banner">
       <img class="img" src="https://www.meetsocial.cn/templates/default/images/nybanner4.jpg">
     </div>
@@ -99,7 +99,7 @@ import faqData from './faq.json'
 import tipsData from './tips.json'
 
 export default {
-  name: 'yingxiaoxueyuan',
+  name: 'marketing',
   data () {
     return {
       classesData: classesData,
@@ -113,9 +113,9 @@ export default {
   methods: {
     learnMore () {
       if (this.activeName === 'yingxiaobaike') {
-        this.$router.push({ path: '/yingxiaoxueyuan/wiki' })
+        this.$router.push({ path: '/marketing/wiki' })
       } else {
-        this.$router.push({ path: '/yingxiaoxueyuan/paper' })
+        this.$router.push({ path: '/marketing/paper' })
       }
     }
   }
@@ -123,7 +123,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#yingxiaoxueyuan {
+#marketing {
   .banner {
     display: block;
     width: 100%;

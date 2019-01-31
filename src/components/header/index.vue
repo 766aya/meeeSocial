@@ -21,10 +21,10 @@
         </div>
         <div class="h50 menu-layout">
           <div class="menus">
-            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
+            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @click="changeMenuActive(index)" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
               <router-link
                 class="menu-item"
-                :class="menuChildrenShow === index ? 'router-link-active' : ''"
+                :class="menuActive === index ? 'router-link-active' : ''"
                 :to="{ path: item.router }">
                 {{ item.label }}
               </router-link>
@@ -57,65 +57,11 @@ export default {
     return {
       email: 'contact@meetsocial.cn',
       lang: 'zh',
-      menuList: [
-        {
-          label: '飞书服务',
-          router: '/service',
-          children: [
-            {
-              label: '服务介绍',
-              router: '/service#service',
-              type: 1
-            }, {
-              label: '飞书优势',
-              router: '/service#advantage',
-              type: 1
-            }
-          ]
-        }, {
-          label: '成功案例',
-          router: '/case',
-          children: [
-            {
-              label: '游戏案例',
-              router: '/21'
-            }, {
-              label: 'APP案例',
-              router: '/22'
-            }, {
-              label: '品牌案例',
-              router: '/23'
-            }, {
-              label: '电商案例',
-              router: '/24'
-            }
-          ]
-        }, {
-          label: '渠道资讯',
-          router: '/qudaozixun'
-        }, {
-          label: '体验中心',
-          router: '/tiyanzhongxin'
-        }, {
-          label: '逸途',
-          router: '/yitu'
-        }, {
-          label: '营销学院',
-          router: '/yingxiaoxueyuan'
-        }, {
-          label: '最新动态',
-          router: '/zuixindongtai'
-        }, {
-          label: '驱动技术',
-          router: '/qudongjishu'
-        }, {
-          label: '关于我们',
-          router: '/about'
-        }
-      ],
+      menuList: [],
       menuChildrenShow: -1,
       isSearch: false,
-      searchData: ''
+      searchData: '',
+      menuActive: -1
     }
   },
   methods: {
@@ -131,6 +77,10 @@ export default {
     // 清除菜单显示
     clearMenuShow () {
       this.menuChildrenShow = -1
+    },
+    changeMenuActive (index) {
+      console.log(index)
+      this.menuActive = index
     },
     search () {
       if (!this.isSearch) {
@@ -159,6 +109,9 @@ export default {
   },
   created () {
     this.changeLanguage(this.lang)
+    this.axios.get('/api/menuList').then(({ data }) => {
+      this.menuList = data
+    })
   }
 }
 </script>

@@ -8,7 +8,7 @@
         :key="item.name"
         :class="item.key === actived ? 'active' : ''"
         @click="changeBanner(item.key)">
-        item.name
+        {{item.name}}
       </a>
     </div>
     <div class="content-bar" v-for="(items, key) in carouselList" :key="key" v-show="key === actived">

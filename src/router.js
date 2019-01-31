@@ -50,17 +50,68 @@ export default new Router({
         text: true
       }
     }, {
-      path: '/yingxiaoxueyuan',
-      component: () => import('@/views/yingxiaoxueyuan/index'),
+      path: '/marketing',
+      component: () => import('@/views/marketing/layout.vue'),
+      redirect: '/marketing/index',
       meta: {
         label: '营销学院',
         text: true
+      },
+      children: [
+        {
+          path: '/marketing/faq',
+          component: () => import('@/views/marketing/acticleList.vue'),
+          meta: {
+            label: '互动问答',
+            text: true,
+            title: 'faq'
+          }
+        }, {
+          path: '/marketing/faq/:id',
+          component: () => import('@/page/article-one.vue'),
+          meta: {
+            label: '互动问答',
+            text: true,
+            title: 'faq'
+          }
+        }, {
+          path: '/marketing/wiki',
+          component: () => import('@/views/marketing/layout.vue'),
+          meta: {
+            label: '营销百科',
+            text: true,
+            title: 'wiki'
+          }
+        }, {
+          path: '/marketing/information',
+          component: () => import('@/views/marketing/layout.vue'),
+          meta: {
+            label: '行业资讯',
+            text: true,
+            title: 'information'
+          }
+        }, {
+          path: '/marketing/paper',
+          component: () => import('@/views/marketing/layout.vue'),
+          meta: {
+            label: '行业白皮书',
+            text: true,
+            title: 'paper'
+          }
+        }
+      ]
+    }, {
+      path: '/marketing/index',
+      component: () => import('@/views/marketing/index.vue'),
+      meta: {
+        label: '首页',
+        text: true
       }
     }, {
-      path: '/yingxiaoxueyuan/wiki',
-      component: () => import('@/views/yingxiaoxueyuan/wiki'),
+      path: '/marketing/classes',
+      component: () => import('@/views/marketing/layout.vue'),
       meta: {
-        label: '营销百科',
+        label: '在线课堂',
         text: true
       }
     }

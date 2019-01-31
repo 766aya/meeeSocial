@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import ElementUI from 'element-ui'
+import Axios from 'axios'
+import VueAxios from 'vue-axios'
+
 import 'element-ui/lib/theme-chalk/index.css'
 import './registerServiceWorker'
 import '@/assets/iconfonts/iconfont.css'
@@ -15,6 +18,7 @@ import listTitle from '@/components/listTitle'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.use(VueAxios, Axios)
 
 Vue.component('banner', banner)
 Vue.component('crumbs', crumbs)

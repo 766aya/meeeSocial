@@ -11,41 +11,70 @@
         </div>
         <listTitle title="新闻动态"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in news" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in newsList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
         </div>
         <listTitle title="营销百科"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in wiki" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in wikiList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
         </div>
         <listTitle title="常见问题"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in faq" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in faqList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
         </div>
         <listTitle title="热门标签"></listTitle>
         <div class="tips-box">
-          <router-link class="tip-item" v-for="(item, index) in hotTips" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="tip-item" v-for="(item, index) in hotTipsList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
         </div>
       </div>
-      <div class="rside">2</div>
+      <div class="rside">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import news from './news.json'
-import wiki from './wiki.json'
-import faq from './faq.json'
-import hotTips from './hotTips.json'
 
 export default {
   name: 'wiki',
   data () {
     return {
-      news,
-      wiki,
-      faq,
-      hotTips
+      newsList: [],
+      wikiList: [],
+      faqList: [],
+      hotTipsList: []
     }
+  },
+  methods: {
+    getList () {
+      console.log('test')
+    },
+    getNewsList () {
+      this.axios.get('/api/marketing/news').then(({ data }) => {
+        this.newsList = data
+      })
+    },
+    getFAQList () {
+      this.axios.get('/api/marketing/faq').then(({ data }) => {
+        this.faqList = data
+      })
+    },
+    getWikiList () {
+      this.axios.get('/api/marketing/wiki').then(({ data }) => {
+        this.wikiList = data
+      })
+    },
+    getHotTipsList () {
+      this.axios.get('/api/marketing/hotTips').then(({ data }) => {
+        this.hotTipsList = data
+      })
+    }
+  },
+  created () {
+    this.getNewsList()
+    this.getFAQList()
+    this.getWikiList()
+    this.getHotTipsList()
   }
 }
 </script>
