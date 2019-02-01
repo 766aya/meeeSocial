@@ -1,16 +1,16 @@
 <template>
   <div class="list-map">
     <div class="item" v-for="(item, index) in dataList" :key="index">
-      <div class="img-box">
+      <div class="img-box" v-if="item.imgSrc">
         <img :src="item.imgSrc">
       </div>
       <div class="text-box">
         <router-link class="title" :to="{path: `/marketing/${routeActive}/${item.id}`}">{{ item.title }}</router-link>
-        <div class="desc">{{ item.desc }}</div>
+        <div class="desc" >{{ item.desc }}</div>
         <div class="other">
           <div class="iconfont icon-shijian createTime" v-if="item.createTime">{{ item.createTime }}</div>
           <div class="iconfont icon-yonghu publisher" v-if="item.publisher">{{ item.publisher }}</div>
-          <div class="iconfont icon-biaoqian tips">
+          <div class="iconfont icon-biaoqian tips" v-if="item.tips">
             <router-link v-for="(tip, i) in item.tips" :key="i" :to="{path: tip.router}">
               {{ tip.title }}
             </router-link>
@@ -18,12 +18,10 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-// import dataList from '@/const/marketing/wiki/page.list.json'
 
 export default {
   name: 'listMap',
@@ -35,15 +33,25 @@ export default {
   },
   methods: {
     getList () {
-      let routeInfo = this.$route.fullPath
+      var routeInfo = this.$route.fullPath
+
       if (routeInfo.indexOf('faq') > -1) {
         this.routeActive = 'faq'
         this.getFAQList()
+      } else if (routeInfo.indexOf('wiki') > -1) {
+        this.routeActive = 'wiki'
+        this.getWikiList()
+      } else {
+        console.log(routeInfo)
       }
     },
     getFAQList () {
       this.axios.get('/api/marketing/faq').then(({ data }) => {
-        console.log(data)
+        this.dataList = data
+      })
+    },
+    getWikiList () {
+      this.axios.get('/api/marketing/wiki').then(({ data }) => {
         this.dataList = data
       })
     }
@@ -99,10 +107,18 @@ export default {
           .createTime {
             color: #666666;
             margin-right: 30px;
+            word-wrap: break-word;
           }
           .publisher {
             color: #666666;
             margin-right: 30px;
+            word-wrap: break-word;
+          }
+          .tips {
+            overflow: hidden;
+            * {
+              word-wrap: break-word;
+            }
           }
           .iconfont::before {
             margin-right: 10px;

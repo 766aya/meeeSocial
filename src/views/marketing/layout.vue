@@ -1,7 +1,9 @@
 <template>
   <div id="wiki">
     <div class="banner">
-      <img class="img" src="https://www.meetsocial.cn/templates/default/images/g_banner1.jpg">
+      <img class="img" v-if="$route.path.indexOf('faq') > -1" src="https://www.meetsocial.cn/templates/default/images/wendaxiangqing.jpg">
+      <img class="img" v-else-if="$route.path.indexOf('news') > -1" src="https://www.meetsocial.cn/templates/default/images/gongsixiangqing3.jpg">
+      <img class="img" v-else src="https://www.meetsocial.cn/templates/default/images/g_banner1.jpg">
     </div>
     <crumbs></crumbs>
     <div class="content">
@@ -9,17 +11,17 @@
         <div>
           <img src="https://www.meetsocial.cn/upload/faq/1547599969386455848.png">
         </div>
-        <listTitle title="新闻动态"></listTitle>
+        <listTitle title="行业资讯"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in newsList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in newsList" :key="index" :to="{path: `/marketing/news/${item.id}`}">{{ item.title }}</router-link>
         </div>
         <listTitle title="营销百科"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in wikiList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in wikiList" :key="index" :to="{path: `/marketing/wiki/${item.id}`}">{{ item.title }}</router-link>
         </div>
         <listTitle title="常见问题"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in faqList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in faqList" :key="index" :to="{path: `/marketing/faq/${item.id}`}">{{ item.title }}</router-link>
         </div>
         <listTitle title="热门标签"></listTitle>
         <div class="tips-box">
@@ -47,34 +49,34 @@ export default {
   },
   methods: {
     getList () {
-      console.log('test')
+      this.getNewsList()
+      this.getFAQList()
+      this.getWikiList()
+      this.getHotTipsList()
     },
     getNewsList () {
       this.axios.get('/api/marketing/news').then(({ data }) => {
-        this.newsList = data
+        this.newsList = data.length > 4 ? data.slice(0, 4) : data
       })
     },
     getFAQList () {
       this.axios.get('/api/marketing/faq').then(({ data }) => {
-        this.faqList = data
+        this.faqList = data.length > 4 ? data.slice(0, 4) : data
       })
     },
     getWikiList () {
       this.axios.get('/api/marketing/wiki').then(({ data }) => {
-        this.wikiList = data
+        this.wikiList = data.length > 4 ? data.slice(0, 4) : data
       })
     },
     getHotTipsList () {
       this.axios.get('/api/marketing/hotTips').then(({ data }) => {
-        this.hotTipsList = data
+        this.hotTipsList = data.length > 4 ? data.slice(0, 4) : data
       })
     }
   },
   created () {
-    this.getNewsList()
-    this.getFAQList()
-    this.getWikiList()
-    this.getHotTipsList()
+    this.getList()
   }
 }
 </script>

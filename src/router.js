@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -76,19 +76,35 @@ export default new Router({
           }
         }, {
           path: '/marketing/wiki',
-          component: () => import('@/views/marketing/layout.vue'),
+          component: () => import('@/views/marketing/acticleList.vue'),
           meta: {
             label: '营销百科',
             text: true,
             title: 'wiki'
           }
         }, {
-          path: '/marketing/information',
-          component: () => import('@/views/marketing/layout.vue'),
+          path: '/marketing/wiki/:id',
+          component: () => import('@/page/article-one.vue'),
+          meta: {
+            label: '营销百科',
+            text: true,
+            title: 'wiki'
+          }
+        }, {
+          path: '/marketing/news',
+          component: () => import('@/views/marketing/acticleList.vue'),
           meta: {
             label: '行业资讯',
             text: true,
-            title: 'information'
+            title: 'news'
+          }
+        }, {
+          path: '/marketing/news/:id',
+          component: () => import('@/page/article-one.vue'),
+          meta: {
+            label: '行业资讯',
+            text: true,
+            title: 'news'
           }
         }, {
           path: '/marketing/paper',
