@@ -1,15 +1,15 @@
 <template>
   <div class="caseChange">
     <div class="title-list">
-      <a
+      <router-link
         class="title-item"
-        :class="listQuery.type === item.type ? 'active' : ''"
-        href="javascript:;" v-for="item in caseTitleList"
+        :class="$route.path.indexOf(item.router) > -1 ? 'active' : ''"
+        v-for="item in caseTitleList"
         :key="item.title"
-        @click="changeSearchCondtion(item.type, 'type')"
+        :to="{path: item.router}"
       >
         {{ item.title }}
-      </a>
+      </router-link>
     </div>
     <div class="search-bar">
       <div class="search-condtion">
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="content">
-      <router-link class="item" :to="{path: '/case/appCase/43'}" href="javascript:;" v-for="(item, index) in contentList" :key="index">
+      <router-link class="item" :to="{path: routerTo(item.type, item.id)}" href="javascript:;" v-for="(item, index) in contentList" :key="index">
         <img :src="item.img">
         <h3>{{ item.title }}</h3>
         <p>{{ item.desc }}</p>
@@ -80,19 +80,24 @@ export default {
       caseTitleList: [
         {
           title: '全部案例',
-          type: 0
+          type: 0,
+          router: '/case/index'
         }, {
           title: '游戏案例',
-          type: 1
+          type: 1,
+          router: '/case/gameCase'
         }, {
           title: 'APP案例',
-          type: 2
+          type: 2,
+          router: '/case/appCase'
         }, {
           title: '品牌案例',
-          type: 3
+          type: 3,
+          router: '/case/brandCase'
         }, {
           title: '电商案例',
-          type: 4
+          type: 4,
+          router: '/case/shopCase'
         }
       ],
       channelList: [
@@ -122,18 +127,45 @@ export default {
         region: '',
         target: ''
       },
-      contentList: [
-        { img: 'https://www.meetsocial.cn/upload/case/1530581243995960603.jpg', title: 'Jump Ramp', desc: 'Jump Ramp 是一款优质生活应用。它利用 Audience Network 成功使广告填充率高于平均水平 30% 以上，千次展示费用优于平均水平 40%，总体收入高出公司其他应用综合的2 倍。', createTime: '2018-07-03' },
-        { img: 'https://www.meetsocial.cn/upload/case/1530581243995960603.jpg', title: 'Jump Ramp', desc: 'Jump Ramp 是一款优质生活应用。它利用 Audience Network 成功使广告填充率高于平均水平 30% 以上，千次展示费用优于平均水平 40%，总体收入高出公司其他应用综合的2 倍。', createTime: '2018-07-03' },
-        { img: 'https://www.meetsocial.cn/upload/case/1530581243995960603.jpg', title: 'Jump Ramp', desc: 'Jump Ramp 是一款优质生活应用。它利用 Audience Network 成功使广告填充率高于平均水平 30% 以上，千次展示费用优于平均水平 40%，总体收入高出公司其他应用综合的2 倍。', createTime: '2018-07-03' },
-        { img: 'https://www.meetsocial.cn/upload/case/1530581243995960603.jpg', title: 'Jump Ramp', desc: 'Jump Ramp 是一款优质生活应用。它利用 Audience Network 成功使广告填充率高于平均水平 30% 以上，千次展示费用优于平均水平 40%，总体收入高出公司其他应用综合的2 倍。', createTime: '2018-07-03' }
-      ]
+      contentList: []
+    }
+  },
+  watch: {
+    listQuery: {
+      deep: true,
+      handler () {
+        this.getList()
+      }
     }
   },
   methods: {
     changeSearchCondtion (value, field) {
       this.listQuery[field] = value
+    },
+    getList () {
+      this.axios.get('/api/case/allCase', {
+        params: this.listQuery
+      }).then(({ data }) => {
+        this.contentList = data
+      })
+    },
+    routerTo (type, id) {
+      switch (type) {
+        case 'app':
+          return `/case/appCase/${id}`
+        case 'game':
+          return `/case/gameCase/${id}`
+        case 'brand':
+          return `/case/brandCase/${id}`
+        case 'shop':
+          return `/case/shopCase/${id}`
+        default:
+          return `/case`
+      }
     }
+  },
+  created () {
+    this.getList()
   }
 }
 </script>
@@ -180,11 +212,13 @@ export default {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      flex-wrap: wrap;
       margin-top: 15px;
       margin-bottom: 20px;
       .item {
         width: 24%;
         background: #F4F4F4;
+        margin-bottom: 30px;
         img {
           width: 100%;
         }

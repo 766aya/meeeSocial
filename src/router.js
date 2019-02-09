@@ -20,25 +20,54 @@ export default new Router({
     }, {
       name: 'case',
       path: '/case',
-      component: () => import('@/views/case/index'),
+      component: () => import('@/views/layout'),
+      redirect: '/case/index',
       meta: {
         label: '成功案例',
-        text: true
-      }
-    }, {
-      path: '/case/appcase',
-      component: () => import('@/views/case/appCase/layout'),
-      meta: {
-        label: 'APP案例',
         text: true
       },
       children: [
         {
-          path: '/case/appCase/43',
-          component: () => import('@/views/case/appCase/043/index'),
+          path: 'index',
+          component: () => import('@/views/case/index'),
           meta: {
-            text: true,
-            label: 'Jump Ramp'
+            label: '全部案例',
+            text: true
+          }
+        }, {
+          path: 'appCase',
+          component: () => import('@/views/case/index'),
+          meta: {
+            label: 'APP案例',
+            text: true
+          }
+        }, {
+          path: 'appCase/:id',
+          component: () => import('@/page/article-two.vue'),
+          meta: {
+            label: 'APP案例',
+            text: true
+          }
+        }, {
+          path: 'gameCase',
+          component: () => import('@/views/case/index'),
+          meta: {
+            label: '游戏案例',
+            text: true
+          }
+        }, {
+          path: 'brandCase',
+          component: () => import('@/views/case/index'),
+          meta: {
+            label: '品牌案例',
+            text: true
+          }
+        }, {
+          path: 'shopCase',
+          component: () => import('@/views/case/index'),
+          meta: {
+            label: '电商案例',
+            text: true
           }
         }
       ]
@@ -108,7 +137,15 @@ export default new Router({
           }
         }, {
           path: '/marketing/paper',
-          component: () => import('@/views/marketing/layout.vue'),
+          component: () => import('@/views/marketing/acticleList.vue'),
+          meta: {
+            label: '行业白皮书',
+            text: true,
+            title: 'paper'
+          }
+        }, {
+          path: '/marketing/paper/:id',
+          component: () => import('@/page/article-one.vue'),
           meta: {
             label: '行业白皮书',
             text: true,
