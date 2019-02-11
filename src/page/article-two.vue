@@ -18,13 +18,27 @@
     <div class="content">
       <h1 class="title success">成功案例</h1>
       <p class="text" v-if="content.content.success">{{ content.content.success }}</p>
-      <div></div>
+      <div class="datas">
+        <div class="content">
+          <div class="item" v-for="(item, index) in content.content.datas" :key="index">
+            <div class="data">
+              <h1>{{item.number}}</h1>
+              <h2>{{item.symbol}}</h2>
+            </div>
+            <h3 class="desc">{{item.desc}}</h3>
+          </div>
+        </div>
+      </div>
       <h1 class="title brand">品牌故事</h1>
+      <p class="text" v-if="content.content.brand">{{ content.content.brand }}</p>
       <h1 class="title marking">营销目标</h1>
+      <p class="text" v-if="content.content.marking">{{ content.content.marking }}</p>
       <div class="programme">
         <h1 class="title programme">解决方案</h1>
+        <p class="text programme" v-if="content.content.programme">{{ content.content.programme }}</p>
       </div>
       <h1 class="title solution">品牌成功</h1>
+      <p class="text">{{ content.content.solution }}</p>
     </div>
   </div>
 </template>
@@ -99,10 +113,53 @@ export default {
       }
     }
     .content {
-      .programme {
+      > .programme {
         width: 100%;
         background: url('https://www.meetsocial.cn/templates/default/images/show_bg2.jpg') no-repeat center center;
         overflow: hidden;
+        margin-top: 50px;
+      }
+      .datas {
+        background: url('https://www.meetsocial.cn/templates/default/images/show_bg.jpg') no-repeat center center;
+        width: 100%;
+        margin-top: 30px;
+        .content {
+          width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+          .item {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 60px auto;
+          }
+          .data {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            color: #2872ED;
+            text-align: center;
+            justify-content: center;
+            h1 {
+              font-size: 50px;
+              line-height: 50px;
+              margin: 0;
+              padding: 0;
+            }
+            h2 {
+              font-size: 20px;
+              line-height: 20px;
+              margin: 0;
+              padding: 0;
+            }
+          }
+          .desc {
+            text-align: center;
+            font-weight: normal;
+          }
+        }
       }
       .title {
         color: #2872ED;
@@ -167,6 +224,10 @@ export default {
         line-height: 25px;
         font-size: 18px;
         color: #999999;
+        &.programme {
+          color: #FFFFFF;
+          padding-bottom: 50px;
+        }
       }
     }
   }
