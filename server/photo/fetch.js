@@ -1,60 +1,118 @@
-var path = require('path');
-var fs = require('fs');
-var gm = require('gm').subClass({ imageMagick: true });//默认的情况下 gm使用的是另外一个图片处理程序
+const process = require("process")
+const path = require("path")
+const fs = require("fs")
+const Gm = require("gm").subClass({ imageMagick: true }) // use imageMagick as photo processor
+const { ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require("../../common/constant")
 
-var app = process.app;
-var config = app.get('read');
-var targetDir = app.get('targetDir');
+const app = process.app;
 
-app.get('/:filename', function (req, res) {
-        var filePath = path.join(targetDir, req.params.filename);
-        fs.exists(filePath, function (exists) {
-                res.sendfile(exists ? filePath : path.join(targetDir, config.default));
+app.get("/getPhoto", function(req, res) {
+    if(!req.query.filename)
+    {
+        return res.json({
+            code: ERR_PARAM,
+            msg: "invalid param, need filename"
+        })
+    }
+   
+    // check ext
+    const ext = path.extname(req.query.filename).substr(1);
+    if(!CONTENT_TYPE[ext])
+    {
+        return res.json({
+            code: ERR_PHOTO_EXT_INVALID,
+            msg: `invalid photo ext, support ${Object.keys(CONTENT_TYPE)}`
         });
+    }
+
+    // check file dir
+    const filePath = path.join(ASSERTS_DIR, req.query.filename);
+    fs.exists(filePath, function(exists) {
+        if(!exists)
+        {
+            return res.json({
+                code: ERR_ASSERT_NOT_EXIST,
+                msg: `photo ${filePath} not exists`
+            });
+        }
+
+        res.set("Content-Type", CONTENT_TYPE[ext]);
+        res.sendfile(filePath);
+    });
 });
 
-function sendFile(folders, filename, res) {
-        var ext = path.extname(filename).substr(1);
-        if (!contentTypes[ext])
-                return res.sendfile(getFilePath());
+app.get("/getBreviaryPhoto", function(req, res) {
+    if(!req.query.width)
+    {
+        return res.json({
+            code: ERR_PARAM,
+            msg: "invalid param, nedd width"
+        })
+    }
 
-        folders.push(filename);
-        var filePath = getFilePath(path.join.apply(path, folders));
-        fs.exists(filePath, function (exists) {
-                res.sendfile(exists ? filePath : getFilePath());
+    if(!req.query.height)
+    {
+        return res.json({
+            code: ERR_PARAM,
+            msg: "invalid param, nedd height"
+        })
+    }
+
+    if(!req.query.filename)
+    {
+        return res.json({
+            code: ERR_PARAM,
+            msg: "invalid param, nedd filename"
+        })
+    }
+
+    // check ext
+    const ext = path.extname(req.query.filename).substr(1);
+    if(!CONTENT_TYPE[ext])
+    {
+        return res.json({
+            code: ERR_PHOTO_EXT_INVALID,
+            msg: `invalid photo ext, support ${Object.keys(CONTENT_TYPE)}`
         });
-}
-
-function getFilePath(filename) {
-        return path.join(app.get('targetDir'), filename || config.default);
-}
+    }
 
 
-//判断请求图片是否存在
-if (exists)                                                     
-        return res.sendfile(filePath);     
-                         
-var groups = filename.match(config.sizeReg);                    
-if (!groups)                                                    
-        return res.sendfile(getFilePath());                         
-                                                                
-folders[len] = groups[1] + "." + groups[4];              
-filePath = getFilePath(path.join.apply(path, folders));         
-var width = parseInt(groups[2]);                                
-var height = parseInt(groups[3]);   
-//判断原始图是否存在                            
-fs.exists(filePath, function (exists) {                         
-        if (!exists)                                                
-                filePath = getFilePath();                               
-                                                                
-        var gm = gm(filePath);                                      
-        if (width > 0 && height > 0)                                
-                gm.resize(width, height);                               
-        gm.toBuffer(function (err, buffer) {                        
-                if (err)                                                
-                        return res.sendfile(getFilePath());                 
-                                                                
-                res.set('Content-Type', contentTypes[ext]);             
-                res.send(buffer);                                       
-        });                                                         
+    // check file dir
+    const filePath = path.join(ASSERTS_DIR, req.query.filename);
+    fs.exists(filePath, function(exists) {
+        if(!exists)
+        {
+            return res.json({
+                code: ERR_ASSERT_NOT_EXIST,
+                msg: `photo ${filePath} not exists`
+            });
+        }
+
+        // adjust photo size
+        const gm = Gm(filePath);
+        if(req.query.width > 0 && req.query.height > 0)
+        {
+            gm.resize(req.query.width, req.query.height);
+        }
+        else
+        {
+            return res.json({
+                code: ERR_OTH,
+                msg: `width: ${req.query.width} and height: ${req.query.height} must bigger than zero`
+            });
+        }
+
+        gm.toBuffer(function(err, buffer) {
+            if(!!err)
+            {
+                return res.json({
+                    code: ERR_OTH,
+                    msg: `adjust photo size is failed ${err}`
+                });
+            }
+
+            res.set("Content-Type", CONTENT_TYPE[ext]);
+            res.send(buffer);
+        });
+    });
 });

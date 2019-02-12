@@ -1,3 +1,13 @@
+const path = require("path")
+
 module.exports.SUCCESS = 0;
 module.exports.ERR_PARAM = 1;
-module.exports.ERR_OTH = 2;
+module.exports.ERR_PHOTO_EXT_INVALID = 2;
+module.exports.ERR_ASSERT_NOT_EXIST = 3;
+module.exports.ERR_OTH = 10;
+
+module.exports.ASSERTS_DIR = path.join(__dirname, "../server/asserts");
+module.exports.CONTENT_TYPE = {
+	"png": "image/png", 
+	"jpg": "image/jpeg"
+};

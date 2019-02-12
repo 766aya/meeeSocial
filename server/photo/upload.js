@@ -1,27 +1,22 @@
-var buf = require('buffer');
-var fs = require('fs');
-var path = require('path');
-var util = require('util');
-var gm = require('gm').subClass({ imageMagick: true });
-var uuid = require('uuid');
+const process = require("process")
+const path = require("path")
+const fs = require("fs")
+const { ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require("../../common/constant")
 
 var app = process.app;
-var contentTypes = app.get('contentType');
 
-/*
-        请求包含如下参数：
-        @ext    图片扩展名
-        @buffer 图片buffer数据
-        @folder 文件夹,格式:/aa/bb
-*/
-app.post('/', function (req, res) {
+
+/**
+ *
+ */
+app.post('/updateloadPhoto', function(req, res) {
         var ext = req.body.ext;
         var buffer = req.body.buffer;
         if (!(ext && buffer && contentTypes[ext]))
                 return res.json({ success: false });
 
         var pathArgs = req.body.folder.replace(/\n/g, '');
-        if (pathArgs)
+        if(pathArgs)
                 pathArgs = pathArgs.substr(1).split('/');
         else
                 pathArgs = [''];
