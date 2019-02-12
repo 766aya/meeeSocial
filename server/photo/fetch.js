@@ -2,7 +2,7 @@ const process = require("process")
 const path = require("path")
 const fs = require("fs")
 const Gm = require("gm").subClass({ imageMagick: true }) // use imageMagick as photo processor
-const { ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require("../../common/constant")
+const {ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE} = require("../../common/constant")
 
 const app = process.app;
 
@@ -46,7 +46,7 @@ app.get("/getBreviaryPhoto", function(req, res) {
     {
         return res.json({
             code: ERR_PARAM,
-            msg: "invalid param, nedd width"
+            msg: "invalid param, need width"
         })
     }
 
@@ -54,7 +54,7 @@ app.get("/getBreviaryPhoto", function(req, res) {
     {
         return res.json({
             code: ERR_PARAM,
-            msg: "invalid param, nedd height"
+            msg: "invalid param, need height"
         })
     }
 
@@ -62,7 +62,7 @@ app.get("/getBreviaryPhoto", function(req, res) {
     {
         return res.json({
             code: ERR_PARAM,
-            msg: "invalid param, nedd filename"
+            msg: "invalid param, need filename"
         })
     }
 

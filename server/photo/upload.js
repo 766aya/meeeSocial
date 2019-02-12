@@ -1,51 +1,102 @@
 const process = require("process")
 const path = require("path")
 const fs = require("fs")
-const { ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require("../../common/constant")
+const Gm = require("gm").subClass({ imageMagick: true }) // use imageMagick as photo processor
+const {SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_HAS_EXIST, ERR_OTH, ASSERTS_DIR, TMP_DIR, CONTENT_TYPE} = require("../../common/constant")
+const {keccak256, stringToBuffer, Buffer} = require("../../common/util")
+const multiparty = require("multiparty")
 
-var app = process.app;
+const app = process.app;
 
+app.post("/uploadPhoto", function(req, res) {
 
-/**
- *
- */
-app.post('/updateloadPhoto', function(req, res) {
-        var ext = req.body.ext;
-        var buffer = req.body.buffer;
-        if (!(ext && buffer && contentTypes[ext]))
-                return res.json({ success: false });
+    let ext = null;
+    let fileData = [];
 
-        var pathArgs = req.body.folder.replace(/\n/g, '');
-        if(pathArgs)
-                pathArgs = pathArgs.substr(1).split('/');
-        else
-                pathArgs = [''];
+    const EACH_READ_SIZE = 2048;
 
-        createDir(pathArgs);
+    // parse a file upload
+    var form = new multiparty.Form();
 
-        pathArgs.push('');
-        var filePath = createPath(pathArgs, ext);
-        gm(new buf.Buffer(JSON.parse(buffer))).write(filePath, function (err) {
-                if (err)
-                        return res.json({ success: false });
-
-                res.json({ success: true, data: util.format('\\%s.%s', pathArgs.join('\\'), ext) });
+    form.on("error", function(err) {
+        res.json({
+            code: ERR_OTH,
+            msg: `upload file is failed, ${err}`
         });
-});
+    });
 
-function createDir(pathArgs) {
-        if (pathArgs[0]) {
-                var dir = path.join(app.get('targetDir'), path.join.apply(path, pathArgs));
-                var exists = fs.existsSync(dir);
-                if (!exists)
-                        fs.mkdirSync(dir);
+    form.on("part", function(part) {
+        if(part.filename)
+        {
+            // get ext
+            ext = path.extname(part.filename).substr(1);
+            // get data
+            part.on("data", chunk => {
+                fileData.push(chunk)
+            });
         }
-}
+       
+        part.resume();
 
-function createPath(pathArgs, ext) {
-        var args = [app.get('targetDir')];
-        pathArgs[pathArgs.length - 1] = uuid.v1().replace(/-/g, '');
-        args.push.apply(args, pathArgs);
-        var filePath = path.join.apply(path, args) + '.' + ext;
-        return fs.existsSync(filePath) ? createPath(pathArgs, ext) : filePath;
-}
+        part.on("error", function(err) {
+            form.emit("error", `part failed, ${err}`)
+        });
+    });
+
+    form.on("close", function() {
+        if(!fileData.length)
+        {
+            return res.json({
+                code: ERR_PARAM,
+                msg: "invalid param, need data"
+            })
+        }
+
+        // check ext
+        if(!CONTENT_TYPE[ext])
+        {
+            return res.json({
+                code: ERR_PHOTO_EXT_INVALID,
+                msg: `invalid photo ext, support ${Object.keys(CONTENT_TYPE)}`
+            });
+        }
+
+        // tranlate
+        fileData = Buffer.concat(fileData);
+
+        // generate filepath
+        const fileName = keccak256(stringToBuffer(fileData.toString("hex") + Date.now())).toString("hex") + "." + ext;
+        const filePath = path.join(ASSERTS_DIR, fileName);
+
+        // check filepath
+        fs.exists(filePath, function(exists) {
+            if(exists)
+            {
+                return res.json({
+                    code: ERR_ASSERT_HAS_EXIST,
+                    msg: `photo ${filePath} has exists`
+                });
+            }
+
+            const gm = Gm(fileData);
+
+            gm.write(filePath, function (err) {
+                if(!!err)
+                {
+                    return res.json({ 
+                        code: ERR_OTH,
+                        msg: `gm write is failed, ${err}` 
+                    });
+                }
+
+                res.json({ 
+                    code: SUCCESS, 
+                    msg: "",
+                    data: fileName
+                });
+            });
+        });
+    });
+
+    form.parse(req);
+});

@@ -1,15 +1,15 @@
 const createKeccakHash = require("keccak")
+const stripHexPrefix = exports.stripHexPrefix = require("strip-hex-prefix")
+const Buffer = exports.Buffer = require("safe-buffer").Buffer
 
 /**
  * Creates Keccak hash of the input
- * @param {Buffer|Array|String|Number} value the input data
+ * @param {Buffer} value the input data
  * @param {Number} [bits=256] the Keccak width
  * @return {Buffer}
  */
 exports.keccak = function(value, bits)
 {
-  value = exports.toBuffer(value);
-
   if(!bits)
   {
     bits = 256;
@@ -60,4 +60,70 @@ exports.baToHexString = function(value)
   {
     throw new Error("util baToHexString, invalid type.");
   }
+}
+
+/**
+ * Check if string is hex string of specific length
+ * @param {String} value
+ * @param {Number} length indicate the byte length of value
+ * @returns {Boolean} output
+ */
+exports.isHexString = function(value, length) {
+  if(typeof value !== "string" || !value.match(/^0x[0-9A-Fa-f]*$/))
+  {
+    return false;
+  }
+
+  if (length && value.length !== 2 + 2 * length)
+  { 
+    return false; 
+  }
+
+  return true;
+}
+
+/**
+ * Pads a String to have an even length, note 0 is not a even number
+ * @param {String} value
+ * @return {String} output
+ */
+exports.padToEven = function(value)
+{
+  if(typeof value !== "string") {
+    throw new Error(`utils padToEven, while padding to even, value must be string, is currently ${typeof value}.`);
+  }
+
+  if(value.length % 2) {
+    value = `0${value}`;
+  }
+
+  return value;
+}
+
+/**
+ * Attempts to turn a string into a Buffer.
+ * @param {String} value the value
+ */
+exports.stringToBuffer = function(value)
+{
+  if(Buffer.isBuffer(value))
+  {
+    return value;
+  }
+
+  if(typeof value === "string")
+  {
+    if(exports.isHexString(value))
+    {
+      value = Buffer.from(exports.padToEven(stripHexPrefix(value)), "hex");
+    }
+    else
+    {
+      value = Buffer.from(value);
+    }
+
+     return value;
+  }
+
+  throw new Error("uitl stringToBuffer, invalid type.");
 }
