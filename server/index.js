@@ -40,4 +40,5 @@ process.on("uncaughtException", function (err) {
     process.exit(1);
 });
 
+require("./article")
 require("./photo")
