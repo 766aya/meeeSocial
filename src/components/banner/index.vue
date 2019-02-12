@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: 'banner',
   props: {
     height: {
       default: '150px',
