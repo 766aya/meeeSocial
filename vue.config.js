@@ -33,7 +33,7 @@ module.exports = {
       clientsClaim: true
     }
   },
-  outputDir: '/dist',
+  outputDir: './dist',
   assetsDir: undefined,
   runtimeCompiler: undefined,
   parallel: undefined,
