@@ -2,6 +2,7 @@ const process = require("process")
 const express = require("express");
 const bodyParser = require("body-parser") 
 const async = require("async")
+const path = require("path")
 
 const log4js= require("./logConfig")
 const logger = log4js.getLogger()
@@ -10,6 +11,9 @@ const othlogger = log4js.getLogger("oth")
 
 // express
 const app = express();
+console.log("http path: " + path.resolve("dist"))
+app.use("/", express.static(path.resolve("dist")));
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
