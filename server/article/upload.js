@@ -1,75 +1,64 @@
-const process = require("process")
-const path = require("path")
-const fs = require("fs")
-const {SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE} = require("../../common/constant")
-const {keccak256, stringToBuffer, Buffer} = require("../../common/util")
+const process = require('process')
+const path = require('path')
+const fs = require('fs')
+const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
+const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 
-const app = process.app;
+const app = process.app
 
-app.post("/uploadArticle", function(req, res) {
-    if(!req.body.data)
-    {
+app.post('/uploadArticle', function (req, res) {
+  if (!req.body.data) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need data'
+    })
+  }
+
+  // check
+  try {
+    if (typeof req.body.data === 'string') {
+      JSON.parse(req.body.data)
+    } else if (typeof req.body.data === 'object') {
+      req.body.data = JSON.stringify(req.body.data)
+    } else {
+      return res.json({
+        code: ERR_OTH,
+        msg: 'invalid argument type, argument data should be a JSON string or object'
+      })
+    }
+  } catch {
+    return res.json({
+      code: ERR_OTH,
+      msg: 'invalid argument type, argument data should be a JSON string or object'
+    })
+  }
+
+  //
+  const fileName = keccak256(stringToBuffer(req.body.data + Date.now())).toString('hex') + '.article'
+  const filePath = path.join(ASSERTS_DIR, fileName)
+
+  // check filepath
+  fs.exists(filePath, function (exists) {
+    if (exists) {
+      return res.json({
+        code: ERR_OTH,
+        msg: `article ${filePath} has exists`
+      })
+    }
+
+    fs.writeFile(filePath, req.body.data, function (err) {
+      if (err) {
         return res.json({
-            code: ERR_PARAM,
-            msg: "invalid param, need data"
+          code: ERR_OTH,
+          msg: `write file is failed, ${err}`
         })
-    }
+      }
 
-    // check
-    try
-    {
-        if(typeof req.body.data === "string")
-        {
-            JSON.parse(req.body.data);
-        }
-        else if(typeof req.body.data === "object")
-        {
-            req.body.data = JSON.stringify(req.body.data);
-        }
-        else
-        {
-            return res.json({
-                code: ERR_OTH,
-                msg: "invalid argument type, argument data should be a JSON string or object"
-            });
-        }
-    }
-    catch
-    {
-        return res.json({
-            code: ERR_OTH,
-            msg: "invalid argument type, argument data should be a JSON string or object"
-        });
-    }
-
-    //
-    const fileName = keccak256(stringToBuffer(req.body.data + Date.now())).toString("hex") + ".article";
-    const filePath = path.join(ASSERTS_DIR, fileName);
-
-    // check filepath
-    fs.exists(filePath, function(exists) {
-        if(exists)
-        {
-            return res.json({
-                code: ERR_OTH,
-                msg: `article ${filePath} has exists`
-            });
-        }
-
-        fs.writeFile(filePath, req.body.data , function(err) {
-            if(!!err)
-            {
-                return res.json({ 
-                    code: ERR_OTH,
-                    msg: `write file is failed, ${err}` 
-                });
-            }
-
-            res.json({ 
-                code: SUCCESS, 
-                msg: "",
-                data: fileName
-            });
-        });
-    });
-});
+      res.json({
+        code: SUCCESS,
+        msg: '',
+        data: fileName
+      })
+    })
+  })
+})
