@@ -9,8 +9,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "element-ui": "^2.4.11",
+    "express": "^4.16.4",
+    "gm": "^1.23.1",
+    "keccak": "^2.0.0",
     "register-service-worker": "^1.5.2",
+    "underscore": "^1.9.1",
     "vue": "^2.5.21",
     "vue-axios": "^2.1.4",
     "vue-router": "^3.0.1"
