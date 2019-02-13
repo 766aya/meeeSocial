@@ -152,3 +152,50 @@ app.get('/getBreviaryArticleList', function (req, res) {
       });
     })
 })
+
+
+app.get('/delArticle', function (req, res) {
+  if (!req.query.filename) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need filename'
+    })
+  }
+
+  const filePath = path.join(ASSERTS_DIR, req.query.filename)
+
+  // check filepath
+  try {
+    fs.accessSync(filePath, fs.constants.F_OK)
+  } catch {
+    return res.json({
+      code: ERR_OTH,
+      msg: `article ${req.query.filename} not exists`
+    })
+  }
+
+  // del article
+  async.waterfall([
+    function(cb) {
+      fs.unlink(filePath, cb)
+    },
+    function(cb) {
+      // generate breviary
+      const breviaryFileName = req.query.filename.split('.', 1)[0] + ".breviaryArticle"
+      const breviaryFilePath = path.join(ASSERTS_DIR, breviaryFileName)
+    
+      fs.unlink(breviaryFilePath, cb)
+    }], err => {
+      if (!!err) {
+        return res.json({
+          code: ERR_OTH,
+          msg: `del file is failed, ${err}`
+        })
+      }
+
+      res.json({
+        code: SUCCESS,
+        msg: ''
+      })
+    })
+});
