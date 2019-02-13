@@ -103,6 +103,7 @@ app.post('/uploadArticle', function (req, res) {
   // generate detail
   const fileName = Date.now() + "_" + keccak256(stringToBuffer(req.body.data)).toString('hex') + '.article'
   const filePath = path.join(ASSERTS_DIR, fileName)
+  detailJSON.filename = fileName;
 
   // check filepath
   try {
@@ -113,7 +114,7 @@ app.post('/uploadArticle', function (req, res) {
     async.waterfall([
       function(cb) {
         // save article detail
-        fs.writeFile(filePath, req.body.data, function (err) {
+        fs.writeFile(filePath, JSON.stringify(detailJSON), function (err) {
           if (!!err) {
             res.json({
               code: ERR_OTH,
@@ -176,14 +177,6 @@ app.post('/uploadArticle', function (req, res) {
 })
 
 app.post('/updateArticle', function (req, res) {
-  if(!req.body.filename)
-  {
-    return res.json({
-      code: ERR_PARAM,
-      msg: 'invalid param, need filename'
-    })
-  }
-
   if (!req.body.data) {
     return res.json({
       code: ERR_PARAM,
@@ -277,7 +270,7 @@ app.post('/updateArticle', function (req, res) {
   }
 
   // check ext
-  const ext = path.extname(req.body.filename).substr(1)
+  const ext = path.extname(detailJSON.filename).substr(1)
   if (ext !== "article") {
     return res.json({
       code: ERR_OTH,
@@ -285,7 +278,7 @@ app.post('/updateArticle', function (req, res) {
     })
   }
 
-  const filePath = path.join(ASSERTS_DIR, req.body.filename)
+  const filePath = path.join(ASSERTS_DIR, detailJSON.filename)
 
   // check filepath
   try {
@@ -293,12 +286,12 @@ app.post('/updateArticle', function (req, res) {
   } catch {
     return res.json({
       code: ERR_OTH,
-      msg: `article ${req.body.filename} not exists`
+      msg: `article ${detailJSON.filename} not exists`
     })
   }
 
   // generate breviary
-  const breviaryFileName = req.body.filename.split('.', 1)[0] + ".breviaryArticle"
+  const breviaryFileName = detailJSON.filename.split('.', 1)[0] + ".breviaryArticle"
   const breviaryFilePath = path.join(ASSERTS_DIR, breviaryFileName)
 
   let breviaryJSON = {
