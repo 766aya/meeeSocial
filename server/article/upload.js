@@ -34,7 +34,7 @@ app.post('/uploadArticle', function (req, res) {
   }
 
   //
-  const fileName = keccak256(stringToBuffer(req.body.data + Date.now())).toString('hex') + '.article'
+  const fileName = Date.now() + "_" + keccak256(stringToBuffer(req.body.data)).toString('hex') + '.article'
   const filePath = path.join(ASSERTS_DIR, fileName)
 
   // check filepath

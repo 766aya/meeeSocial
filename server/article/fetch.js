@@ -3,6 +3,8 @@ const path = require('path')
 const fs = require('fs')
 const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
+const _ = require('underscore')
+const async = require('async')
 
 const app = process.app
 
@@ -41,12 +43,74 @@ app.get('/getArticle', function (req, res) {
       data: data
     })
   })
-})
-
-app.get('/getBreviaryArticle', function (req, res) {
-
-})
+});
 
 app.get('/getBreviaryArticleList', function (req, res) {
 
+  if(!req.query.page) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need page'
+    })
+  }
+
+
+  if(!req.query.pageNum) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need pageNum'
+    })
+  }
+
+
+  if(!req.query.title) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need title'
+    })
+  }
+
+
+  if(!req.query.tags) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need tags'
+    })
+  }
+
+  let articles = [];
+
+  async.waterfall([
+    function(cb) {
+      fs.readdir(ASSERTS_DIR, (err, files) => {
+        if(!!err)
+        {
+          cb(err);
+        }
+
+        // filter
+        for(let i = 0; i < files.length; i++)
+        {
+          let fileName = files[i].toString();
+          // check ext
+          const ext = path.extname(fileName).substr(1)
+          if(ext === "article")
+          {
+            const date = fileName.split('_', 1)[0]
+            articles.push({
+              date: date,
+              fileName: fileName
+            });
+          }
+        }
+
+        // sort
+        articles = _.sortBy(articles, article => {
+          return article.date;
+        });
+      });
+    },
+    function(cb) {
+      
+    }])
 })
