@@ -3,6 +3,7 @@ const path = require('path')
 const fs = require('fs')
 const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
+const async = require("async")
 
 const app = process.app
 
@@ -14,50 +15,159 @@ app.post('/uploadArticle', function (req, res) {
     })
   }
 
-  // check
+  //
+  let detailJSON;
+
+  // check type
   try {
     if (typeof req.body.data === 'string') {
-      JSON.parse(req.body.data)
-    } else if (typeof req.body.data === 'object') {
-      req.body.data = JSON.stringify(req.body.data)
+      detailJSON = JSON.parse(req.body.data)
     } else {
       return res.json({
         code: ERR_OTH,
-        msg: 'invalid argument type, argument data should be a JSON string or object'
+        msg: 'invalid argument type, argument data should be a JSON string'
       })
     }
   } catch {
     return res.json({
       code: ERR_OTH,
-      msg: 'invalid argument type, argument data should be a JSON string or object'
+      msg: 'invalid argument type, argument data should be a JSON string'
     })
   }
 
-  //
+  // check field
+  if(!detailJSON.filename)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need filename`
+    })
+  }
+
+  if(!detailJSON.title)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need title`
+    })
+  }
+
+  if(!detailJSON.publisher)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need publisher`
+    })
+  }
+
+  if(!detailJSON.createTime)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need createTime`
+    })
+  }
+
+  if(!detailJSON.updateTime)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need updateTime`
+    })
+  }
+
+  if(!detailJSON.img)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need img`
+    })
+  }
+
+  if(!detailJSON.desc)
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need desc`
+    })
+  }
+
+  if(!detailJSON.tips || !Array.isArray(detailJSON.tips))
+  {
+    return res.json({
+      code: ERR_OTH,
+      msg: `invalid json string, need tips`
+    })
+  }
+
+  // generate detail
   const fileName = Date.now() + "_" + keccak256(stringToBuffer(req.body.data)).toString('hex') + '.article'
   const filePath = path.join(ASSERTS_DIR, fileName)
+
+  // generate breviary
+  const breviaryFileName = Date.now() + "_" + keccak256(stringToBuffer(req.body.data)).toString('hex') + '.breviaryArticle'
+  const breviaryFilePath = path.join(ASSERTS_DIR, breviaryFileName)
+  let breviaryJSON = {
+    "filename": detailJSON.filename,
+    "title": detailJSON.title,
+    "publisher": detailJSON.publisher,
+    "createTime": detailJSON.createTime,
+    "updateTime": detailJSON.updateTime,
+    "img": detailJSON.img,
+    "desc": detailJSON.desc,
+    "tips": detailJSON.tips
+  }
 
   // check filepath
   try {
     fs.accessSync(filePath, fs.constants.F_OK)
+    fs.accessSync(breviaryFilePath, fs.constants.F_OK)
   } catch {
-    // save article
-    fs.writeFile(filePath, req.body.data, function (err) {
-      if (err) {
-        return res.json({
-          code: ERR_OTH,
-          msg: `write file is failed, ${err}`
+    const EXIST_CODE = 1;
+
+    async.waterfall([
+      function(cb) {
+        // save article detail
+        fs.writeFile(filePath, req.body.data, function (err) {
+          if (!!err) {
+            res.json({
+              code: ERR_OTH,
+              msg: `write detail article is failed, ${err}`
+            })
+
+            return cb(EXIST_CODE)
+          }
+
+          cb()
         })
-      }
+      },
+      function(cb) {
+        // save article breviary
+        fs.writeFile(breviaryFilePath, JSON.stringify(breviaryJSON), function (err) {
+          if (!!err) {
+            res.json({
+              code: ERR_OTH,
+              msg: `write breviary article is failed, ${err}`
+            })
 
-      res.json({
-        code: SUCCESS,
-        msg: '',
-        data: fileName
+            return cb(EXIST_CODE)
+          }
+
+          cb()
+        })
+      }], err => {
+        if(!!err) {
+          return;
+        }
+
+        res.json({
+          code: SUCCESS,
+          msg: '',
+          data: fileName
+        })
       })
-    })
 
-    return
+    return;
   }
 
   res.json({

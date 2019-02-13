@@ -78,8 +78,9 @@ app.get('/getBreviaryArticleList', function (req, res) {
     })
   }
 
+  let fileNames = [];
   let articles = [];
-
+  let total;
   async.waterfall([
     function(cb) {
       fs.readdir(ASSERTS_DIR, (err, files) => {
@@ -94,23 +95,60 @@ app.get('/getBreviaryArticleList', function (req, res) {
           let fileName = files[i].toString();
           // check ext
           const ext = path.extname(fileName).substr(1)
-          if(ext === "article")
+          if(ext === "breviaryArticle")
           {
             const date = fileName.split('_', 1)[0]
-            articles.push({
+            fileNames.push({
               date: date,
               fileName: fileName
             });
           }
         }
 
+        total = fileNames.length;
+
         // sort
-        articles = _.sortBy(articles, article => {
-          return article.date;
+        fileNames = _.sortBy(fileNames, article => {
+          return -article.date;
         });
+
+        // range
+        fileNames = fileNames.splice(req.query.page * req.query.pageNum, req.query.pageNum);
+
+        cb();
       });
     },
     function(cb) {
+      try
+      {
+        fileNames.forEach(article => {
+          let filePath = path.join(ASSERTS_DIR, article.fileName)
+          articles.push(fs.readFileSync(filePath, {encoding: "utf8"}));
+        })
+
+        cb();
+      }
+      catch(err)
+      {
+        return cb(err);
+      }
       
-    }])
+    }], err => {
+      if(!!err)
+      {
+        return res.json({
+          code: ERR_OTH,
+          msg: `fetch article list failed, ${err}`
+        });
+      }
+
+      res.json({
+        code: SUCCESS,
+        msg: "",
+        data: {
+          total: total,
+          data: articles
+        }
+      });
+    })
 })
