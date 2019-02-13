@@ -1,2 +1,2 @@
-const fetch = require("./fetch")
-const upload = require("./upload")
+const fetch = require('./fetch')
+const upload = require('./upload')

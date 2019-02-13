@@ -1,7 +1,16 @@
 {
-    "name": "",
-    "time": "",
+    "id": "",
+    "title": "文章标题",
+    "publisher": "发布人",
+    "createTime": "发布时间 yyyy-MM-DD",
+    "img": "配图",
+    "desc": "描述文本",
+    "tips": [
+        {
+            "title": "标签名称",
+        }
+    ],
     "content": {
-
+        
     }
 }
