@@ -52,7 +52,14 @@ export const mainDialogTableOption = {
       ]
     }, {
       label: '内容',
-      prop: 'context'
+      prop: 'context',
+      cell: true
+    }, {
+      label: '操作',
+      prop: 'menu',
+      solt: true,
+      align: 'center',
+      width: 100
     }
   ]
 }

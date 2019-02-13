@@ -1,6 +1,6 @@
-const createKeccakHash = require("keccak")
-const stripHexPrefix = exports.stripHexPrefix = require("strip-hex-prefix")
-const Buffer = exports.Buffer = require("safe-buffer").Buffer
+const createKeccakHash = require('keccak')
+const stripHexPrefix = exports.stripHexPrefix = require('strip-hex-prefix')
+const Buffer = exports.Buffer = require('safe-buffer').Buffer
 
 /**
  * Creates Keccak hash of the input
@@ -8,14 +8,12 @@ const Buffer = exports.Buffer = require("safe-buffer").Buffer
  * @param {Number} [bits=256] the Keccak width
  * @return {Buffer}
  */
-exports.keccak = function(value, bits)
-{
-  if(!bits)
-  {
-    bits = 256;
+exports.keccak = function (value, bits) {
+  if (!bits) {
+    bits = 256
   }
 
-  return createKeccakHash("keccak" + bits).update(value).digest();
+  return createKeccakHash('keccak' + bits).update(value).digest()
 }
 
 /**
@@ -23,9 +21,8 @@ exports.keccak = function(value, bits)
  * @param {Buffer|Array|String|Number} value the input data
  * @return {Buffer}
  */
-exports.keccak256 = function(value)
-{
-  return exports.keccak(value);
+exports.keccak256 = function (value) {
+  return exports.keccak(value)
 }
 
 /**
@@ -34,31 +31,24 @@ exports.keccak256 = function(value)
  * @param {Number} [bits=256] the SHA-3 width
  * @return {Buffer}
  */
-exports.sha3 = exports.keccak;
+exports.sha3 = exports.keccak
 
 /**
  * Converts a Buffer or Array to hex string
  * @param {Buffer|Array} value
  * @return {Array|String|null}
  */
-exports.baToHexString = function(value)
-{
-  if(Buffer.isBuffer(value))
-  {
-    return "0x" + value.toString("hex");
-  }
-  else if(value instanceof Array) 
-  {
-    const array = [];
-    for(let i = 0; i < value.length; i++)
-    {
-      array.push(exports.baToHexString(value[i]));
+exports.baToHexString = function (value) {
+  if (Buffer.isBuffer(value)) {
+    return '0x' + value.toString('hex')
+  } else if (value instanceof Array) {
+    const array = []
+    for (let i = 0; i < value.length; i++) {
+      array.push(exports.baToHexString(value[i]))
     }
-    return array;
-  }
-  else
-  {
-    throw new Error("util baToHexString, invalid type.");
+    return array
+  } else {
+    throw new Error('util baToHexString, invalid type.')
   }
 }
 
@@ -68,18 +58,16 @@ exports.baToHexString = function(value)
  * @param {Number} length indicate the byte length of value
  * @returns {Boolean} output
  */
-exports.isHexString = function(value, length) {
-  if(typeof value !== "string" || !value.match(/^0x[0-9A-Fa-f]*$/))
-  {
-    return false;
+exports.isHexString = function (value, length) {
+  if (typeof value !== 'string' || !value.match(/^0x[0-9A-Fa-f]*$/)) {
+    return false
   }
 
-  if (length && value.length !== 2 + 2 * length)
-  { 
-    return false; 
+  if (length && value.length !== 2 + 2 * length) {
+    return false
   }
 
-  return true;
+  return true
 }
 
 /**
@@ -87,43 +75,36 @@ exports.isHexString = function(value, length) {
  * @param {String} value
  * @return {String} output
  */
-exports.padToEven = function(value)
-{
-  if(typeof value !== "string") {
-    throw new Error(`utils padToEven, while padding to even, value must be string, is currently ${typeof value}.`);
+exports.padToEven = function (value) {
+  if (typeof value !== 'string') {
+    throw new Error(`utils padToEven, while padding to even, value must be string, is currently ${typeof value}.`)
   }
 
-  if(value.length % 2) {
-    value = `0${value}`;
+  if (value.length % 2) {
+    value = `0${value}`
   }
 
-  return value;
+  return value
 }
 
 /**
  * Attempts to turn a string into a Buffer.
  * @param {String} value the value
  */
-exports.stringToBuffer = function(value)
-{
-  if(Buffer.isBuffer(value))
-  {
-    return value;
+exports.stringToBuffer = function (value) {
+  if (Buffer.isBuffer(value)) {
+    return value
   }
 
-  if(typeof value === "string")
-  {
-    if(exports.isHexString(value))
-    {
-      value = Buffer.from(exports.padToEven(stripHexPrefix(value)), "hex");
-    }
-    else
-    {
-      value = Buffer.from(value);
+  if (typeof value === 'string') {
+    if (exports.isHexString(value)) {
+      value = Buffer.from(exports.padToEven(stripHexPrefix(value)), 'hex')
+    } else {
+      value = Buffer.from(value)
     }
 
-     return value;
+    return value
   }
 
-  throw new Error("uitl stringToBuffer, invalid type.");
+  throw new Error('uitl stringToBuffer, invalid type.')
 }

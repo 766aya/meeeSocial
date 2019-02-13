@@ -13,16 +13,21 @@
         </el-select>
       </el-col>
       <el-col span="20">
-        <gov-button type="add"></gov-button>
+        <gov-button type="add" @click="handleAddTableData"></gov-button>
       </el-col>
     </el-row>
     <avue-crud
       ref="crud"
-      :data="tableData"
+      :data="mainTableData"
       :option="mainTableOption"
-      v-model="obj"
+      v-model="formData"
       @row-update="rowUpdate"
-    ></avue-crud>
+    >
+      <template slot-scope="scope" slot="menu">
+        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'"></gov-button>
+        <gov-button type="text" @click="handleDelete(scope.row.$index)" text="删除"></gov-button>
+      </template>
+    </avue-crud>
   </gov-dialog>
 </template>
 
@@ -39,7 +44,7 @@ export default {
       },
       type: 'text',
       formData: {},
-      tableData: []
+      mainTableData: []
     }
   },
   computed: {
@@ -62,6 +67,29 @@ export default {
     },
     handleSubmit () {
       console.log(this.formData)
+    },
+    handleAddTableData () {
+      this.mainTableData.push({
+        type: this.type,
+        context: ''
+      })
+    },
+    rowCell (row, index) {
+      console.log(row, index)
+      this.$refs.crud.rowCell(row, index)
+    },
+    rowUpdate (form, index, done) {
+      console.log('rowUpdate', form, index)
+      done()
+    },
+    // 删除行
+    handleDelete (index) {
+      this.$confirm('你确定要删除该行数据吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(() => {
+        this.mainTableData.splice(index, 1)
+      }).catch(() => {})
     }
   }
 }
