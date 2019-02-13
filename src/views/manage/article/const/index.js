@@ -1,15 +1,20 @@
 export const mainTableOption = {
   header: false,
   menu: false,
-  page: false,
+  page: true,
   border: true,
   column: [
     {
       label: '文章名称',
-      prop: 'name'
+      prop: 'title'
     }, {
       label: '文章标签',
-      prop: 'tips'
+      prop: 'tips',
+      type: 'dic',
+      dicData: [
+        { label: 'a', value: 'a' },
+        { label: 'b', value: 'b' }
+      ]
     }, {
       label: '创建时间',
       prop: 'createTime'

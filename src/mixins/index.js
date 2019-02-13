@@ -15,14 +15,14 @@ export default {
   watch: {
     'pagination.currentPage': {
       handler (newVal) {
-        this.listQuery.page = { ...newVal }
+        this.listQuery.page = newVal
       },
       deep: true,
       immediate: true
     },
     'pagination.pageSize': {
       handler (newVal) {
-        this.listQuery.limit = { ...newVal }
+        this.listQuery.pageNum = newVal
       },
       deep: true,
       immediate: true
@@ -62,7 +62,7 @@ export default {
     handleReset () {
       this.resetFormData(this.listQuery)
       this.listQuery.page = this.pagination.currentPage
-      this.listQuery.limit = this.pagination.pageSize
+      this.listQuery.pageNum = this.pagination.pageSize
     }
   }
 }

@@ -12,8 +12,6 @@ import '@/assets/iconfonts/iconfont.css'
 import '@/style/common.scss'
 import '@smallwei/avue/lib/theme-chalk/index.css'
 
-import mixin from '@/mixins/index.js'
-
 import banner from '@/components/banner'
 import crumbs from '@/components/crumbs'
 import channel from '@/components/channel'
@@ -42,8 +40,6 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(Avue, Axios)
 Vue.use(VueAxios, Axios)
-
-Vue.mixin(mixin)
 
 new Vue({
   router,

@@ -43,6 +43,8 @@
 
 <script>
 import { mainDialogTableOption, mainDialogFormOption } from './const'
+import { saveArticle } from '@/views/manage/apis/article'
+
 export default {
   name: 'mainDialog',
   data () {
@@ -81,7 +83,13 @@ export default {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
-      console.log(this.mainTableData)
+      this.form.content = this.mainTableData
+      console.log(this.form)
+      saveArticle(this.form).then(res => {
+        console.log(res)
+        this.close()
+        this.$emit('getList')
+      })
     },
     handleAddTableData () {
       this.mainTableData.push({

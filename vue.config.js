@@ -15,7 +15,7 @@ module.exports = {
         }
       },
       '/server': {
-        target: 'http://127.0.0.1:8080',
+        target: 'http://123.157.68.243:10014/',
         changeOrigin: true,
         pathRewrite: {
           '^/server': '/'
