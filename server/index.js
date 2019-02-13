@@ -40,8 +40,6 @@ log4js.useLogger(app, logger)
 //
 process.on('uncaughtException', function (err) {
   errlogger.error(err.stack)
-
-  process.exit(1)
 })
 
 require('./article')
