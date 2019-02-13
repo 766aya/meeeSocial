@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'GovDesc',
   props: {
     option: {
       type: Object,

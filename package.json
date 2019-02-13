@@ -9,6 +9,7 @@
     "server": "node server/index.js"
   },
   "dependencies": {
+    "@smallwei/avue": "^1.5.3",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "element-ui": "^2.4.11",

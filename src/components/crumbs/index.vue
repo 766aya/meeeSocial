@@ -1,10 +1,6 @@
 <template>
   <div id="crumbs">
     <div class="content">
-      <div>
-        <router-link class="link-style" :to="{path: '/'}">{{ '首页' }}</router-link>
-        <span class="distance">></span>
-      </div>
       <div v-for="(item, index) in routerList" :key="index">
         <router-link
           :class=" routerList.length-1 === index ? 'link' : 'link-style'"
@@ -20,6 +16,7 @@
 
 <script>
 export default {
+  name: 'crumbs',
   data () {
     return {
       routerList: []
