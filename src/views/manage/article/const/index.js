@@ -59,7 +59,42 @@ export const mainDialogTableOption = {
       prop: 'menu',
       solt: true,
       align: 'center',
-      width: 100
+      width: 150
+    }
+  ]
+}
+
+export const mainDialogFormOption = {
+  labelWidth: '100',
+  menuBtn: false,
+  column: [
+    {
+      label: '文章标题',
+      prop: 'title',
+      span: 12
+    }, {
+      label: '描述',
+      prop: 'desc',
+      span: 12
+    }, {
+      label: '发布人',
+      prop: 'publisher',
+      type: 'select',
+      dicData: [
+        { label: '管理员', value: 'admin' },
+        { label: '飞书互动', value: 'faceBook' }
+      ]
+    }, {
+      label: '文章标签',
+      prop: 'tips',
+      type: 'select',
+      multiple: true,
+      dicData: [
+        { label: 'FaceBook', value: 'FaceBook' },
+        { label: 'faceBook推广', value: 'faceBook推广' },
+        { label: 'Instagram广告', value: 'Instagram广告' },
+        { label: 'Instagram广告投放', value: 'Instagram广告投放' }
+      ]
     }
   ]
 }
