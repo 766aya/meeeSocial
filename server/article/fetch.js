@@ -70,13 +70,14 @@ app.get('/getBreviaryArticleList', function (req, res) {
     })
   }
 
-
-  if(!req.query.tags) {
+  if(!req.query.tags || !Array.isArray(JSON.parse(req.query.tags))) {
     return res.json({
       code: ERR_PARAM,
       msg: 'invalid param, need tags'
     })
   }
+
+  req.query.tags = JSON.parse(req.query.tags);
 
   let fileNames = [];
   let articles = [];
