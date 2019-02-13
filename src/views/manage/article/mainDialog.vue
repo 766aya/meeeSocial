@@ -4,6 +4,7 @@
     width="80%"
     @handleSubmit="handleSubmit"
     ref="dialog">
+    <avue-form ref="mainForm" :option="mainFormOption" v-model="form"></avue-form>
     <el-row :gutter="20" align="middle" type="flex">
       <el-col :span="4">
         <el-select v-model="type">
@@ -24,7 +25,16 @@
       @row-update="rowUpdate"
     >
       <template slot-scope="scope" slot="menu">
-        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'"></gov-button>
+        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'" v-if="scope.row.type!=='img'"></gov-button>
+        <el-upload
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :file-list="fileList"
+          :show-file-list="false"
+          @on-success="uploadSuccess"
+          v-if="scope.row.type==='img'">
+          <gov-button type="text" text="上传图片" ></gov-button>
+        </el-upload>
         <gov-button type="text" @click="handleDelete(scope.row.$index)" text="删除"></gov-button>
       </template>
     </avue-crud>
@@ -32,7 +42,7 @@
 </template>
 
 <script>
-import { mainDialogTableOption } from './const'
+import { mainDialogTableOption, mainDialogFormOption } from './const'
 export default {
   name: 'mainDialog',
   data () {
@@ -44,12 +54,17 @@ export default {
       },
       type: 'text',
       formData: {},
-      mainTableData: []
+      fileList: [],
+      mainTableData: [], // 文章主体内容
+      form: {} // 外层内容
     }
   },
   computed: {
     mainTableOption () {
       return mainDialogTableOption
+    },
+    mainFormOption () {
+      return mainDialogFormOption
     }
   },
   props: {
@@ -66,7 +81,7 @@ export default {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
-      console.log(this.formData)
+      console.log(this.mainTableData)
     },
     handleAddTableData () {
       this.mainTableData.push({
@@ -82,6 +97,9 @@ export default {
       console.log('rowUpdate', form, index)
       done()
     },
+    uploadSuccess (response, file, fileList) {
+      console.log('uploadSuccess', response, file, fileList)
+    },
     // 删除行
     handleDelete (index) {
       this.$confirm('你确定要删除该行数据吗？', '提示', {
@@ -94,3 +112,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .upload-demo {
+    display: inline-block;
+    margin-right: 10px;
+  }
+</style>
