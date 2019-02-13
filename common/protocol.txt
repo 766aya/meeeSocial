@@ -6,6 +6,7 @@ getPhoto ** get ** params ** filename ** return a pic, can directly show in brow
 getBreviaryPhoto ** get ** params ** filename width height ** return a pic, can directly show in browser
 uploadPhoto ** post ** form-data ** photo ** {code: {Number}, msg: {String}, data: {String} photo name}
 
-
 getArticle ** get ** params ** filename ** {code: {Number}, msg: {String}, data: {String} article}
 uploadArticle ** post ** x-www-form-urlencoded ** data ** {code: {Number}, msg: {String}, data: {String} article name}
+delArticle ** get ** params ** filename ** {code: {Number}, msg: {String}}
+updateArticle ** post ** x-www-form-urlencoded ** data ** {code: {Number}, msg: {String}, data: {total: {Number} articleTotalNum, data: [{String} article]}}
