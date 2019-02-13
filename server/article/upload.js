@@ -47,15 +47,13 @@ app.post("/uploadArticle", function(req, res) {
     const filePath = path.join(ASSERTS_DIR, fileName);
 
     // check filepath
-    fs.exists(filePath, function(exists) {
-        if(exists)
-        {
-            return res.json({
-                code: ERR_OTH,
-                msg: `article ${filePath} has exists`
-            });
-        }
-
+    try
+    {
+        fs.accessSync(filePath, fs.constants.F_OK);
+    }
+    catch
+    {   
+        // save article
         fs.writeFile(filePath, req.body.data , function(err) {
             if(!!err)
             {
@@ -71,5 +69,12 @@ app.post("/uploadArticle", function(req, res) {
                 data: fileName
             });
         });
+
+        return;
+    }
+
+    res.json({
+        code: ERR_OTH,
+        msg: `article ${fileName} has exists`
     });
 });

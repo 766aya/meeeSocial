@@ -25,20 +25,25 @@ app.get("/getPhoto", function(req, res) {
         });
     }
 
-    // check file dir
+    //
     const filePath = path.join(ASSERTS_DIR, req.query.filename);
-    fs.exists(filePath, function(exists) {
-        if(!exists)
-        {
-            return res.json({
-                code: ERR_ASSERT_NOT_EXIST,
-                msg: `photo ${filePath} not exists`
-            });
-        }
 
-        res.set("Content-Type", CONTENT_TYPE[ext]);
-        res.sendfile(filePath);
-    });
+    // check file dir
+    try
+    {
+        fs.accessSync(filePath, fs.constants.F_OK);
+    }
+    catch
+    {
+        return res.json({
+            code: ERR_ASSERT_NOT_EXIST,
+            msg: `photo ${req.query.filename} not exists`
+        });
+    }
+
+    // send photo
+    res.set("Content-Type", CONTENT_TYPE[ext]);
+    res.sendFile(filePath);
 });
 
 app.get("/getBreviaryPhoto", function(req, res) {
@@ -76,43 +81,47 @@ app.get("/getBreviaryPhoto", function(req, res) {
         });
     }
 
+    //
+    const filePath = path.join(ASSERTS_DIR, req.query.filename);
 
     // check file dir
-    const filePath = path.join(ASSERTS_DIR, req.query.filename);
-    fs.exists(filePath, function(exists) {
-        if(!exists)
-        {
-            return res.json({
-                code: ERR_ASSERT_NOT_EXIST,
-                msg: `photo ${filePath} not exists`
-            });
-        }
+    try
+    {
+        fs.accessSync(filePath, fs.constants.F_OK);
+    }
+    catch
+    {
+        return res.json({
+            code: ERR_ASSERT_NOT_EXIST,
+            msg: `photo ${req.query.filename} not exists`
+        });
+    }
 
-        // adjust photo size
-        const gm = Gm(filePath);
-        if(req.query.width > 0 && req.query.height > 0)
-        {
-            gm.resize(req.query.width, req.query.height);
-        }
-        else
+    // adjust photo size
+    const gm = Gm(filePath);
+    if(req.query.width > 0 && req.query.height > 0)
+    {
+        gm.resize(req.query.width, req.query.height);
+    }
+    else
+    {
+        return res.json({
+            code: ERR_OTH,
+            msg: `width: ${req.query.width} and height: ${req.query.height} must bigger than zero`
+        });
+    }
+
+    // get photo
+    gm.toBuffer(function(err, buffer) {
+        if(!!err)
         {
             return res.json({
                 code: ERR_OTH,
-                msg: `width: ${req.query.width} and height: ${req.query.height} must bigger than zero`
+                msg: `adjust photo size is failed ${err}`
             });
         }
 
-        gm.toBuffer(function(err, buffer) {
-            if(!!err)
-            {
-                return res.json({
-                    code: ERR_OTH,
-                    msg: `adjust photo size is failed ${err}`
-                });
-            }
-
-            res.set("Content-Type", CONTENT_TYPE[ext]);
-            res.send(buffer);
-        });
+        res.set("Content-Type", CONTENT_TYPE[ext]);
+        res.send(buffer);
     });
 });

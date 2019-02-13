@@ -19,29 +19,32 @@ app.get("/getArticle", function(req, res) {
     const filePath = path.join(ASSERTS_DIR, req.query.filename);
 
     // check filepath
-    fs.exists(filePath, function(exists) {
-        if(!exists)
+    try
+    {
+        fs.accessSync(filePath, fs.constants.F_OK);
+    }
+    catch
+    {
+        return res.json({
+            code: ERR_OTH,
+            msg: `article ${req.query.filename} not exists`
+        });
+    }
+
+    // get article
+    fs.readFile(filePath, { encoding: "utf8" }, (err, data) => {
+        if(!!err)
         {
-            return res.json({
+            return res.json({ 
                 code: ERR_OTH,
-                msg: `article ${filePath} not exists`
+                msg: `read file is failed, ${err}` 
             });
         }
 
-        fs.readFile(filePath, { encoding: "utf8" }, (err, data) => {
-            if(!!err)
-            {
-                return res.json({ 
-                    code: ERR_OTH,
-                    msg: `read file is failed, ${err}` 
-                });
-            }
-
-            res.json({ 
-                code: SUCCESS, 
-                msg: "",
-                data: data
-            });
+        res.json({ 
+            code: SUCCESS, 
+            msg: "",
+            data: data
         });
     });
 });

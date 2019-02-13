@@ -69,17 +69,14 @@ app.post("/uploadPhoto", function(req, res) {
         const filePath = path.join(ASSERTS_DIR, fileName);
 
         // check filepath
-        fs.exists(filePath, function(exists) {
-            if(exists)
-            {
-                return res.json({
-                    code: ERR_ASSERT_HAS_EXIST,
-                    msg: `photo ${filePath} has exists`
-                });
-            }
-
+        try
+        {
+            fs.accessSync(filePath, fs.constants.F_OK);
+        }
+        catch
+        {
+            // save photo
             const gm = Gm(fileData);
-
             gm.write(filePath, function (err) {
                 if(!!err)
                 {
@@ -95,6 +92,13 @@ app.post("/uploadPhoto", function(req, res) {
                     data: fileName
                 });
             });
+
+            return;
+        }
+
+        return res.json({
+            code: ERR_ASSERT_HAS_EXIST,
+            msg: `photo ${filePath} has exists`
         });
     });
 
