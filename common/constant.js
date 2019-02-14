@@ -14,3 +14,6 @@ module.exports.CONTENT_TYPE = {
   'png': 'image/png',
   'jpg': 'image/jpeg'
 }
+
+module.exports.USER = "root"
+module.exports.PASSWORD = "!@#$%^&*()qwertyuiop"
