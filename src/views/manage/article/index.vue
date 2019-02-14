@@ -40,16 +40,16 @@ export default {
       formProps: [
         {
           label: '文章名称',
-          prop: 'name'
-        }
+          prop: 'name',
+        },
       ],
-      mainTableData: []
+      mainTableData: [],
     }
   },
   computed: {
     mainTableOption () {
       return mainTableOption
-    }
+    },
   },
   methods: {
     getList () {
@@ -67,7 +67,7 @@ export default {
       })
     },
     newly () {
-      this.$refs['mainDialog'].open()
+      this.$refs['mainDialog'].open({})
     },
     handleDetail (row) {
 
@@ -77,10 +77,10 @@ export default {
     },
     handleDelete (row) {
 
-    }
+    },
   },
   created () {
     this.getList()
-  }
+  },
 }
 </script>
