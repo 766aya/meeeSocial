@@ -5,6 +5,7 @@ const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const _ = require('underscore')
 const async = require('async')
+const {checkCookie} = require("../user/cookie")
 
 const app = process.app
 
@@ -155,7 +156,7 @@ app.get('/getBreviaryArticleList', function (req, res) {
 })
 
 
-app.get('/delArticle', function (req, res) {
+app.get('/delArticle', checkCookie, function (req, res) {
   if (!req.query.filename) {
     return res.json({
       code: ERR_PARAM,

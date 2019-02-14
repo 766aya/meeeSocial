@@ -1,7 +1,8 @@
 const process = require('process')
 const cookie = require('cookie');
+const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_HAS_EXIST, ERR_OTH, ASSERTS_DIR, TMP_DIR, CONTENT_TYPE } = require('../../common/constant')
 
-module.exports.checkCookie = function (req, res) {
+module.exports.checkCookie = function (req, res, next) {
   // Parse the cookies on the request
   var cookies = cookie.parse(req.headers.cookie || '');
 
@@ -10,18 +11,10 @@ module.exports.checkCookie = function (req, res) {
 
   if(sid === process.sid)
   {
-    return req
+    return next();
   }
 
-  res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-
-  if (name) {
-    res.write('<p>Welcome back, <b>' + escapeHtml(name) + '</b>!</p>');
-  } else {
-    res.write('<p>Hello, new visitor!</p>');
-  }
-
-  res.write('<form method="GET">');
-  res.write('<input placeholder="enter your name" name="name"> <input type="submit" value="Set Name">');
-  res.end('</form');
+  res.statusCode = 302;
+  res.setHeader('Location', req.headers.referer || "/#/login");
+  res.end();
 }

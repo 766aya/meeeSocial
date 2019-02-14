@@ -4,10 +4,11 @@ const fs = require('fs')
 const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const async = require("async")
+const {checkCookie} = require("../user/cookie")
 
 const app = process.app
 
-app.post('/uploadArticle', function (req, res) {
+app.post('/uploadArticle', checkCookie, function (req, res) {
   if (!req.body.data) {
     return res.json({
       code: ERR_PARAM,
@@ -176,7 +177,7 @@ app.post('/uploadArticle', function (req, res) {
   })
 })
 
-app.post('/updateArticle', function (req, res) {
+app.post('/updateArticle', checkCookie, function (req, res) {
   if (!req.body.data) {
     return res.json({
       code: ERR_PARAM,

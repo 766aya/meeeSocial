@@ -5,10 +5,11 @@ const Gm = require('gm').subClass({ imageMagick: true }) // use imageMagick as p
 const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_HAS_EXIST, ERR_OTH, ASSERTS_DIR, TMP_DIR, CONTENT_TYPE } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const multiparty = require('multiparty')
+const {checkCookie} = require("../user/cookie")
 
 const app = process.app
 
-app.post('/uploadPhoto', function (req, res) {
+app.post('/uploadPhoto', checkCookie, function (req, res) {
   let ext = null
   let fileData = []
 

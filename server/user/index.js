@@ -54,9 +54,9 @@ app.post('/login', function(req, res, next) {
       maxAge: 60 * 60 * 24 * 7 // 1 week
     }));
 
-    // Redirect back after setting cookie
+    //
     res.statusCode = 302;
-    res.setHeader('Location', req.headers.referer || '/manage/acticel');
+    res.setHeader('Location', req.headers.referer || '/#/manage/acticel');
     res.end();
 
   })(req, res, next);
