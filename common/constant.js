@@ -5,6 +5,11 @@ module.exports.ERR_PARAM = 1
 module.exports.ERR_PHOTO_EXT_INVALID = 2
 module.exports.ERR_ASSERT_NOT_EXIST = 3
 module.exports.ERR_ASSERT_HAS_EXIST = 4
+module.exports.ERR_SERVER_INNER = 5
+module.exports.ERR_ARTICLE_NOT_EXIST = 6
+module.exports.ERR_ARTICLE_HAS_EXIST = 7
+module.exports.ERR_COOKIE_INVALID = 7
+module.exports.ERR_LOGIN_FAILED = 8
 module.exports.ERR_OTH = 10
 
 module.exports.ASSERTS_DIR = path.join(__dirname, '../server/asserts')

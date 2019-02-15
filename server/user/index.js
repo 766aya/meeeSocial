@@ -1,6 +1,6 @@
 const process = require('process')
 const LocalStrategy = require('passport-local').Strategy;
-const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE, USER, PASSWORD } = require('../../common/constant')
+const { ERR_SERVER_INNER, ERR_LOGIN_FAILED, SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE, USER, PASSWORD } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const cookie = require('cookie');
 
@@ -33,7 +33,7 @@ app.post('/login', function(req, res, next) {
     if (err) 
     { 
       return res.json({
-        code: ERR_OTH,
+        code: ERR_SERVER_INNER,
         msg: `login failed, inner err, ${err}`
       });
     }
@@ -41,7 +41,7 @@ app.post('/login', function(req, res, next) {
     if(info)
     {
       return res.json({
-        code: ERR_OTH,
+        code: ERR_LOGIN_FAILED,
         msg: `login failed, ${info.message}`
       });
     }

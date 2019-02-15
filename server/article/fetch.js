@@ -1,7 +1,7 @@
 const process = require('process')
 const path = require('path')
 const fs = require('fs')
-const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
+const { ERR_ARTICLE_NOT_EXIST, ERR_SERVER_INNER, SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const _ = require('underscore')
 const async = require('async')
@@ -24,7 +24,7 @@ app.get('/getArticle', function (req, res) {
     fs.accessSync(filePath, fs.constants.F_OK)
   } catch {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_ARTICLE_NOT_EXIST,
       msg: `article ${req.query.filename} not exists`
     })
   }
@@ -33,7 +33,7 @@ app.get('/getArticle', function (req, res) {
   fs.readFile(filePath, { encoding: 'utf8' }, (err, data) => {
     if (err) {
       return res.json({
-        code: ERR_OTH,
+        code: ERR_SERVER_INNER,
         msg: `read file is failed, ${err}`
       })
     }
@@ -146,7 +146,7 @@ app.get('/getBreviaryArticleList', function (req, res) {
       if(!!err)
       {
         return res.json({
-          code: ERR_OTH,
+          code: ERR_SERVER_INNER,
           msg: `fetch article list failed, ${err}`
         });
       }
@@ -220,7 +220,7 @@ app.get('/delArticle', checkCookie, function (req, res) {
     fs.accessSync(filePath, fs.constants.F_OK)
   } catch {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_ARTICLE_NOT_EXIST,
       msg: `article ${req.query.filename} not exists`
     })
   }
@@ -239,7 +239,7 @@ app.get('/delArticle', checkCookie, function (req, res) {
     }], err => {
       if (!!err) {
         return res.json({
-          code: ERR_OTH,
+          code: ERR_SERVER_INNER,
           msg: `del file is failed, ${err}`
         })
       }
