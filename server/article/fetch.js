@@ -117,15 +117,12 @@ app.get('/getBreviaryArticleList', function (req, res) {
           }
         }
 
-        total = fileNames.length;
-
         // sort
         fileNames = _.sortBy(fileNames, article => {
           return -article.date;
         });
 
-        // range
-        fileNames = fileNames.splice(req.query.page * req.query.pageNum, req.query.pageNum);
+        total = fileNames.length;
 
         cb();
       });
@@ -183,8 +180,8 @@ app.get('/getBreviaryArticleList', function (req, res) {
         }
       }
 
-      let filteredTitleArticles = []
       // filter title
+      let filteredTitleArticles = []
       for(let i = 0; i < filteredTagsArticles.length; i++)
       {
         if(filteredTagsArticles[i].title.indexOf(req.query.title) >= 0)
@@ -192,6 +189,9 @@ app.get('/getBreviaryArticleList', function (req, res) {
           filteredTitleArticles.push(JSON.stringify(filteredTagsArticles[i]))
         }
       }
+
+      // range
+      filteredTitleArticles = filteredTitleArticles.splice(req.query.page * req.query.pageNum, req.query.pageNum);
 
       res.json({
         code: SUCCESS,
