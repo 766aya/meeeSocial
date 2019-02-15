@@ -40,16 +40,16 @@ export default {
       formProps: [
         {
           label: '文章名称',
-          prop: 'name'
-        }
+          prop: 'name',
+        },
       ],
-      mainTableData: []
+      mainTableData: [],
     }
   },
   computed: {
     mainTableOption () {
       return mainTableOption
-    }
+    },
   },
   methods: {
     getList () {
@@ -70,17 +70,32 @@ export default {
       this.$refs['mainDialog'].open()
     },
     handleDetail (row) {
-
+      this.axios.get('/server/getArticle', { params: { filename: row.filename } }).then(({ data }) => {
+        this.$refs['mainDialog'].open(JSON.parse(data.data))
+      })
     },
     handleUpdate (row) {
 
     },
     handleDelete (row) {
-
-    }
+      this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.axios.get('/server/delArticle', {
+          params: row.filename,
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!',
+          })
+        })
+      }).catch(() => { })
+    },
   },
   created () {
     this.getList()
-  }
+  },
 }
 </script>
