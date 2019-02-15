@@ -55,9 +55,10 @@ app.post('/login', function(req, res, next) {
     }));
 
     //
-    res.statusCode = 302;
-    res.setHeader('Location', req.headers.referer || '/#/manage/acticel');
-    res.end();
+    res.json({
+      code: SUCCESS,
+      msg: ""
+    });
 
   })(req, res, next);
 });
