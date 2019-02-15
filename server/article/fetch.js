@@ -64,21 +64,31 @@ app.get('/getBreviaryArticleList', function (req, res) {
   }
 
 
-  if(!req.query.title) {
+  req.query.title = req.query.title || ""
+
+  req.query.tags = req.query.tags || "[]"
+
+  // parse tags
+  try
+  {
+    req.query.tags = JSON.parse(req.query.tags);
+  }
+  catch
+  {
     return res.json({
       code: ERR_PARAM,
-      msg: 'invalid param, need title'
+      msg: 'invalid param, param tags must be an array string'
     })
   }
 
-  if(!req.query.tags || !Array.isArray(JSON.parse(req.query.tags))) {
+  // check tags
+  if(!Array.isArray(req.query.tags))
+  {
     return res.json({
       code: ERR_PARAM,
-      msg: 'invalid param, need tags'
+      msg: 'invalid param, param tags must be an array'
     })
   }
-
-  req.query.tags = JSON.parse(req.query.tags);
 
   let fileNames = [];
   let articles = [];
@@ -91,7 +101,7 @@ app.get('/getBreviaryArticleList', function (req, res) {
           cb(err);
         }
 
-        // filter
+        // filter photoes
         for(let i = 0; i < files.length; i++)
         {
           let fileName = files[i].toString();
@@ -125,7 +135,7 @@ app.get('/getBreviaryArticleList', function (req, res) {
       {
         fileNames.forEach(article => {
           let filePath = path.join(ASSERTS_DIR, article.fileName)
-          articles.push(fs.readFileSync(filePath, {encoding: "utf8"}));
+          articles.push(JSON.parse(fs.readFileSync(filePath, {encoding: "utf8"})));
         })
 
         cb();
@@ -144,12 +154,51 @@ app.get('/getBreviaryArticleList', function (req, res) {
         });
       }
 
+      // filter tags
+      let filteredTagsArticles = []
+      let i, j, z
+      for(i = 0; i < articles.length; i++)
+      {
+        for(j = 0; j < req.query.tags.length; j++)
+        {
+          for(z = 0; z < articles[i].tips.length; z++)
+          {
+            if(articles[i].tips[z] === req.query.tags[j])
+            {
+              break;
+            }
+          }
+
+          // not found
+          if(z === articles[i].tips.length)
+          {
+            break;
+          }
+        }
+
+        // full match
+        if(j === req.query.tags.length)
+        {
+          filteredTagsArticles.push(articles[i])
+        }
+      }
+
+      let filteredTitleArticles = []
+      // filter title
+      for(let i = 0; i < filteredTagsArticles.length; i++)
+      {
+        if(filteredTagsArticles[i].title.indexOf(req.query.title) >= 0)
+        {
+          filteredTitleArticles.push(JSON.stringify(filteredTagsArticles[i]))
+        }
+      }
+
       res.json({
         code: SUCCESS,
         msg: "",
         data: {
           total: total,
-          data: articles
+          data: filteredTitleArticles
         }
       });
     })
