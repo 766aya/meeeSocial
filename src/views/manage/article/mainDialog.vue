@@ -15,6 +15,15 @@
       </el-col>
       <el-col span="20">
         <gov-button type="add" @click="handleAddTableData"></gov-button>
+        <el-upload
+          class="upload-demo2"
+          action="/server/uploadPhoto"
+          :show-file-list="false"
+          :on-success="uploadHeaderImg"
+          :disabled="disabled"
+          :on-error="uploadError">
+          <gov-button type="primary" text="上传封面图片" :disabled="disabled"></gov-button>
+        </el-upload>
       </el-col>
     </el-row>
     <avue-crud
@@ -28,12 +37,12 @@
         <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'" v-if="scope.row.type!=='img'"></gov-button>
         <el-upload
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :file-list="fileList"
+          action="/server/uploadPhoto"
           :show-file-list="false"
-          @on-success="uploadSuccess"
+          :on-success="uploadSuccess"
+          :on-error="uploadError"
           v-if="scope.row.type==='img'">
-          <gov-button type="text" text="上传图片" ></gov-button>
+          <gov-button type="text" text="上传图片" @click="uploadRowIndex(scope.row.$index)"></gov-button>
         </el-upload>
         <gov-button type="text" @click="handleDelete(scope.row.$index)" text="删除"></gov-button>
       </template>
@@ -56,9 +65,10 @@ export default {
       },
       type: 'text',
       formData: {},
-      fileList: [],
       mainTableData: [], // 文章主体内容
       form: {}, // 外层内容
+      openRowIndex: 0,
+      disabled: false,
     }
   },
   computed: {
@@ -109,8 +119,20 @@ export default {
       console.log('rowUpdate', form, index)
       done()
     },
-    uploadSuccess (response, file, fileList) {
-      console.log('uploadSuccess', response, file, fileList)
+    uploadSuccess (response) {
+      this.$set(this.mainTableData[this.openRowIndex], 'context', response.data)
+      this.$message.success('图片上传成功')
+    },
+    uploadHeaderImg (response) {
+      this.form.img = response.data
+      this.$message.success('封面图上传成功')
+      this.disabled = true
+    },
+    uploadError (err) {
+      this.$message.success(`图片上传失败${err}`)
+    },
+    uploadRowIndex (index) {
+      this.openRowIndex = index
     },
     // 删除行
     handleDelete (index) {
@@ -121,6 +143,14 @@ export default {
         this.mainTableData.splice(index, 1)
       }).catch(() => {})
     },
+    // handleClosed () {
+    //   this.formData = {}
+    //   this.mainTableData = []
+    //   this.disabled = false
+    //   this.$nextTick(() => {
+    //     this.$refs['mainForm'].resetForm()
+    //   })
+    // },
   },
 }
 </script>
@@ -129,5 +159,9 @@ export default {
   .upload-demo {
     display: inline-block;
     margin-right: 10px;
+  }
+  .upload-demo2 {
+    display: inline-block;
+    margin-left: 15px;
   }
 </style>
