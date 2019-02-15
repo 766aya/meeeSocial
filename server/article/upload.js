@@ -1,7 +1,7 @@
 const process = require('process')
 const path = require('path')
 const fs = require('fs')
-const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
+const { ERR_ARTICLE_NOT_EXIST, ERR_ARTICLE_HAS_EXIST, ERR_SERVER_INNER, SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../../common/constant')
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const async = require("async")
 const {checkCookie} = require("../user/cookie")
@@ -25,13 +25,13 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
       detailJSON = JSON.parse(req.body.data)
     } else {
       return res.json({
-        code: ERR_OTH,
+        code: ERR_PARAM,
         msg: 'invalid argument type, argument data should be a JSON string'
       })
     }
   } catch {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: 'invalid argument type, argument data should be a JSON string'
     })
   }
@@ -40,7 +40,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.filename)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need filename`
     })
   }
@@ -48,7 +48,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.title)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need title`
     })
   }
@@ -56,7 +56,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.publisher)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need publisher`
     })
   }
@@ -64,7 +64,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.createTime)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need createTime`
     })
   }
@@ -72,7 +72,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.updateTime)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need updateTime`
     })
   }
@@ -80,7 +80,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.img)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need img`
     })
   }
@@ -88,7 +88,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.desc)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need desc`
     })
   }
@@ -96,7 +96,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   if(!detailJSON.tips || !Array.isArray(detailJSON.tips))
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need tips`
     })
   }
@@ -118,7 +118,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
         fs.writeFile(filePath, JSON.stringify(detailJSON), function (err) {
           if (!!err) {
             res.json({
-              code: ERR_OTH,
+              code: ERR_SERVER_INNER,
               msg: `write detail article is failed, ${err}`
             })
 
@@ -147,7 +147,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
         fs.writeFile(breviaryFilePath, JSON.stringify(breviaryJSON), function (err) {
           if (!!err) {
             res.json({
-              code: ERR_OTH,
+              code: ERR_SERVER_INNER,
               msg: `write breviary article is failed, ${err}`
             })
 
@@ -172,7 +172,7 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
   }
 
   res.json({
-    code: ERR_OTH,
+    code: ERR_ARTICLE_HAS_EXIST,
     msg: `article ${fileName} has exists`
   })
 })
@@ -194,13 +194,13 @@ app.post('/updateArticle', checkCookie, function (req, res) {
       detailJSON = JSON.parse(req.body.data)
     } else {
       return res.json({
-        code: ERR_OTH,
+        code: ERR_PARAM,
         msg: 'invalid argument type, argument data should be a JSON string'
       })
     }
   } catch {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: 'invalid argument type, argument data should be a JSON string'
     })
   }
@@ -209,7 +209,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.filename)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need filename`
     })
   }
@@ -217,7 +217,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.title)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need title`
     })
   }
@@ -225,7 +225,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.publisher)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need publisher`
     })
   }
@@ -233,7 +233,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.createTime)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need createTime`
     })
   }
@@ -241,7 +241,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.updateTime)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need updateTime`
     })
   }
@@ -249,7 +249,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.img)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need img`
     })
   }
@@ -257,7 +257,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.desc)
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need desc`
     })
   }
@@ -265,7 +265,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   if(!detailJSON.tips || !Array.isArray(detailJSON.tips))
   {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: `invalid json string, need tips`
     })
   }
@@ -274,7 +274,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
   const ext = path.extname(detailJSON.filename).substr(1)
   if (ext !== "article") {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_PARAM,
       msg: "invalid ext, should be .aritcle"
     })
   }
@@ -286,7 +286,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
     fs.accessSync(filePath, fs.constants.F_OK)
   } catch {
     return res.json({
-      code: ERR_OTH,
+      code: ERR_ARTICLE_NOT_EXIST,
       msg: `article ${detailJSON.filename} not exists`
     })
   }
@@ -313,7 +313,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
         fs.writeFile(filePath, req.body.data, function (err) {
           if (!!err) {
             res.json({
-              code: ERR_OTH,
+              code: ERR_SERVER_INNER,
               msg: `write detail article is failed, ${err}`
             })
 
@@ -328,7 +328,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
         fs.writeFile(breviaryFilePath, JSON.stringify(breviaryJSON), function (err) {
           if (!!err) {
             res.json({
-              code: ERR_OTH,
+              code: ERR_SERVER_INNER,
               msg: `write breviary article is failed, ${err}`
             })
 

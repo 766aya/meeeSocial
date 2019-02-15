@@ -1,6 +1,6 @@
 const process = require('process')
 const cookie = require('cookie');
-const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_HAS_EXIST, ERR_OTH, ASSERTS_DIR, TMP_DIR, CONTENT_TYPE } = require('../../common/constant')
+const { ERR_COOKIE_INVALID, SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_HAS_EXIST, ERR_OTH, ASSERTS_DIR, TMP_DIR, CONTENT_TYPE } = require('../../common/constant')
 
 module.exports.checkCookie = function (req, res, next) {
   // Parse the cookies on the request
@@ -15,7 +15,7 @@ module.exports.checkCookie = function (req, res, next) {
   }
 
   res.json({
-    code: ERR_OTH,
+    code: ERR_COOKIE_INVALID,
     msg: "please login first"
   });
 }

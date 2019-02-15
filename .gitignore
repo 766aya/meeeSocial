@@ -2,6 +2,7 @@
 node_modules
 /dist
 server/logs
+sftp-config.json
 
 # local env files
 .env.local
