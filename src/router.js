@@ -9,13 +9,13 @@ export default new Router({
     {
       path: '/',
       component: () => import('@/views/pageLayout.vue'),
-      redirect: '/',
+      redirect: '/index',
       meta: {
         label: '首页',
       },
       children: [
         {
-          path: '/',
+          path: '/index',
           name: 'index',
           component: () => import('@/views/index/index'),
         }, {
@@ -191,6 +191,10 @@ export default new Router({
           name: 'article',
           path: 'acticel',
           component: () => import('@/views/manage/article/index.vue'),
+        }, {
+          name: 'appCaseManage',
+          path: 'appCaseManage',
+          component: () => import('@/views/manage/appcase/index.vue'),
         },
       ],
     }, {

@@ -13,19 +13,20 @@
         </div>
         <listTitle title="行业资讯"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in newsList" :key="index" :to="{path: `/marketing/news/${item.id}`}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in newsList" :key="index" :to="{path: `/marketing/news/${item.filename}`}">{{ item.title }}</router-link>
         </div>
         <listTitle title="营销百科"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in wikiList" :key="index" :to="{path: `/marketing/wiki/${item.id}`}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in wikiList" :key="index" :to="{path: `/marketing/wiki/${item.filename}`}">{{ item.title }}</router-link>
         </div>
         <listTitle title="常见问题"></listTitle>
         <div class="list-box">
-          <router-link class="list-item" v-for="(item, index) in faqList" :key="index" :to="{path: `/marketing/faq/${item.id}`}">{{ item.title }}</router-link>
+          <router-link class="list-item" v-for="(item, index) in faqList" :key="index" :to="{path: `/marketing/faq/${item.filename}`}">{{ item.title }}</router-link>
         </div>
         <listTitle title="热门标签"></listTitle>
         <div class="tips-box">
-          <router-link class="tip-item" v-for="(item, index) in hotTipsList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+          <!-- <router-link class="tip-item"  v-for="(item, index) in hotTipsList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link> -->
+          <a class="tip-item" v-for="(item, index) in hotTipsList" :key="index" href="javascript:;">{{ item.title }}</a>
         </div>
       </div>
       <div class="rside">
@@ -44,7 +45,7 @@ export default {
       newsList: [],
       wikiList: [],
       faqList: [],
-      hotTipsList: []
+      hotTipsList: [],
     }
   },
   methods: {
@@ -55,29 +56,59 @@ export default {
       this.getHotTipsList()
     },
     getNewsList () {
-      this.axios.get('/api/marketing/news').then(({ data }) => {
-        this.newsList = data.length > 4 ? data.slice(0, 4) : data
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: 0,
+          pageNum: 5,
+          title: '',
+          tips: JSON.stringify(['a', 'b']),
+        },
+      }).then(({ data }) => {
+        this.newsList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
       })
+      // this.axios.get('/api/marketing/news').then(({ data }) => {
+      //   this.newsList = data.length > 4 ? data.slice(0, 4) : data
+      // })
     },
     getFAQList () {
-      this.axios.get('/api/marketing/faq').then(({ data }) => {
-        this.faqList = data.length > 4 ? data.slice(0, 4) : data
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: 0,
+          pageNum: 5,
+          title: '',
+          tips: JSON.stringify(['a', 'b']),
+        },
+      }).then(({ data }) => {
+        this.faqList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
       })
     },
     getWikiList () {
-      this.axios.get('/api/marketing/wiki').then(({ data }) => {
-        this.wikiList = data.length > 4 ? data.slice(0, 4) : data
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: 0,
+          pageNum: 5,
+          title: '',
+          tips: JSON.stringify(['a', 'b']),
+        },
+      }).then(({ data }) => {
+        this.wikiList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
       })
     },
     getHotTipsList () {
       this.axios.get('/api/marketing/hotTips').then(({ data }) => {
         this.hotTipsList = data.length > 4 ? data.slice(0, 4) : data
       })
-    }
+    },
   },
   created () {
     this.getList()
-  }
+  },
 }
 </script>
 

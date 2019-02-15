@@ -61,7 +61,7 @@ export default {
       menuChildrenShow: -1,
       isSearch: false,
       searchData: '',
-      menuActive: -1
+      menuActive: -1,
     }
   },
   methods: {
@@ -105,7 +105,7 @@ export default {
           document.querySelector(`#${id}`).scrollIntoView(true)
         })
       }
-    }
+    },
   },
   created () {
     this.changeLanguage(this.lang)
@@ -114,97 +114,101 @@ export default {
     // })
     this.menuList = [
       {
+        'label': '首页',
+        'router': '/index',
+      },
+      {
         'label': '飞书服务',
         'router': '/service',
         'children': [
           {
             'label': '服务介绍',
             'router': '/service#service',
-            'type': 1
+            'type': 1,
           },
           {
             'label': '飞书优势',
             'router': '/service#advantage',
-            'type': 1
-          }
-        ]
+            'type': 1,
+          },
+        ],
       },
-      {
-        'label': '成功案例',
-        'router': '/case',
-        'children': [
-          {
-            'label': '游戏案例',
-            'router': '/case/gameCase'
-          },
-          {
-            'label': 'APP案例',
-            'router': '/case/appCase'
-          },
-          {
-            'label': '品牌案例',
-            'router': '/case/brandCase'
-          },
-          {
-            'label': '电商案例',
-            'router': '/case/shopCase'
-          }
-        ]
-      },
-      {
-        'label': '渠道资讯',
-        'router': '/qudaozixun',
-        'children': [
-          {
-            'label': 'Facebook',
-            'router': '/'
-          },
-          {
-            'label': 'Instagram',
-            'router': '/'
-          }
-        ]
-      },
+      // {
+      //   'label': '成功案例',
+      //   'router': '/case',
+      //   'children': [
+      //     {
+      //       'label': '游戏案例',
+      //       'router': '/case/gameCase',
+      //     },
+      //     {
+      //       'label': 'APP案例',
+      //       'router': '/case/appCase',
+      //     },
+      //     {
+      //       'label': '品牌案例',
+      //       'router': '/case/brandCase',
+      //     },
+      //     {
+      //       'label': '电商案例',
+      //       'router': '/case/shopCase',
+      //     },
+      //   ],
+      // },
+      // {
+      //   'label': '渠道资讯',
+      //   'router': '/qudaozixun',
+      //   'children': [
+      //     {
+      //       'label': 'Facebook',
+      //       'router': '/',
+      //     },
+      //     {
+      //       'label': 'Instagram',
+      //       'router': '/',
+      //     },
+      //   ],
+      // },
       {
         'label': '营销学院',
         'router': '/marketing/index',
         'children': [
           {
             'label': '互动问答',
-            'router': '/marketing/faq'
+            'router': '/marketing/faq',
           },
-          {
-            'label': '在线课堂',
-            'router': '/marketing/course'
-          },
+          // {
+          //   'label': '在线课堂',
+          //   'router': '/marketing/course',
+          // },
           {
             'label': '营销百科',
-            'router': '/marketing/wiki'
+            'router': '/marketing/wiki',
           },
-          {
-            'label': '行业资讯',
-            'router': '/marketing/information'
-          },
+          // {
+          //   'label': '行业资讯',
+          //   'router': '/marketing/information',
+          // },
           {
             'label': '行业白皮书',
-            'router': '/marketing/paper'
-          }
-        ]
+            'router': '/marketing/paper',
+          },
+        ],
       },
-      {
-        'label': '最新动态',
-        'router': '/zuixindongtai'
-      },
-      {
-        'label': '驱动技术',
-        'router': '/qudongjishu'
-      },
-      {
-        'label': '关于我们',
-        'router': '/about'
-      }
+      // {
+      //   'label': '最新动态',
+      //   'router': '/zuixindongtai',
+      // },
+      // {
+      //   'label': '驱动技术',
+      //   'router': '/qudongjishu',
+      // },
+      // {
+      //   'label': '关于我们',
+      //   'router': '/about',
+      // },
     ]
-  }
+  },
 }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="list-map">
     <div class="item" v-for="(item, index) in dataList" :key="index">
-      <div class="img-box" v-if="item.imgSrc">
-        <img :src="item.imgSrc">
+      <div class="img-box" v-if="item.img">
+        <img :src="`/getPhoto?filename=${item.img}`">
       </div>
       <div class="text-box">
         <router-link class="title" :to="{path: `/marketing/${routeActive}/${item.id}`}">{{ item.title }}</router-link>
@@ -11,9 +11,9 @@
           <div class="iconfont icon-shijian createTime" v-if="item.createTime">{{ item.createTime }}</div>
           <div class="iconfont icon-yonghu publisher" v-if="item.publisher">{{ item.publisher }}</div>
           <div class="iconfont icon-biaoqian tips" v-if="item.tips">
-            <router-link v-for="(tip, i) in item.tips" :key="i" :to="{path: tip.router}">
-              {{ tip.title }}
-            </router-link>
+            <a v-for="(tip, i) in item.tips" :key="i" href="javascript:;">
+              {{ tip }}
+            </a>
           </div>
         </div>
       </div>
@@ -28,10 +28,13 @@ export default {
   data () {
     return {
       dataList: [],
-      routeActive: ''
+      routeActive: '',
     }
   },
   methods: {
+    itemComputed (item) {
+      return JSON.parse(item)
+    },
     getList () {
       var routeInfo = this.$route.fullPath
 
@@ -46,19 +49,37 @@ export default {
       }
     },
     getFAQList () {
-      this.axios.get('/api/marketing/faq').then(({ data }) => {
-        this.dataList = data
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: 0,
+          pageNum: 9999,
+          title: '',
+          tips: JSON.stringify(['a', 'b']),
+        },
+      }).then(({ data }) => {
+        this.dataList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
       })
     },
     getWikiList () {
-      this.axios.get('/api/marketing/wiki').then(({ data }) => {
-        this.dataList = data
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: 0,
+          pageNum: 9999,
+          title: '',
+          tips: JSON.stringify(['a', 'b']),
+        },
+      }).then(({ data }) => {
+        this.dataList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
       })
-    }
+    },
   },
   created () {
     this.getList()
-  }
+  },
 }
 </script>
 

@@ -8,10 +8,18 @@
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose">
-          <el-menu-item index="1">
-            <i class="el-icon-menu"></i>
-            <span slot="title">文章管理</span>
-          </el-menu-item>
+          <router-link :to="{name: 'article'}">
+            <el-menu-item index="1">
+              <i class="el-icon-menu"></i>
+              <span slot="title">文章管理</span>
+            </el-menu-item>
+          </router-link>
+          <router-link :to="{name: 'appCaseManage'}">
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span slot="title">App案例管理</span>
+            </el-menu-item>
+          </router-link>
         </el-menu>
       </el-aside>
       <el-main>

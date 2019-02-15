@@ -107,7 +107,7 @@ export default {
       baipishu: baipishu,
       faqData: faqData,
       tipsData: tipsData,
-      activeName: 'yingxiaobaike'
+      activeName: 'yingxiaobaike',
     }
   },
   methods: {
@@ -117,8 +117,8 @@ export default {
       } else {
         this.$router.push({ path: '/marketing/paper' })
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

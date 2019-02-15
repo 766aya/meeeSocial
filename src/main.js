@@ -41,15 +41,15 @@ Vue.use(ElementUI)
 Vue.use(Avue, Axios)
 Vue.use(VueAxios, Axios)
 
-Axios.interceptors.response.use((response) => {
-  console.log(response)
-  if (response.data.code === 0) {
-    return Promise.resolve(response)
-  } else {
-    router.push({ path: '/login' })
-    return Promise.reject(response)
-  }
-})
+// Axios.interceptors.response.use((response) => {
+//   console.log(response)
+// if (response.data.code === 0) {
+// return Promise.resolve(response)
+// } else {
+// router.push({ path: '/login' })
+// return Promise.reject(response)
+// }
+// })
 
 new Vue({
   router,
