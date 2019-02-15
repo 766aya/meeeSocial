@@ -53,6 +53,9 @@ export const mainDialogTableOption = {
         }, {
           value: 'img',
           label: '图片',
+        }, {
+          value: 'title',
+          label: '标题',
         },
       ],
     }, {

@@ -5,7 +5,7 @@
         <img :src="`/getPhoto?filename=${item.img}`">
       </div>
       <div class="text-box">
-        <router-link class="title" :to="{path: `/marketing/${routeActive}/${item.id}`}">{{ item.title }}</router-link>
+        <router-link class="title" :to="{path: `/marketing/${routeActive}/${item.filename}`}">{{ item.title }}</router-link>
         <div class="desc" >{{ item.desc }}</div>
         <div class="other">
           <div class="iconfont icon-shijian createTime" v-if="item.createTime">{{ item.createTime }}</div>

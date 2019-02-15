@@ -8,6 +8,7 @@
     <el-row :gutter="20" align="middle" type="flex">
       <el-col :span="4">
         <el-select v-model="type">
+          <el-option value="title" label="标题"></el-option>
           <el-option value="text" label="文本"></el-option>
           <el-option value="list" label="列表"></el-option>
           <el-option value="img" label="图片"></el-option>

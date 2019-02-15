@@ -4,9 +4,9 @@
       <h1 class="title">{{ content.title }}</h1>
       <div class="info-box" v-if="content.createTime || content.classification || content.tips">
         <div class="iconfont icon-shijian">{{ content.createTime }}</div>
-        <div class="iconfont icon-biaoqian">{{ content.classification }}</div>
-        <div class="iconfont icon-biaoqian">
-          <a href="javascript" class="tip-item" v-for="(item, index) in content.tips" :key="index">{{ item.title }}</a>
+        <div class="iconfont icon-biaoqian" v-if="content.classification">{{ content.classification }}</div>
+        <div class="iconfont icon-biaoqian" v-if="content.tips">
+          <a href="javascript:;" class="tip-item" v-for="(item, index) in content.tips" :key="index">{{ item }}</a>
         </div>
       </div>
       <div class="content">
@@ -26,7 +26,7 @@
             <p>{{ item.context }}</p>
           </div>
           <div class="img" v-if="item.type === 'img'" :key="index">
-            <img :src="item.context" :style="{width: item.width || '100%'}">
+            <img :src="`/getPhoto?filename=${item.context}`" :style="{width: item.width || '100%'}">
           </div>
         </template>
       </div>
