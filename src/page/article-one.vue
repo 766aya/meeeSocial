@@ -44,26 +44,29 @@ export default {
   name: 'article-one',
   data () {
     return {
-      content: {}
+      content: {},
     }
   },
   watch: {
     '$route.params.id' () {
       this.initPage()
-    }
+    },
   },
   methods: {
     initPage () {
-      // let id = this.$route.params.id
-      this.axios.get(`/api${this.$route.path}`).then(({ data }) => {
-        this.content = data
+      this.axios.get(`/getArticle`, {
+        params: {
+          filename: this.$route.params.id,
+        },
+      }).then(({ data }) => {
+        this.content = JSON.parse(data.data)
         console.log(this.content)
       })
-    }
+    },
   },
   created () {
     this.initPage()
-  }
+  },
 }
 </script>
 
