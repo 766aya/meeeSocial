@@ -69,7 +69,7 @@ export default {
       this.$refs['mainDialog'].open()
     },
     handleUpdate (row) {
-      this.axios.get('/server/getArticle', { params: { filename: row.filename } }).then(({ data }) => {
+      this.axios.get('/getArticle', { params: { filename: row.filename } }).then(({ data }) => {
         this.$refs['mainDialog'].open(JSON.parse(data.data))
       })
     },
@@ -79,7 +79,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.axios.get('/server/delArticle', {
+        this.axios.get('/delArticle', {
           params: row.filename,
         }).then(() => {
           this.$message({

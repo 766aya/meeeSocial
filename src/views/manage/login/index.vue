@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     handleLogin () {
-      this.axios.post('/server/login', this.form).then(res => {
+      this.axios.post('/login', this.form).then(res => {
         console.log('res', res)
       })
     },
