@@ -14,7 +14,8 @@ module.exports.checkCookie = function (req, res, next) {
     return next();
   }
 
-  res.statusCode = 302;
-  res.setHeader('Location', req.headers.referer || "/#/login");
-  res.end();
+  res.json({
+    code: ERR_OTH,
+    msg: "please login first"
+  });
 }
