@@ -11,10 +11,13 @@ export function getMainTableData (params) {
   }
   params.page--
   return axios.get('/server/getBreviaryArticleList', {
-    params: params
+    params: params,
   })
 }
 
 export function saveArticle (formData) {
-  return axios.post('/server/', formData)
+  let date = new Date()
+  formData.createTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  return axios.post('/server/uploadArticle', formData)
 }

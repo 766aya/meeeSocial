@@ -15,7 +15,6 @@
       :option="mainTableOption">
       <template slot-scope="scope" slot="menu">
         <div class="table-btn-group">
-          <gov-button type="text" @click="handleDetail(scope.row)" text="详情"></gov-button>
           <gov-button type="text" @click="handleUpdate(scope.row)" text="修改"></gov-button>
           <gov-button type="text" @click="handleDelete(scope.row)" text="删除"></gov-button>
         </div>
@@ -69,13 +68,10 @@ export default {
     newly () {
       this.$refs['mainDialog'].open()
     },
-    handleDetail (row) {
+    handleUpdate (row) {
       this.axios.get('/server/getArticle', { params: { filename: row.filename } }).then(({ data }) => {
         this.$refs['mainDialog'].open(JSON.parse(data.data))
       })
-    },
-    handleUpdate (row) {
-
     },
     handleDelete (row) {
       this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {

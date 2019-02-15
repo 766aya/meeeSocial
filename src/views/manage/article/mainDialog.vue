@@ -76,7 +76,11 @@ export default {
     },
   },
   methods: {
-    open () {
+    open (formData) {
+      if (formData) {
+        this.form = formData
+        this.mainTableData = formData.content ? formData.content : []
+      }
       this.$refs['dialog'].open()
     },
     close () {
