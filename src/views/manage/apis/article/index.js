@@ -1,14 +1,10 @@
 import axios from 'axios'
 
-export function getMainTableData (params) {
+export function getMainTableData ({ ...params }) {
   if (!params.title) {
-    params.title = '1'
+    params.title = ''
   }
-  if (!params.tags) {
-    params.tags = '[1]'
-  } else {
-    params.tags = `[${params.tags}]`
-  }
+  params.tags = JSON.stringify([])
   params.page--
   return axios.get('/getBreviaryArticleList', {
     params: params,
@@ -20,5 +16,11 @@ export function saveArticle (formData) {
   let date = new Date()
   formData.createTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
   formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
-  return axios.post('/uploadArticle', formData)
+  return axios.post('/uploadArticle', { data: JSON.stringify(formData) })
+}
+
+export function updateArticle (formData) {
+  let date = new Date()
+  formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+  return axios.post('/updateArticle', { data: JSON.stringify(formData) })
 }

@@ -178,7 +178,7 @@ export default new Router({
         },
       ],
     }, {
-      name: 'manege',
+      name: 'manage',
       path: '/manage',
       component: () => import('@/views/manage/index.vue'),
       redirect: { name: 'article' },

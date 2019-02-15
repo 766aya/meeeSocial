@@ -29,7 +29,7 @@ const components = [
   listTitle,
   GovButton,
   GovSearchBar,
-  GovDialog
+  GovDialog,
 ]
 
 components.forEach(component => {
@@ -41,7 +41,17 @@ Vue.use(ElementUI)
 Vue.use(Avue, Axios)
 Vue.use(VueAxios, Axios)
 
+Axios.interceptors.response.use((response) => {
+  console.log(response)
+  if (response.data.code === 0) {
+    return Promise.resolve(response)
+  } else {
+    router.push({ path: '/login' })
+    return Promise.reject(response)
+  }
+})
+
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')

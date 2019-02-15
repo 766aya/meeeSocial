@@ -17,7 +17,7 @@
         <gov-button type="add" @click="handleAddTableData"></gov-button>
         <el-upload
           class="upload-demo2"
-          action="/server/uploadPhoto"
+          action="/uploadPhoto"
           :show-file-list="false"
           :on-success="uploadHeaderImg"
           :disabled="disabled"
@@ -37,7 +37,7 @@
         <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'" v-if="scope.row.type!=='img'"></gov-button>
         <el-upload
           class="upload-demo"
-          action="/server/uploadPhoto"
+          action="/uploadPhoto"
           :show-file-list="false"
           :on-success="uploadSuccess"
           :on-error="uploadError"
@@ -52,7 +52,7 @@
 
 <script>
 import { mainDialogTableOption, mainDialogFormOption } from './const'
-import { saveArticle } from '@/views/manage/apis/article'
+import { saveArticle, updateArticle } from '@/views/manage/apis/article'
 
 export default {
   name: 'mainDialog',
@@ -61,6 +61,9 @@ export default {
       dialogOption: {
         create: {
           title: '新增文章',
+        },
+        update: {
+          title: '修改文章',
         },
       },
       type: 'text',
@@ -91,19 +94,28 @@ export default {
         this.form = formData
         this.mainTableData = formData.content ? formData.content : []
       }
-      this.$refs['dialog'].open()
+      this.$nextTick(() => {
+        this.$refs['dialog'].open()
+      })
     },
     close () {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
       this.form.content = this.mainTableData
-      console.log(this.form)
-      saveArticle(this.form).then(res => {
-        console.log(res)
-        this.close()
-        this.$emit('getList')
-      })
+      if (this.status === 'create') {
+        saveArticle(this.form).then(res => {
+          this.close()
+          this.$message.success('新增成功')
+          this.$emit('getList')
+        })
+      } else {
+        updateArticle(this.form).then(res => {
+          this.close()
+          this.$message.success('修改成功')
+          this.$emit('getList')
+        })
+      }
     },
     handleAddTableData () {
       this.mainTableData.push({

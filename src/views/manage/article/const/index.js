@@ -6,28 +6,28 @@ export const mainTableOption = {
   column: [
     {
       label: '文章名称',
-      prop: 'title'
+      prop: 'title',
     }, {
       label: '文章标签',
       prop: 'tips',
       type: 'dic',
       dicData: [
         { label: 'a', value: 'a' },
-        { label: 'b', value: 'b' }
-      ]
+        { label: 'b', value: 'b' },
+      ],
     }, {
       label: '创建时间',
-      prop: 'createTime'
+      prop: 'createTime',
     }, {
       label: '修改时间',
-      prop: 'updateTime'
+      prop: 'updateTime',
     }, {
       label: '菜单',
       prop: 'menu',
       solt: true,
-      align: 'center'
-    }
-  ]
+      align: 'center',
+    },
+  ],
 }
 
 export const mainDialogTableOption = {
@@ -46,27 +46,27 @@ export const mainDialogTableOption = {
       dicData: [
         {
           value: 'text',
-          label: '文本'
+          label: '文本',
         }, {
           value: 'list',
-          label: '列表'
+          label: '列表',
         }, {
           value: 'img',
-          label: '图片'
-        }
-      ]
+          label: '图片',
+        },
+      ],
     }, {
       label: '内容',
       prop: 'context',
-      cell: true
+      cell: true,
     }, {
       label: '操作',
       prop: 'menu',
       solt: true,
       align: 'center',
-      width: 150
-    }
-  ]
+      width: 150,
+    },
+  ],
 }
 
 export const mainDialogFormOption = {
@@ -76,19 +76,19 @@ export const mainDialogFormOption = {
     {
       label: '文章标题',
       prop: 'title',
-      span: 12
+      span: 12,
     }, {
       label: '描述',
       prop: 'desc',
-      span: 12
+      span: 12,
     }, {
       label: '发布人',
       prop: 'publisher',
       type: 'select',
       dicData: [
         { label: '管理员', value: 'admin' },
-        { label: '飞书互动', value: 'faceBook' }
-      ]
+        { label: '飞书互动', value: 'faceBook' },
+      ],
     }, {
       label: '文章标签',
       prop: 'tips',
@@ -98,8 +98,8 @@ export const mainDialogFormOption = {
         { label: 'FaceBook', value: 'FaceBook' },
         { label: 'faceBook推广', value: 'faceBook推广' },
         { label: 'Instagram广告', value: 'Instagram广告' },
-        { label: 'Instagram广告投放', value: 'Instagram广告投放' }
-      ]
-    }
-  ]
+        { label: 'Instagram广告投放', value: 'Instagram广告投放' },
+      ],
+    },
+  ],
 }

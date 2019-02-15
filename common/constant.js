@@ -12,8 +12,9 @@ module.exports.TMP_DIR = path.join(__dirname, '../server/tmp')
 
 module.exports.CONTENT_TYPE = {
   'png': 'image/png',
-  'jpg': 'image/jpeg'
+  'jpg': 'image/jpeg',
 }
 
-module.exports.USER = "root"
-module.exports.PASSWORD = "!@#$%^&*()qwertyuiop"
+module.exports.USER = 'root'
+module.exports.PASSWORD = '!@#$%^&*()qwertyuiop'
+

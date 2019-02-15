@@ -20,7 +20,7 @@
         </div>
       </template>
     </avue-crud>
-    <mainDialog ref="mainDialog" @getList="getList"></mainDialog>
+    <mainDialog ref="mainDialog" :status="status" @getList="getList"></mainDialog>
   </div>
 </template>
 
@@ -39,10 +39,11 @@ export default {
       formProps: [
         {
           label: '文章名称',
-          prop: 'name',
+          prop: 'title',
         },
       ],
       mainTableData: [],
+      status: 'create',
     }
   },
   computed: {
@@ -66,10 +67,12 @@ export default {
       })
     },
     newly () {
+      this.status = 'create'
       this.$refs['mainDialog'].open({})
     },
     handleUpdate (row) {
       this.axios.get('/getArticle', { params: { filename: row.filename } }).then(({ data }) => {
+        this.status = 'update'
         this.$refs['mainDialog'].open(JSON.parse(data.data))
       })
     },
@@ -80,12 +83,14 @@ export default {
         type: 'warning',
       }).then(() => {
         this.axios.get('/delArticle', {
-          params: row.filename,
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!',
-          })
+          params: { filename: row.filename },
+        }).then(({ data }) => {
+          if (data.code === 0) {
+            this.$message({ type: 'success', message: '删除成功!' })
+            this.getList()
+          } else {
+            this.$message.error('删除失败')
+          }
         })
       }).catch(() => { })
     },

@@ -96,32 +96,32 @@ export default {
         value: 'value',
         label: 'label',
         children: 'children',
-        disabled: 'disabled'
-      }
+        disabled: 'disabled',
+      },
     }
   },
   props: {
     // 是否为radio/select/cascader添加全部
     addAll: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 最多显示几个
     maxShow: {
       type: Number,
-      default: 2
+      default: 2,
     },
     // label位置
     labelPosition: {
       type: String,
-      default: 'right'
+      default: 'right',
     },
     // 搜索参数
     listQuery: {
       type: Object,
       default () {
         return {}
-      }
+      },
     },
     /**
      * 数据格式
@@ -141,18 +141,18 @@ export default {
       type: Array,
       default () {
         return []
-      }
+      },
     },
     resetIgnore: {
       type: Array,
       default: () => {
-        return ['limit', 'page']
-      }
+        return ['pageNum', 'page']
+      },
     },
     isString: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   watch: {
 
@@ -196,8 +196,8 @@ export default {
         }
         this.$set(data, key, result)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

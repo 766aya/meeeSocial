@@ -25,8 +25,13 @@ export default {
   },
   methods: {
     handleLogin () {
-      this.axios.post('/login', this.form).then(res => {
-        console.log('res', res)
+      this.axios.post('/login', this.form).then(({ data }) => {
+        if (data.code === 0) {
+          this.$router.push({ name: 'manage' })
+          this.$message.success('登录成功')
+        } else {
+          this.$message.error(`登录失败！${data.msg}`)
+        }
       })
     },
   },
