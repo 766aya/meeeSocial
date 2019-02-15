@@ -122,8 +122,6 @@ app.get('/getBreviaryArticleList', function (req, res) {
           return -article.date;
         });
 
-        total = fileNames.length;
-
         cb();
       });
     },
@@ -189,6 +187,8 @@ app.get('/getBreviaryArticleList', function (req, res) {
           filteredTitleArticles.push(JSON.stringify(filteredTagsArticles[i]))
         }
       }
+
+      total = filteredTitleArticles.length;
 
       // range
       filteredTitleArticles = filteredTitleArticles.splice(req.query.page * req.query.pageNum, req.query.pageNum);
