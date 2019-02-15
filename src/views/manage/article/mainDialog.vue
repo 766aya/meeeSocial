@@ -51,14 +51,14 @@ export default {
     return {
       dialogOption: {
         create: {
-          title: '新增文章'
-        }
+          title: '新增文章',
+        },
       },
       type: 'text',
       formData: {},
       fileList: [],
       mainTableData: [], // 文章主体内容
-      form: {} // 外层内容
+      form: {}, // 外层内容
     }
   },
   computed: {
@@ -67,13 +67,13 @@ export default {
     },
     mainFormOption () {
       return mainDialogFormOption
-    }
+    },
   },
   props: {
     status: {
       type: String,
-      default: 'create'
-    }
+      default: 'create',
+    },
   },
   methods: {
     open () {
@@ -94,7 +94,7 @@ export default {
     handleAddTableData () {
       this.mainTableData.push({
         type: this.type,
-        context: ''
+        context: '',
       })
     },
     rowCell (row, index) {
@@ -112,12 +112,12 @@ export default {
     handleDelete (index) {
       this.$confirm('你确定要删除该行数据吗？', '提示', {
         confirmButtonText: '确定',
-        cancelButtonText: '取消'
+        cancelButtonText: '取消',
       }).then(() => {
         this.mainTableData.splice(index, 1)
       }).catch(() => {})
-    }
-  }
+    },
+  },
 }
 </script>
 
