@@ -90,118 +90,61 @@ app.get('/getBreviaryArticleList', function (req, res) {
     })
   }
 
-  let fileNames = [];
-  let articles = [];
+  let articles = process.articles;
   let total;
-  async.waterfall([
-    function(cb) {
-      fs.readdir(ASSERTS_DIR, (err, files) => {
-        if(!!err)
-        {
-          cb(err);
-        }
-
-        // filter photoes
-        for(let i = 0; i < files.length; i++)
-        {
-          let fileName = files[i].toString();
-          // check ext
-          const ext = path.extname(fileName).substr(1)
-          if(ext === "breviaryArticle")
-          {
-            const date = fileName.split('_', 1)[0]
-            fileNames.push({
-              date: date,
-              fileName: fileName
-            });
-          }
-        }
-
-        // sort
-        fileNames = _.sortBy(fileNames, article => {
-          return -article.date;
-        });
-
-        cb();
-      });
-    },
-    function(cb) {
-      try
+ 
+  // filter tags
+  let filteredTagsArticles = []
+  let i, j, z
+  for(i = 0; i < articles.length; i++)
+  {
+    for(j = 0; j < req.query.tags.length; j++)
+    {
+      for(z = 0; z < articles[i].tips.length; z++)
       {
-        fileNames.forEach(article => {
-          let filePath = path.join(ASSERTS_DIR, article.fileName)
-          articles.push(JSON.parse(fs.readFileSync(filePath, {encoding: "utf8"})));
-        })
-
-        cb();
-      }
-      catch(err)
-      {
-        return cb(err);
-      }
-      
-    }], err => {
-      if(!!err)
-      {
-        return res.json({
-          code: ERR_SERVER_INNER,
-          msg: `fetch article list failed, ${err}`
-        });
-      }
-
-      // filter tags
-      let filteredTagsArticles = []
-      let i, j, z
-      for(i = 0; i < articles.length; i++)
-      {
-        for(j = 0; j < req.query.tags.length; j++)
+        if(articles[i].tips[z] === req.query.tags[j])
         {
-          for(z = 0; z < articles[i].tips.length; z++)
-          {
-            if(articles[i].tips[z] === req.query.tags[j])
-            {
-              break;
-            }
-          }
-
-          // not found
-          if(z === articles[i].tips.length)
-          {
-            break;
-          }
-        }
-
-        // full match
-        if(j === req.query.tags.length)
-        {
-          filteredTagsArticles.push(articles[i])
+          break;
         }
       }
 
-      // filter title
-      let filteredTitleArticles = []
-      for(let i = 0; i < filteredTagsArticles.length; i++)
+      // not found
+      if(z === articles[i].tips.length)
       {
-        if(filteredTagsArticles[i].title.indexOf(req.query.title) >= 0)
-        {
-          filteredTitleArticles.push(JSON.stringify(filteredTagsArticles[i]))
-        }
+        break;
       }
+    }
 
-      total = filteredTitleArticles.length;
+    // full match
+    if(j === req.query.tags.length)
+    {
+      filteredTagsArticles.push(articles[i])
+    }
+  }
 
-      // range
-      filteredTitleArticles = filteredTitleArticles.splice(req.query.page * req.query.pageNum, req.query.pageNum);
+  // filter title
+  let filteredTitleArticles = []
+  for(let i = 0; i < filteredTagsArticles.length; i++)
+  {
+    if(filteredTagsArticles[i].title.indexOf(req.query.title) >= 0)
+    {
+      filteredTitleArticles.push(JSON.stringify(filteredTagsArticles[i]))
+    }
+  }
 
-      res.json({
-        code: SUCCESS,
-        msg: "",
-        data: {
-          total: total,
-          data: filteredTitleArticles
-        }
-      });
-    })
+  total = filteredTitleArticles.length;
+
+  // range
+  filteredTitleArticles = filteredTitleArticles.splice(req.query.page * req.query.pageNum, req.query.pageNum);
+
+  res.json({
+    code: SUCCESS,
+    msg: "",
+    data: {
+      total: total,
+      data: filteredTitleArticles
+    }
+  });
 })
 
 
@@ -243,6 +186,8 @@ app.get('/delArticle', checkCookie, function (req, res) {
           msg: `del file is failed, ${err}`
         })
       }
+
+      process.cache.update();
 
       res.json({
         code: SUCCESS,

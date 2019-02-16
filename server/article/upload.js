@@ -161,6 +161,8 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
           return;
         }
 
+        process.cache.update();
+
         res.json({
           code: SUCCESS,
           msg: '',
@@ -342,6 +344,8 @@ app.post('/updateArticle', checkCookie, function (req, res) {
           return;
         }
 
+        process.cache.update();
+        
         res.json({
           code: SUCCESS,
           msg: ''
