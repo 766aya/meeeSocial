@@ -5,6 +5,7 @@ const { ERR_ARTICLE_NOT_EXIST, ERR_ARTICLE_HAS_EXIST, ERR_SERVER_INNER, SUCCESS,
 const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const async = require("async")
 const {checkCookie} = require("../user/cookie")
+const {recordArticleClick, recordTagClick} = require('../monitor')
 
 const app = process.app
 
@@ -163,6 +164,13 @@ app.post('/uploadArticle', checkCookie, function (req, res) {
 
         process.cache.update();
 
+        recordArticleClick(fileName)
+
+        for(let i= 0; i < detailJSON.tips.length; i++)
+        {
+          recordTagClick(detailJSON.tips[i])
+        }
+        
         res.json({
           code: SUCCESS,
           msg: '',
@@ -345,7 +353,7 @@ app.post('/updateArticle', checkCookie, function (req, res) {
         }
 
         process.cache.update();
-        
+
         res.json({
           code: SUCCESS,
           msg: ''

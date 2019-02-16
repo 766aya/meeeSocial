@@ -28,7 +28,7 @@ module.exports.recordArticleClick = function(filename)
 			})
 		}, 
 		function(value, cb) {
-			value.num++
+			value.clickNum++
 
 			process.db.put(key, JSON.stringify(value), err => {
 				cb(err)
@@ -66,7 +66,7 @@ module.exports.recordTagClick = function(tag)
 			})
 		}, 
 		function(value, cb) {
-			value.num++
+			value.clickNum++
 
 			process.db.put(key, JSON.stringify(value), err => {
 				cb(err)

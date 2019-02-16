@@ -87,6 +87,8 @@ module.exports.update = module.exports.initFsCache = function(cb)
 			return -tag.num
 		})
 
+		console.log("sortedTags: " + JSON.stringify(sortedTags))
+
 		// 
 		sortedTags.forEach(sortedTag => {
 			tags.push(sortedTag.name)
@@ -146,7 +148,7 @@ module.exports.initDbCache = function()
 			}
 			else
 			{
-				throw new Error(`db is dirty`)
+				throw new Error(`db is dirty, invalid prefix ${prefix}`)
 			}
 		})
 		.on('error', function (err) {
@@ -162,6 +164,10 @@ module.exports.initDbCache = function()
 			tags =_.sortBy(tags, tag => {
 				return - (tag.clickNum * tag.priority)
 			})
+
+			console.log("sortedHotArticles: " + JSON.stringify(artilces))
+
+			console.log("sortedHotTags: " + JSON.stringify(tags))
 
 			//
 			artilces.forEach(artilce => {

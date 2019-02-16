@@ -222,10 +222,10 @@ app.get('/getTags', function (req, res) {
 
 
 app.get('/getHotArticles', function (req, res) {
-  if (!req.query.page) {
+  if (!req.query.num) {
     return res.json({
       code: ERR_PARAM,
-      msg: 'invalid param, need page'
+      msg: 'invalid param, need num'
     })
   }
 
