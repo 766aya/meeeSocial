@@ -101,7 +101,7 @@ module.exports.update = module.exports.init = function(cb)
 
     	process.articles = articles
     	process.tags = tags
-    	console.log(tags)
+
     	process.stoplight.go();
     })
 }
