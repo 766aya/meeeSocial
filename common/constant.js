@@ -23,3 +23,5 @@ module.exports.CONTENT_TYPE = {
 module.exports.USER = 'root'
 module.exports.PASSWORD = '!@#$%^&*()qwertyuiop'
 
+module.exports.MONITOR_ARTICLE_KEY_PREFIX = 'article_'
+module.exports.MONITOR_TAG_KEY_PREFIX = 'tag-'

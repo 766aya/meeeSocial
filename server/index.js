@@ -9,14 +9,13 @@ const cookieParser = require('cookie-parser')
 const { SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../common/constant')
 const Stoplight = require('flow-stoplight')
 const cache = require('./cache')
+const levelup = require('levelup')
+const leveldown = require('leveldown')
 
 const log4js = require('./logConfig')
 const logger = log4js.getLogger()
 const errlogger = log4js.getLogger('err')
 const othlogger = log4js.getLogger('oth')
-
-// init cache
-cache.init()
 
 // express
 const app = express()
@@ -46,6 +45,9 @@ process.stoplight = new Stoplight()
 process.cache = cache
 process.articles = []
 process.tags = []
+process.db = levelup(leveldown('./server/mydb'))
+process.hotArticles = [];
+process.hotTags = []
 
 // logger
 log4js.useLogger(app, logger)
@@ -58,6 +60,10 @@ process.on('uncaughtException', function (err) {
 require('./user')
 require('./article')
 require('./photo')
+
+// init cache
+cache.initFsCache()
+cache.initDbCache()
 
 process.stoplight.await(() => {
   const server = app.listen(8080, function () {

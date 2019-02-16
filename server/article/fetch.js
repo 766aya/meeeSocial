@@ -6,6 +6,7 @@ const { keccak256, stringToBuffer, Buffer } = require('../../common/util')
 const _ = require('underscore')
 const async = require('async')
 const {checkCookie} = require("../user/cookie")
+const {recordArticleClick, recordTagClick} = require('../monitor')
 
 const app = process.app
 
@@ -43,6 +44,8 @@ app.get('/getArticle', function (req, res) {
       msg: '',
       data: data
     })
+
+    recordArticleClick(req.query.filename)
   })
 });
 
@@ -145,6 +148,12 @@ app.get('/getBreviaryArticleList', function (req, res) {
       data: filteredTitleArticles
     }
   });
+
+  for(let i= 0; i < req.query.tags.length; i++)
+  {
+    recordTagClick(req.query.tags[i])
+  }
+  
 })
 
 
@@ -196,7 +205,7 @@ app.get('/delArticle', checkCookie, function (req, res) {
     })
 });
 
-app.get('/getHotTags', function (req, res) {
+app.get('/getTags', function (req, res) {
   if (!req.query.num) {
     return res.json({
       code: ERR_PARAM,
@@ -208,5 +217,36 @@ app.get('/getHotTags', function (req, res) {
     code: SUCCESS,
     msg: '',
     data: process.tags.slice(0, req.query.num)
+  })
+});
+
+
+app.get('/getHotArticles', function (req, res) {
+  if (!req.query.page) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need page'
+    })
+  }
+
+  res.json({
+    code: SUCCESS,
+    msg: '',
+    data: process.hotArticles.slice(0, req.query.num)
+  })
+});
+
+app.get('/getHotTags', function (req, res) {
+  if (!req.query.num) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need num'
+    })
+  }
+
+  res.json({
+    code: SUCCESS,
+    msg: '',
+    data: process.hotTags.slice(0, req.query.num)
   })
 });

@@ -1,11 +1,11 @@
 const process = require('process')
 const path = require('path')
 const fs = require('fs')
-const { ERR_ARTICLE_NOT_EXIST, ERR_SERVER_INNER, SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../common/constant')
+const { MONITOR_ARTICLE_KEY_PREFIX, MONITOR_TAG_KEY_PREFIX, ERR_ARTICLE_NOT_EXIST, ERR_SERVER_INNER, SUCCESS, ERR_PARAM, ERR_PHOTO_EXT_INVALID, ERR_ASSERT_NOT_EXIST, ERR_OTH, ASSERTS_DIR, CONTENT_TYPE } = require('../common/constant')
 const _ = require('underscore')
 const async = require('async')
 
-module.exports.update = module.exports.init = function(cb)
+module.exports.update = module.exports.initFsCache = function(cb)
 {
 	let fileNames = [];
 	let articles = [];
@@ -83,8 +83,13 @@ module.exports.update = module.exports.init = function(cb)
 		}
 
 		// sort tag
-		tags = _.sortBy(tagArray, tag => {
+		let sortedTags = _.sortBy(tagArray, tag => {
 			return -tag.num
+		})
+
+		// 
+		sortedTags.forEach(sortedTag => {
+			tags.push(sortedTag.name)
 		})
 
         cb();
@@ -104,4 +109,72 @@ module.exports.update = module.exports.init = function(cb)
 
     	process.stoplight.go();
     })
+}
+
+module.exports.initDbCache = function()
+{
+	init()
+
+	setInterval(() => {
+		init()
+	}, 60 * 1000)
+	
+	function init()
+	{
+		let artilces = []
+		let tags = []
+
+		process.hotArticles = [];
+		process.hotTags = []
+
+		process.db.createReadStream()
+		.on('data', function (data) {
+			let key = data.key.toString()
+			let value = JSON.parse(data.value.toString())
+
+			let prefixIndex = key.indexOf('_')
+			let prefix = key.substr(0, prefixIndex);
+			value.name = key.substr(prefixIndex + 1);
+
+			if(prefix + '_' === MONITOR_ARTICLE_KEY_PREFIX)
+			{
+				artilces.push(value)
+			}
+			else if(prefix + '_' === MONITOR_TAG_KEY_PREFIX)
+			{
+				tags.push(value)
+			}
+			else
+			{
+				throw new Error(`db is dirty`)
+			}
+		})
+		.on('error', function (err) {
+			throw new Error(`db createReadStream failed, ${err}`)
+		})
+		.on('close', function () {
+			//
+			artilces =_.sortBy(artilces, article => {
+				return - (article.clickNum * article.priority)
+			})
+
+			//
+			tags =_.sortBy(tags, tag => {
+				return - (tag.clickNum * tag.priority)
+			})
+
+			//
+			artilces.forEach(artilce => {
+				process.hotArticles.push(artilce.name)
+			})
+
+			//
+			tags.forEach(tag => {
+				process.hotTags.push(tag.name)
+			})
+		})
+		.on('end', function () {
+			
+		})
+	}
 }
