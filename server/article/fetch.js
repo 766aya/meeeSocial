@@ -195,3 +195,18 @@ app.get('/delArticle', checkCookie, function (req, res) {
       })
     })
 });
+
+app.get('/getHotTags', function (req, res) {
+  if (!req.query.num) {
+    return res.json({
+      code: ERR_PARAM,
+      msg: 'invalid param, need num'
+    })
+  }
+
+  res.json({
+    code: SUCCESS,
+    msg: '',
+    data: process.tags.slice(0, req.query.num)
+  })
+});

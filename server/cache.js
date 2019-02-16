@@ -9,6 +9,8 @@ module.exports.update = module.exports.init = function(cb)
 {
 	let fileNames = [];
 	let articles = [];
+
+	let tagsMap = {}
 	let tags = [];
 
 	async.waterfall([
@@ -55,10 +57,10 @@ module.exports.update = module.exports.init = function(cb)
           articles.push(article);
 
           // compute tag
-          let tagsMap = {}
           for(let i = 0; i < article.tips.length; i++)
           {
           	let tag = article.tips[i]
+
           	if(!tagsMap[tag])
           	{
           		tagsMap[tag] = 1
@@ -68,22 +70,22 @@ module.exports.update = module.exports.init = function(cb)
           		tagsMap[tag]++
           	}
           }
-
-          // convert to array
-          let tagArray = [];
-          for(let key in tagsMap)
-          {
-          	tagArray.push({
-          		name: key,
-          		num: tagsMap[key]
-          	})
-          }
-
-          // sort tag
-          tags = _.sortBy(tagArray, tag => {
-          	return -tag.num
-          })
         })
+
+        // convert to array
+		let tagArray = [];
+		for(let key in tagsMap)
+		{
+			tagArray.push({
+				name: key,
+				num: tagsMap[key]
+			})
+		}
+
+		// sort tag
+		tags = _.sortBy(tagArray, tag => {
+			return -tag.num
+		})
 
         cb();
       }
@@ -99,7 +101,7 @@ module.exports.update = module.exports.init = function(cb)
 
     	process.articles = articles
     	process.tags = tags
-    	
+    	console.log(tags)
     	process.stoplight.go();
     })
 }

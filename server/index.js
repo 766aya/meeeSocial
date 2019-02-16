@@ -44,6 +44,8 @@ process.app = app
 process.cookie = ""
 process.stoplight = new Stoplight()
 process.cache = cache
+process.articles = []
+process.tags = []
 
 // logger
 log4js.useLogger(app, logger)
