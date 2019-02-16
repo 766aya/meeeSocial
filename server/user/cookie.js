@@ -9,7 +9,7 @@ module.exports.checkCookie = function (req, res, next) {
   // Get the visitor sid set in the cookie
   var sid = cookies.sid;
 
-  if(sid === process.sid)
+  if(process.sid && sid === process.sid)
   {
     return next();
   }
