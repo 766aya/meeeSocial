@@ -41,15 +41,16 @@ Vue.use(ElementUI)
 Vue.use(Avue, Axios)
 Vue.use(VueAxios, Axios)
 
-// Axios.interceptors.response.use((response) => {
-//   console.log(response)
-// if (response.data.code === 0) {
-// return Promise.resolve(response)
-// } else {
-// router.push({ path: '/login' })
-// return Promise.reject(response)
-// }
-// })
+Axios.interceptors.response.use((response) => {
+  console.log(response)
+  if (response.data.code === 7) {
+    router.push({ path: '/login' })
+    ElementUI.Message.error('用户未登录，请先登录')
+    return Promise.reject(response)
+  } else {
+    return Promise.resolve(response)
+  }
+})
 
 new Vue({
   router,

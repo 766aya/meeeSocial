@@ -35,16 +35,7 @@
       @row-update="rowUpdate"
     >
       <template slot-scope="scope" slot="menu">
-        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'" v-if="scope.row.type!=='img'"></gov-button>
-        <el-upload
-          class="upload-demo"
-          action="/uploadPhoto"
-          :show-file-list="false"
-          :on-success="uploadSuccess"
-          :on-error="uploadError"
-          v-if="scope.row.type==='img'">
-          <gov-button type="text" text="上传图片" @click="uploadRowIndex(scope.row.$index)"></gov-button>
-        </el-upload>
+        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'"></gov-button>
         <gov-button type="text" @click="handleDelete(scope.row.$index)" text="删除"></gov-button>
       </template>
     </avue-crud>
@@ -53,7 +44,7 @@
 
 <script>
 import { mainDialogTableOption, mainDialogFormOption } from './const'
-import { saveArticle, updateArticle } from '@/views/manage/apis/article'
+import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/case'
 
 export default {
   name: 'mainDialog',
@@ -69,7 +60,19 @@ export default {
       },
       type: 'text',
       formData: {},
-      mainTableData: [], // 文章主体内容
+      mainTableData: [
+        {
+          type: '成功案例',
+        }, {
+          type: '品牌故事',
+        }, {
+          type: '营销目标',
+        }, {
+          type: '解决方案',
+        }, {
+          type: '品牌成功',
+        },
+      ], // 文章主体内容
       form: {}, // 外层内容
       openRowIndex: 0,
       disabled: false,
@@ -105,13 +108,13 @@ export default {
     handleSubmit () {
       this.form.content = this.mainTableData
       if (this.status === 'create') {
-        saveArticle(this.form).then(res => {
+        saveCaseArticle(this.form).then(res => {
           this.close()
           this.$message.success('新增成功')
           this.$emit('getList')
         })
       } else {
-        updateArticle(this.form).then(res => {
+        updateCaseArticle(this.form).then(res => {
           this.close()
           this.$message.success('修改成功')
           this.$emit('getList')

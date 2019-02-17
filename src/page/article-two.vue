@@ -3,7 +3,7 @@
     <div class="header">
       <div>
         <img :src="content.img">
-        <img class="logo" :src="content.logo">
+        <img class="logo" v-if="content.logo" :src="content.logo">
       </div>
     </div>
     <h1 class="title">{{ content.title }}</h1>
@@ -48,13 +48,13 @@ export default {
   name: 'article-one',
   data () {
     return {
-      content: {}
+      content: {},
     }
   },
   watch: {
     '$route.params.id' () {
       this.initPage()
-    }
+    },
   },
   methods: {
     initPage () {
@@ -63,11 +63,11 @@ export default {
         this.content = data
         console.log(this.content)
       })
-    }
+    },
   },
   created () {
     this.initPage()
-  }
+  },
 }
 </script>
 

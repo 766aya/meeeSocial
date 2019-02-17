@@ -7,7 +7,7 @@
           <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="form.password" placeholder="请输入密码"></el-input>
+          <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
         </el-form-item>
       </el-form>
       <gov-button type="primary" @click="handleLogin">登录</gov-button>
@@ -20,7 +20,10 @@ export default {
   name: 'login',
   data () {
     return {
-      form: {},
+      form: {
+        username: 'root',
+        password: '!@#$%^&*()qwertyuiop',
+      },
     }
   },
   methods: {
