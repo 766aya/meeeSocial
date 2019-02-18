@@ -53,8 +53,8 @@
       </div>
     </div>
     <div class="content">
-      <router-link class="item" :to="{path: routerTo(item.type, item.id)}" href="javascript:;" v-for="(item, index) in contentList" :key="index">
-        <img :src="item.img">
+      <router-link class="item" :to="{path: routerTo(item.type, item.filename )}" href="javascript:;" v-for="(item, index) in contentList" :key="index">
+        <img :src="`/getPhoto?filename=${item.img}`">
         <h3>{{ item.title }}</h3>
         <p>{{ item.desc }}</p>
         <span>{{ item.createTime }}</span>
@@ -64,9 +64,9 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :page-size="12"
-        :current-page="1"
-        :total="36">
+        :page-size="page.limit"
+        :current-page="page.page"
+        :total="page.total">
       </el-pagination>
     </div>
   </div>
@@ -77,33 +77,38 @@ export default {
   name: 'caseChange',
   data () {
     return {
+      page: {
+        total: 0,
+        page: 1,
+        limit: 4,
+      },
       caseTitleList: [
         {
           title: '全部案例',
           type: 0,
-          router: '/case/index'
+          router: '/case/index',
         }, {
           title: '游戏案例',
           type: 1,
-          router: '/case/gameCase'
+          router: '/case/gameCase',
         }, {
           title: 'APP案例',
           type: 2,
-          router: '/case/appCase'
+          router: '/case/appCase',
         }, {
           title: '品牌案例',
           type: 3,
-          router: '/case/brandCase'
+          router: '/case/brandCase',
         }, {
           title: '电商案例',
           type: 4,
-          router: '/case/shopCase'
-        }
+          router: '/case/shopCase',
+        },
       ],
       channelList: [
         { label: '不限', value: '' },
         { label: 'FaceBook营销案例', value: '1' },
-        { label: 'Instagram营销案例', value: '2' }
+        { label: 'Instagram营销案例', value: '2' },
       ],
       regionList: [
         { label: '不限', value: '' },
@@ -113,21 +118,21 @@ export default {
         { label: '北美', value: '4' },
         { label: '中东', value: '5' },
         { label: '非洲', value: '6' },
-        { label: '大洋洲', value: '7' }
+        { label: '大洋洲', value: '7' },
       ],
       targetList: [
         { label: '不限', value: '' },
         { label: '品牌认知', value: '1' },
         { label: '购买意向', value: '2' },
-        { label: '转化', value: '3' }
+        { label: '转化', value: '3' },
       ],
       listQuery: {
         type: 0,
         channel: '',
         region: '',
-        target: ''
+        target: '',
       },
-      contentList: []
+      contentList: [],
     }
   },
   watch: {
@@ -135,18 +140,33 @@ export default {
       deep: true,
       handler () {
         this.getList()
-      }
-    }
+      },
+    },
+    page: {
+      deep: true,
+      handler (newVal) {
+        console.log(newVal)
+        this.getList()
+      },
+    },
   },
   methods: {
     changeSearchCondtion (value, field) {
       this.listQuery[field] = value
     },
     getList () {
-      this.axios.get('/api/case/allCase', {
-        params: this.listQuery
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: this.page.page - 1,
+          pageNum: this.page.limit,
+          title: '',
+          tips: JSON.stringify(['a', 'b']),
+        },
       }).then(({ data }) => {
-        this.contentList = data
+        this.page.total = data.data.total
+        this.contentList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
       })
     },
     routerTo (type, id) {
@@ -160,13 +180,13 @@ export default {
         case 'shop':
           return `/case/shopCase/${id}`
         default:
-          return `/case`
+          return `/case/appCase/${id}`
       }
-    }
+    },
   },
   created () {
     this.getList()
-  }
+  },
 }
 </script>
 

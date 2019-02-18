@@ -2,7 +2,7 @@
   <div id="article-two">
     <div class="header">
       <div>
-        <img :src="content.img">
+        <img :src="`/getPhoto?filename=${content.img}`">
         <img class="logo" v-if="content.logo" :src="content.logo">
       </div>
     </div>
@@ -11,16 +11,16 @@
       <div class="iconfont icon-yonghu" v-if="content.publisher">{{ content.publisher }}</div>
       <div class="iconfont icon-shijian" v-if="content.createTime">{{ content.createTime }}</div>
       <div class="iconfont icon-biaoqian" v-if="content.classification">{{ content.classification }}</div>
-      <div class="iconfont icon-biaoqian">
-        <a href="javascript" class="tip-item" v-for="(item, index) in content.tips" :key="index">{{ item.title }}</a>
+      <div class="iconfont icon-biaoqian" v-if="content.tips">
+        <a href="javascript:;" class="tip-item" v-for="(item, index) in content.tips" :key="index">{{ item }}</a>
       </div>
     </div>
     <div class="content">
       <h1 class="title success">成功案例</h1>
-      <p class="text" v-if="content.content.success">{{ content.content.success }}</p>
-      <div class="datas">
+      <p class="text" v-if="content.data[0].context">{{ content.data[0].context }}</p>
+      <div class="datas" v-if="content.data.datas">
         <div class="content">
-          <div class="item" v-for="(item, index) in content.content.datas" :key="index">
+          <div class="item" v-for="(item, index) in content.data.datas" :key="index">
             <div class="data">
               <h1>{{item.number}}</h1>
               <h2>{{item.symbol}}</h2>
@@ -30,15 +30,15 @@
         </div>
       </div>
       <h1 class="title brand">品牌故事</h1>
-      <p class="text" v-if="content.content.brand">{{ content.content.brand }}</p>
+      <p class="text" v-if="content.data[1].context">{{ content.data[1].context }}</p>
       <h1 class="title marking">营销目标</h1>
-      <p class="text" v-if="content.content.marking">{{ content.content.marking }}</p>
+      <p class="text" v-if="content.data[2].context">{{ content.data[2].context }}</p>
       <div class="programme">
         <h1 class="title programme">解决方案</h1>
-        <p class="text programme" v-if="content.content.programme">{{ content.content.programme }}</p>
+        <p class="text programme" v-if="content.data[3].context">{{ content.data[3].context }}</p>
       </div>
       <h1 class="title solution">品牌成功</h1>
-      <p class="text">{{ content.content.solution }}</p>
+      <p class="text" v-if="content.data[4].context">{{ content.data[4].context }}</p>
     </div>
   </div>
 </template>
@@ -58,9 +58,12 @@ export default {
   },
   methods: {
     initPage () {
-      // let id = this.$route.params.id
-      this.axios.get(`/api${this.$route.path}`).then(({ data }) => {
-        this.content = data
+      this.axios.get(`/getArticle`, {
+        params: {
+          filename: this.$route.params.id,
+        },
+      }).then(({ data }) => {
+        this.content = JSON.parse(data.data)
         console.log(this.content)
       })
     },

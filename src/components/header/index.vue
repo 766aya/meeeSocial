@@ -21,14 +21,14 @@
         </div>
         <div class="h50 menu-layout">
           <div class="menus">
-            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @click="changeMenuActive(index)" @mouseover="changeMenuShow(index)" @mouseleave="clearMenuShow">
+            <div v-for="(item, index) in menuList" :key="item.label" class="menu-box" @click="changeMenuActive(index)" @mouseover="changeMenuShow(index)">
               <router-link
                 class="menu-item"
-                :class="menuActive === index ? 'router-link-active' : ''"
+                :class="menuActive === index || menuChildrenShow === index ? 'router-link-active active' : ''"
                 :to="{ path: item.router }">
                 {{ item.label }}
               </router-link>
-              <div class="menu-dropdown" v-show="menuChildrenShow === index">
+              <div class="menu-dropdown" v-show="menuChildrenShow === index" @mouseleave="clearMenuShow">
                 <div v-for="menu in item.children" :key="menu.label">
                   <router-link v-if="!menu.type" class="menu-children" :to="menu.router">{{ menu.label }}</router-link>
                   <a v-else class="menu-children" href="javascript:;" @click="anchorLink(menu.router)">{{ menu.label }}</a>
@@ -133,28 +133,28 @@ export default {
           },
         ],
       },
-      // {
-      //   'label': '成功案例',
-      //   'router': '/case',
-      //   'children': [
-      //     {
-      //       'label': '游戏案例',
-      //       'router': '/case/gameCase',
-      //     },
-      //     {
-      //       'label': 'APP案例',
-      //       'router': '/case/appCase',
-      //     },
-      //     {
-      //       'label': '品牌案例',
-      //       'router': '/case/brandCase',
-      //     },
-      //     {
-      //       'label': '电商案例',
-      //       'router': '/case/shopCase',
-      //     },
-      //   ],
-      // },
+      {
+        'label': '成功案例',
+        'router': '/case',
+        'children': [
+          {
+            'label': '游戏案例',
+            'router': '/case/gameCase',
+          },
+          {
+            'label': 'APP案例',
+            'router': '/case/appCase',
+          },
+          {
+            'label': '品牌案例',
+            'router': '/case/brandCase',
+          },
+          {
+            'label': '电商案例',
+            'router': '/case/shopCase',
+          },
+        ],
+      },
       // {
       //   'label': '渠道资讯',
       //   'router': '/qudaozixun',

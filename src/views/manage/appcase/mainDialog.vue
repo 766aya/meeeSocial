@@ -106,7 +106,7 @@ export default {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
-      this.form.content = this.mainTableData
+      this.form.data = this.mainTableData
       if (this.status === 'create') {
         saveCaseArticle(this.form).then(res => {
           this.close()
