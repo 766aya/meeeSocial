@@ -52,10 +52,10 @@ export default {
     return {
       dialogOption: {
         create: {
-          title: '新增文章',
+          title: '新增案例',
         },
         update: {
-          title: '修改文章',
+          title: '修改案例',
         },
       },
       type: 'text',
@@ -106,6 +106,10 @@ export default {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
+      if (!this.form.img) {
+        this.$message.error('请上传封面图片！')
+        return false
+      }
       this.form.data = this.mainTableData
       if (this.status === 'create') {
         saveCaseArticle(this.form).then(res => {

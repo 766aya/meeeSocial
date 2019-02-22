@@ -44,8 +44,12 @@ export default {
       } else if (routeInfo.indexOf('wiki') > -1) {
         this.routeActive = 'wiki'
         this.getWikiList()
+      } else if (routeInfo.indexOf('course') > -1) {
+        this.routeActive = 'course'
+        this.getVedioList()
       } else {
-        console.log(routeInfo)
+        this.routeActive = 'faq'
+        this.getFAQList()
       }
     },
     getFAQList () {
@@ -54,7 +58,21 @@ export default {
           page: 0,
           pageNum: 9999,
           title: '',
-          tips: JSON.stringify(['a', 'b']),
+          tags: JSON.stringify(['互动问答']),
+        },
+      }).then(({ data }) => {
+        this.dataList = data.data.data.map((item) => {
+          return JSON.parse(item)
+        })
+      })
+    },
+    getVedioList () {
+      this.axios.get('/getBreviaryArticleList', {
+        params: {
+          page: 0,
+          pageNum: 9999,
+          title: '',
+          tags: JSON.stringify(['在线课堂']),
         },
       }).then(({ data }) => {
         this.dataList = data.data.data.map((item) => {
@@ -68,7 +86,7 @@ export default {
           page: 0,
           pageNum: 9999,
           title: '',
-          tips: JSON.stringify(['a', 'b']),
+          tags: JSON.stringify(['营销百科']),
         },
       }).then(({ data }) => {
         this.dataList = data.data.data.map((item) => {

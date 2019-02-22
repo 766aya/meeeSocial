@@ -177,10 +177,10 @@ export default {
             'label': '互动问答',
             'router': '/marketing/faq',
           },
-          // {
-          //   'label': '在线课堂',
-          //   'router': '/marketing/course',
-          // },
+          {
+            'label': '在线课堂',
+            'router': '/marketing/course',
+          },
           {
             'label': '营销百科',
             'router': '/marketing/wiki',

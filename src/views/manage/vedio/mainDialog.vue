@@ -6,16 +6,7 @@
     ref="dialog">
     <avue-form ref="mainForm" :option="mainFormOption" v-model="form"></avue-form>
     <el-row :gutter="20" align="middle" type="flex">
-      <el-col :span="4">
-        <el-select v-model="type">
-          <el-option value="title" label="标题"></el-option>
-          <el-option value="text" label="文本"></el-option>
-          <el-option value="list" label="列表"></el-option>
-          <el-option value="img" label="图片"></el-option>
-        </el-select>
-      </el-col>
       <el-col span="20">
-        <gov-button type="add" @click="handleAddTableData"></gov-button>
         <el-upload
           class="upload-demo2"
           action="/uploadPhoto"
@@ -35,16 +26,7 @@
       @row-update="rowUpdate"
     >
       <template slot-scope="scope" slot="menu">
-        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'" v-if="scope.row.type!=='img'"></gov-button>
-        <el-upload
-          class="upload-demo"
-          action="/uploadPhoto"
-          :show-file-list="false"
-          :on-success="uploadSuccess"
-          :on-error="uploadError"
-          v-if="scope.row.type==='img'">
-          <gov-button type="text" text="上传图片" @click="uploadRowIndex(scope.row.$index)"></gov-button>
-        </el-upload>
+        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'"></gov-button>
         <gov-button type="text" @click="handleDelete(scope.row.$index)" text="删除"></gov-button>
       </template>
     </avue-crud>
@@ -53,7 +35,7 @@
 
 <script>
 import { mainDialogTableOption, mainDialogFormOption } from './const'
-import { saveArticle, updateArticle } from '@/views/manage/apis/article'
+import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/vedio'
 
 export default {
   name: 'mainDialog',
@@ -61,15 +43,19 @@ export default {
     return {
       dialogOption: {
         create: {
-          title: '新增文章',
+          title: '新增视频',
         },
         update: {
-          title: '修改文章',
+          title: '修改视频',
         },
       },
       type: 'text',
       formData: {},
-      mainTableData: [], // 文章主体内容
+      mainTableData: [
+        {
+          type: '视频地址',
+        },
+      ], // 文章主体内容
       form: {}, // 外层内容
       openRowIndex: 0,
       disabled: false,
@@ -107,26 +93,20 @@ export default {
         this.$message.error('请上传封面图片！')
         return false
       }
-      this.form.content = this.mainTableData
+      this.form.data = this.mainTableData
       if (this.status === 'create') {
-        saveArticle(this.form).then(res => {
+        saveCaseArticle(this.form).then(res => {
           this.close()
           this.$message.success('新增成功')
           this.$emit('getList')
         })
       } else {
-        updateArticle(this.form).then(res => {
+        updateCaseArticle(this.form).then(res => {
           this.close()
           this.$message.success('修改成功')
           this.$emit('getList')
         })
       }
-    },
-    handleAddTableData () {
-      this.mainTableData.push({
-        type: this.type,
-        context: '',
-      })
     },
     rowCell (row, index) {
       console.log(row, index)

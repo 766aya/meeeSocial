@@ -159,6 +159,22 @@ export default new Router({
                 text: true,
                 title: 'paper',
               },
+            }, {
+              path: '/marketing/course',
+              component: () => import('@/views/marketing/acticleList.vue'),
+              meta: {
+                label: '在线课堂',
+                text: true,
+                title: 'course',
+              },
+            }, {
+              path: '/marketing/course/:id',
+              component: () => import('@/page/article-vedio.vue'),
+              meta: {
+                label: '在线课堂',
+                text: true,
+                title: 'course',
+              },
             },
           ],
         }, {
@@ -195,6 +211,10 @@ export default new Router({
           name: 'appCaseManage',
           path: 'appCaseManage',
           component: () => import('@/views/manage/appcase/index.vue'),
+        }, {
+          name: 'vedio',
+          path: 'vedioManage',
+          component: () => import('@/views/manage/vedio/index.vue'),
         },
       ],
     }, {

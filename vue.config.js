@@ -17,6 +17,7 @@ module.exports = {
       '/': {
         target: 'http://123.157.68.243:10014/',
         changeOrigin: true,
+        ws: true,
         pathRewrite: {
           '^/': '/',
         },

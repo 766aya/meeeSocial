@@ -42,7 +42,6 @@ Vue.use(Avue, Axios)
 Vue.use(VueAxios, Axios)
 
 Axios.interceptors.response.use((response) => {
-  console.log(response)
   if (response.data.code === 7) {
     router.push({ path: '/login' })
     ElementUI.Message.error('用户未登录，请先登录')

@@ -16,9 +16,9 @@ export default {
   components: { caseTabs },
   data () {
     return {
-      learnMoreUrl: ''
+      learnMoreUrl: '',
     }
-  }
+  },
 }
 </script>
 

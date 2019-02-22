@@ -61,16 +61,13 @@ export default {
           page: 0,
           pageNum: 5,
           title: '',
-          tips: JSON.stringify(['a', 'b']),
+          tags: JSON.stringify(['文章', '行业资讯']),
         },
       }).then(({ data }) => {
         this.newsList = data.data.data.map((item) => {
           return JSON.parse(item)
         })
       })
-      // this.axios.get('/api/marketing/news').then(({ data }) => {
-      //   this.newsList = data.length > 4 ? data.slice(0, 4) : data
-      // })
     },
     getFAQList () {
       this.axios.get('/getBreviaryArticleList', {
@@ -78,7 +75,7 @@ export default {
           page: 0,
           pageNum: 5,
           title: '',
-          tips: JSON.stringify(['a', 'b']),
+          tags: JSON.stringify(['文章', '互动问答']),
         },
       }).then(({ data }) => {
         this.faqList = data.data.data.map((item) => {
@@ -92,7 +89,7 @@ export default {
           page: 0,
           pageNum: 5,
           title: '',
-          tips: JSON.stringify(['a', 'b']),
+          tags: JSON.stringify(['文章', '营销百科']),
         },
       }).then(({ data }) => {
         this.wikiList = data.data.data.map((item) => {

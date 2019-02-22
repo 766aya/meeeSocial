@@ -65,9 +65,6 @@ export const mainDialogTableOption = {
           label: '标题',
         },
       ],
-      rules: [
-        {}
-      ]
     }, {
       label: '内容',
       prop: 'context',
@@ -103,15 +100,13 @@ export const mainDialogFormOption = {
         { label: '飞书互动', value: 'faceBook' },
       ],
     }, {
-      label: '文章标签',
+      label: '视频标签',
       prop: 'tips',
       type: 'select',
       multiple: true,
       dicData: [
-        { label: 'FaceBook', value: 'FaceBook' },
-        { label: 'faceBook推广', value: 'faceBook推广' },
-        { label: 'Instagram广告', value: 'Instagram广告' },
-        { label: 'Instagram广告投放', value: 'Instagram广告投放' },
+        { label: '马上开课', value: '马上开课' },
+        { label: '课程回播', value: '课程回播' },
       ],
     },
   ],

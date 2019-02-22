@@ -17,7 +17,13 @@
           <router-link :to="{name: 'appCaseManage'}">
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">App案例管理</span>
+              <span slot="title">案例管理</span>
+            </el-menu-item>
+          </router-link>
+          <router-link :to="{name: 'vedio'}">
+            <el-menu-item index="3">
+              <i class="el-icon-menu"></i>
+              <span slot="title">视频管理</span>
             </el-menu-item>
           </router-link>
         </el-menu>
