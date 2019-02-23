@@ -64,6 +64,13 @@ export default new Router({
                 text: true,
               },
             }, {
+              path: 'gameCase/:id',
+              component: () => import('@/page/article-two.vue'),
+              meta: {
+                label: '游戏案例',
+                text: true,
+              },
+            }, {
               path: 'brandCase',
               component: () => import('@/views/case/index'),
               meta: {
@@ -71,8 +78,22 @@ export default new Router({
                 text: true,
               },
             }, {
+              path: 'brandCase/:id',
+              component: () => import('@/page/article-two.vue'),
+              meta: {
+                label: '品牌案例',
+                text: true,
+              },
+            }, {
               path: 'shopCase',
               component: () => import('@/views/case/index'),
+              meta: {
+                label: '电商案例',
+                text: true,
+              },
+            }, {
+              path: 'shopCase/:id',
+              component: () => import('@/page/article-two.vue'),
               meta: {
                 label: '电商案例',
                 text: true,
@@ -175,6 +196,15 @@ export default new Router({
                 text: true,
                 title: 'course',
               },
+            }, {
+
+              path: '/marketing/bannerTo/:id',
+              component: () => import('@/page/article-one.vue'),
+              meta: {
+                label: '轮播跳转',
+                text: true,
+                title: 'banner',
+              },
             },
           ],
         }, {
@@ -215,6 +245,10 @@ export default new Router({
           name: 'vedio',
           path: 'vedioManage',
           component: () => import('@/views/manage/vedio/index.vue'),
+        }, {
+          name: 'banner',
+          path: 'bannerManage',
+          component: () => import('@/views/manage/banner/index.vue'),
         },
       ],
     }, {

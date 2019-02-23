@@ -78,7 +78,7 @@
         <div class="desc">
           <ul>
             <li v-for="item in wikiList" :key="item.createTime">
-              <router-link :to="{path: `/marketing/wiki/${item.filename}`}">善用Facebook数字营销，领跑消费电子品市场</router-link>
+              <router-link :to="{path: `/marketing/wiki/${item.filename}`}">{{ item.title }}</router-link>
             </li>
           </ul>
         </div>
@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import tipsData from './tips.json'
+import tipsData from './tips.json';
 
 export default {
   name: 'marketing',

@@ -5,9 +5,7 @@
         <router-link
           :class=" routerList.length-1 === index ? 'link' : 'link-style'"
           :to="{path: routerList.length-1 === index ? '' : item.path}"
-        >
-          {{ item.name }}
-        </router-link>
+        >{{ item.name }}</router-link>
         <span class="distance" v-if="routerList.length-1 !== index">></span>
       </div>
     </div>
@@ -31,31 +29,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #crumbs {
+#crumbs {
+  width: 100%;
+  height: 50px;
+  background: #f4f4f4;
+  .content {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    height: 50px;
-    background: #F4F4F4;
-    .content {
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      line-height: 50px;
-      .distance {
-        margin: 0px 10px;
-        cursor: default;
-      }
-      .link-style {
-        color: #666666;
-        &:hover {
-          color: #2872EE;
-        }
-      }
-      .link {
-        color: #666666;
-        cursor: default;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 50px;
+    .distance {
+      margin: 0px 10px;
+      cursor: default;
+    }
+    .link-style {
+      color: #666666;
+      &:hover {
+        color: #2872ee;
       }
     }
+    .link {
+      color: #666666;
+      cursor: default;
+    }
   }
+}
 </style>

@@ -7,7 +7,8 @@
           default-active="2"
           class="el-menu-vertical-demo"
           @open="handleOpen"
-          @close="handleClose">
+          @close="handleClose"
+        >
           <router-link :to="{name: 'article'}">
             <el-menu-item index="1">
               <i class="el-icon-menu"></i>
@@ -26,6 +27,12 @@
               <span slot="title">视频管理</span>
             </el-menu-item>
           </router-link>
+          <router-link :to="{name: 'banner'}">
+            <el-menu-item index="4">
+              <i class="el-icon-menu"></i>
+              <span slot="title">轮播管理</span>
+            </el-menu-item>
+          </router-link>
         </el-menu>
       </el-aside>
       <el-main>
@@ -39,30 +46,28 @@
 export default {
   name: 'manage',
   data () {
-    return {
-
-    }
+    return {}
   },
 }
 </script>
 
 <style lang="scss" scoped>
-  #container {
-    height: 100vh;
-    width: 100%;
+#container {
+  height: 100vh;
+  width: 100%;
+}
+.header-bar {
+  text-align: center;
+  color: #000000;
+  line-height: 60px;
+  font-size: 25px;
+  background: #eeeeee;
+}
+.aside-bar {
+  border-right: 1px solid #eeeeee;
+  height: 100%;
+  > .el-menu {
+    border-right: none;
   }
-  .header-bar {
-    text-align: center;
-    color: #000000;
-    line-height: 60px;
-    font-size: 25px;
-    background: #EEEEEE;
-  }
-  .aside-bar {
-    border-right: 1px solid #EEEEEE;
-    height: 100%;
-    > .el-menu {
-      border-right: none;
-    }
-  }
+}
 </style>

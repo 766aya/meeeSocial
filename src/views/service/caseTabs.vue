@@ -18,11 +18,7 @@
     >
       <el-carousel :interval="3000" type="card" height="400px" v-if="key === actived">
         <el-carousel-item v-for="item in items" :key="item.title" class="carousel-item">
-          <router-link
-            class="carousel-link"
-            :to="computedLinkTo(actived, item.filename)"
-            target="_blank"
-          >
+          <router-link class="carousel-link" :to="{ path: `/case/${actived}/${item.filename}` }">
             <div class="img-box">
               <img :src="`/getPhoto?filename=${item.img}`">
             </div>
@@ -45,28 +41,28 @@ export default {
       dataList: [
         {
           name: '游戏案例',
-          key: 'game',
+          key: 'gameCase',
         },
         {
           name: 'APP案例',
-          key: 'app',
+          key: 'appCase',
         },
         {
           name: '品牌案例',
-          key: 'brand',
+          key: 'brandCase',
         },
         {
           name: '电商案例',
-          key: 'ec',
+          key: 'shopCase',
         },
       ],
       carouselList: {
-        game: [],
-        app: [],
-        brand: [],
-        ec: [],
+        gameCase: [],
+        appCase: [],
+        brandCase: [],
+        shopCase: [],
       },
-      actived: 'game',
+      actived: 'gameCase',
     }
   },
   created () {
@@ -98,25 +94,23 @@ export default {
               return JSON.parse(item)
             })
             if (item.indexOf('游戏案例') > -1) {
-              this.$set(this.carouselList, 'game', dataV)
+              this.$set(this.carouselList, 'gameCase', dataV)
             }
             if (item.indexOf('APP案例') > -1) {
-              this.$set(this.carouselList, 'app', dataV)
+              this.$set(this.carouselList, 'appCase', dataV)
             }
             if (item.indexOf('品牌案例') > -1) {
-              this.$set(this.carouselList, 'brand', dataV)
+              this.$set(this.carouselList, 'brandCase', dataV)
             }
             if (item.indexOf('电商案例') > -1) {
-              this.$set(this.carouselList, 'ec', dataV)
+              this.$set(this.carouselList, 'shopCase', dataV)
             }
           })
       })
     },
-    computedLinkTo (item, filename) {
-      console.log(item, filename)
-      return ''
-      // if (item === '') {
-      // }
+    computedLinkTo (type, filename) {
+      console.log(`/case/${type}/${filename}`)
+      return `/case/appcase/${filename}`
     },
   },
 }
