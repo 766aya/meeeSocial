@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import service from './service';
-import advantage from './advantage';
-import sideBox from './sideBox';
-import latestCase from './latestCase';
-import faq from './faq';
+import service from './service'
+import advantage from './advantage'
+import sideBox from './sideBox'
+import latestCase from './latestCase'
+import faq from './faq'
 
 export default {
   name: 'service',

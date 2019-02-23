@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import { mainDialogFormOption } from './const';
-import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/banner';
-import mixin from './const/mixin';
+import { mainDialogFormOption } from './const'
+import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/banner'
+import mixin from './const/mixin'
 export default {
   name: 'mainDialog',
   mixins: [mixin],

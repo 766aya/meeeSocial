@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import tipsData from './tips.json';
+import tipsData from './tips.json'
 
 export default {
   name: 'marketing',
