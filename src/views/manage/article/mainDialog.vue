@@ -3,7 +3,8 @@
     :title="dialogOption[status].title"
     width="80%"
     @handleSubmit="handleSubmit"
-    ref="dialog">
+    ref="dialog"
+  >
     <avue-form ref="mainForm" :option="mainFormOption" v-model="form"></avue-form>
     <el-row :gutter="20" align="middle" type="flex">
       <el-col :span="4">
@@ -22,7 +23,8 @@
           :show-file-list="false"
           :on-success="uploadHeaderImg"
           :disabled="disabled"
-          :on-error="uploadError">
+          :on-error="uploadError"
+        >
           <gov-button type="primary" text="上传封面图片" :disabled="disabled"></gov-button>
         </el-upload>
       </el-col>
@@ -35,14 +37,20 @@
       @row-update="rowUpdate"
     >
       <template slot-scope="scope" slot="menu">
-        <gov-button type="text" @click="rowCell(scope.row, scope.row.$index)" :text="scope.row.$cellEdit ? '保存' : '修改'" v-if="scope.row.type!=='img'"></gov-button>
+        <gov-button
+          type="text"
+          @click="rowCell(scope.row, scope.row.$index)"
+          :text="scope.row.$cellEdit ? '保存' : '修改'"
+          v-if="scope.row.type!=='img'"
+        ></gov-button>
         <el-upload
           class="upload-demo"
           action="/uploadPhoto"
           :show-file-list="false"
           :on-success="uploadSuccess"
           :on-error="uploadError"
-          v-if="scope.row.type==='img'">
+          v-if="scope.row.type==='img'"
+        >
           <gov-button type="text" text="上传图片" @click="uploadRowIndex(scope.row.$index)"></gov-button>
         </el-upload>
         <gov-button type="text" @click="handleDelete(scope.row.$index)" text="删除"></gov-button>
@@ -52,8 +60,8 @@
 </template>
 
 <script>
-import { mainDialogTableOption, mainDialogFormOption } from './const'
-import { saveArticle, updateArticle } from '@/views/manage/apis/article'
+import { mainDialogTableOption, mainDialogFormOption } from './const';
+import { saveArticle, updateArticle } from '@/views/manage/apis/article';
 
 export default {
   name: 'mainDialog',
@@ -103,24 +111,28 @@ export default {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
-      if (!this.form.img) {
-        this.$message.error('请上传封面图片！')
-        return false
-      }
-      this.form.content = this.mainTableData
-      if (this.status === 'create') {
-        saveArticle(this.form).then(res => {
-          this.close()
-          this.$message.success('新增成功')
-          this.$emit('getList')
-        })
-      } else {
-        updateArticle(this.form).then(res => {
-          this.close()
-          this.$message.success('修改成功')
-          this.$emit('getList')
-        })
-      }
+      this.$refs['mainForm'].validate(valid => {
+        if (valid) {
+          if (!this.form.img) {
+            this.$message.error('请上传封面图片！')
+            return false
+          }
+          this.form.content = this.mainTableData
+          if (this.status === 'create') {
+            saveArticle(this.form).then(res => {
+              this.close()
+              this.$message.success('新增成功')
+              this.$emit('getList')
+            })
+          } else {
+            updateArticle(this.form).then(res => {
+              this.close()
+              this.$message.success('修改成功')
+              this.$emit('getList')
+            })
+          }
+        }
+      })
     },
     handleAddTableData () {
       this.mainTableData.push({
@@ -137,7 +149,15 @@ export default {
       done()
     },
     uploadSuccess (response) {
-      this.$set(this.mainTableData[this.openRowIndex], 'context', response.data)
+      if (response.msg) {
+        this.$message.error(response.msg)
+        this.$router.push({ name: 'login' })
+      }
+      this.$set(
+        this.mainTableData[this.openRowIndex],
+        'context',
+        response.data
+      )
       this.$message.success('图片上传成功')
     },
     uploadHeaderImg (response) {
@@ -156,9 +176,11 @@ export default {
       this.$confirm('你确定要删除该行数据吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-      }).then(() => {
-        this.mainTableData.splice(index, 1)
-      }).catch(() => {})
+      })
+        .then(() => {
+          this.mainTableData.splice(index, 1)
+        })
+        .catch(() => {})
     },
     handleClosed () {
       this.formData = {}
@@ -173,12 +195,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .upload-demo {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  .upload-demo2 {
-    display: inline-block;
-    margin-left: 15px;
-  }
+.upload-demo {
+  display: inline-block;
+  margin-right: 10px;
+}
+.upload-demo2 {
+  display: inline-block;
+  margin-left: 15px;
+}
 </style>

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <gov-search-bar
-      :listQuery="listQuery"
-      :formProps="formProps"
-      @handleFilter="handleFilter"
-    />
+    <gov-search-bar :listQuery="listQuery" :formProps="formProps" @handleFilter="handleFilter"/>
     <gov-button type="primary" @click="newly">新增案例</gov-button>
     <avue-crud
       :table-loading="tableLoading"
@@ -12,7 +8,8 @@
       @current-change="currentChange"
       :page="pagination"
       :data="mainTableData"
-      :option="mainTableOption">
+      :option="mainTableOption"
+    >
       <template slot-scope="scope" slot="menu">
         <div class="table-btn-group">
           <gov-button type="text" @click="handleUpdate(scope.row)" text="修改"></gov-button>
@@ -20,15 +17,15 @@
         </div>
       </template>
     </avue-crud>
-    <mainDialog ref="mainDialog" :status="status"></mainDialog>
+    <mainDialog ref="mainDialog" :status="status" @getList="getList"></mainDialog>
   </div>
 </template>
 
 <script>
-import mixins from '@/mixins/index'
-import { searchOption, mainTableOption } from './const/index'
-import { getMainTableData } from '@/views/manage/apis/case'
-import mainDialog from './mainDialog'
+import mixins from '@/mixins/index';
+import { searchOption, mainTableOption } from './const/index';
+import { getMainTableData } from '@/views/manage/apis/case';
+import mainDialog from './mainDialog';
 
 export default {
   name: 'appCase',
@@ -64,22 +61,43 @@ export default {
       })
     },
     newly () {
-      this.status = 'create'
+      this.status = 'create';
       this.$refs['mainDialog'].open()
     },
     handleUpdate (row) {
-      this.status = 'update'
-      this.axios.get(`/getArticle`, {
-        params: {
-          filename: row.filename,
-        },
-      }).then(({ data }) => {
-        let content = JSON.parse(data.data)
-        this.$refs['mainDialog'].open(content)
-      })
+      this.status = 'update';
+      this.axios
+        .get(`/getArticle`, {
+          params: {
+            filename: row.filename,
+          },
+        })
+        .then(({ data }) => {
+          let content = JSON.parse(data.data)
+          this.$refs['mainDialog'].open(content)
+        })
     },
     handleDelete (row) {
-      console.log('handleDelete', row)
+      this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          this.axios
+            .get('/delArticle', {
+              params: { filename: row.filename },
+            })
+            .then(({ data }) => {
+              if (data.code === 0) {
+                this.$message({ type: 'success', message: '删除成功!' })
+                this.getList()
+              } else {
+                this.$message.error('删除失败')
+              }
+            })
+        })
+        .catch(() => {})
     },
   },
   created () {

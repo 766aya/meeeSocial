@@ -87,10 +87,16 @@ export const mainDialogFormOption = {
       label: '文章标题',
       prop: 'title',
       span: 12,
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
+      ],
     }, {
       label: '描述',
       prop: 'desc',
       span: 12,
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
+      ],
     }, {
       label: '发布人',
       prop: 'publisher',
@@ -98,6 +104,9 @@ export const mainDialogFormOption = {
       dicData: [
         { label: '管理员', value: 'admin' },
         { label: '飞书互动', value: 'faceBook' },
+      ],
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
       ],
     }, {
       label: '视频标签',
@@ -107,6 +116,9 @@ export const mainDialogFormOption = {
       dicData: [
         { label: '马上开课', value: '马上开课' },
         { label: '课程回播', value: '课程回播' },
+      ],
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
       ],
     },
   ],

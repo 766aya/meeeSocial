@@ -80,10 +80,16 @@ export const mainDialogFormOption = {
       label: '文章标题',
       prop: 'title',
       span: 12,
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
+      ],
     }, {
       label: '描述',
       prop: 'desc',
       span: 12,
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
+      ],
     }, {
       label: '发布人',
       prop: 'publisher',
@@ -91,6 +97,9 @@ export const mainDialogFormOption = {
       dicData: [
         { label: '管理员', value: 'admin' },
         { label: '飞书互动', value: 'faceBook' },
+      ],
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
       ],
     }, {
       label: '文章标签',
@@ -102,6 +111,9 @@ export const mainDialogFormOption = {
         { label: '行业资讯', value: '行业资讯' },
         { label: '营销百科', value: '营销百科' },
         { label: '行业白皮书', value: '行业白皮书' },
+      ],
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
       ],
     },
   ],

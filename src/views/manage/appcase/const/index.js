@@ -90,10 +90,16 @@ export const mainDialogFormOption = {
       label: '文章标题',
       prop: 'title',
       span: 12,
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
+      ],
     }, {
       label: '描述',
       prop: 'desc',
       span: 12,
+      rules: [
+        { required: true, message: '不能为空', trigger: 'blur' },
+      ],
     }, {
       label: '发布人',
       prop: 'publisher',
@@ -101,6 +107,9 @@ export const mainDialogFormOption = {
       dicData: [
         { label: '管理员', value: 'admin' },
         { label: '飞书互动', value: 'faceBook' },
+      ],
+      rules: [
+        { required: true, message: '不能为空', trigger: 'change' },
       ],
     }, {
       label: '文章标签',
@@ -112,6 +121,9 @@ export const mainDialogFormOption = {
         { label: 'APP案例', value: 'APP案例' },
         { label: '品牌案例', value: '品牌案例' },
         { label: '电商案例', value: '电商案例' },
+      ],
+      rules: [
+        { required: true, message: '不能为空', trigger: 'change' },
       ],
     },
   ],

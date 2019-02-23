@@ -23,7 +23,7 @@ export function saveCaseArticle (formData) {
 
 export function updateCaseArticle (formData) {
   let date = new Date()
-  if (formData.tips.includes('案例')) {
+  if (!formData.tips.includes('案例')) {
     formData.tips.push('案例')
   }
   formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()

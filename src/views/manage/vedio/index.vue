@@ -1,10 +1,6 @@
 <template>
   <div>
-    <gov-search-bar
-      :listQuery="listQuery"
-      :formProps="formProps"
-      @handleFilter="handleFilter"
-    />
+    <gov-search-bar :listQuery="listQuery" :formProps="formProps" @handleFilter="handleFilter"/>
     <gov-button type="primary" @click="newly">新增视频课程</gov-button>
     <avue-crud
       :table-loading="tableLoading"
@@ -12,7 +8,8 @@
       @current-change="currentChange"
       :page="pagination"
       :data="mainTableData"
-      :option="mainTableOption">
+      :option="mainTableOption"
+    >
       <template slot-scope="scope" slot="menu">
         <div class="table-btn-group">
           <gov-button type="text" @click="handleUpdate(scope.row)" text="修改"></gov-button>
@@ -20,15 +17,15 @@
         </div>
       </template>
     </avue-crud>
-    <mainDialog ref="mainDialog"></mainDialog>
+    <mainDialog ref="mainDialog" @getList="getList" :status="status"></mainDialog>
   </div>
 </template>
 
 <script>
-import mixins from '@/mixins/index'
-import { searchOption, mainTableOption } from './const/index'
-import { getMainTableData } from '@/views/manage/apis/vedio'
-import mainDialog from './mainDialog'
+import mixins from '@/mixins/index';
+import { searchOption, mainTableOption } from './const/index';
+import { getMainTableData } from '@/views/manage/apis/vedio';
+import mainDialog from './mainDialog';
 
 export default {
   name: 'appCase',
@@ -37,6 +34,7 @@ export default {
   data () {
     return {
       mainTableData: [],
+      status: 'create',
     }
   },
   computed: {
@@ -66,10 +64,34 @@ export default {
       this.$refs['mainDialog'].open()
     },
     handleUpdate (row) {
-      console.log('handleUpdate', row)
+      this.axios
+        .get('/getArticle', { params: { filename: row.filename } })
+        .then(({ data }) => {
+          this.status = 'update';
+          this.$refs['mainDialog'].open(JSON.parse(data.data))
+        })
     },
     handleDelete (row) {
-      console.log('handleDelete', row)
+      this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          this.axios
+            .get('/delArticle', {
+              params: { filename: row.filename },
+            })
+            .then(({ data }) => {
+              if (data.code === 0) {
+                this.$message({ type: 'success', message: '删除成功!' })
+                this.getList()
+              } else {
+                this.$message.error('删除失败')
+              }
+            })
+        })
+        .catch(() => {})
     },
   },
   created () {
