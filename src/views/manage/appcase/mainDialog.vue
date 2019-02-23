@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { mainDialogTableOption, mainDialogFormOption } from './const';
-import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/case';
+import { mainDialogTableOption, mainDialogFormOption } from './const'
+import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/case'
 
 export default {
   name: 'mainDialog',
@@ -158,19 +158,12 @@ export default {
     rowUpdate (form, index, done) {
       done()
     },
-    uploadSuccess (response) {
-      if (response.msg) {
-        this.$message.error(response.msg)
-        this.$router.push({ name: 'login' })
-      }
-      this.$set(
-        this.mainTableData[this.openRowIndex],
-        'context',
-        response.data
-      )
-      this.$message.success('图片上传成功')
-    },
     uploadHeaderImg (response) {
+      if (response.code === 7) {
+        this.$message.error('用户未登录，请先登陆')
+        this.$router.push({ path: '/login' })
+        return false
+      }
       this.form.img = response.data
       this.$message.success('封面图上传成功')
     },

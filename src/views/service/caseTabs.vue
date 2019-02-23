@@ -114,7 +114,7 @@ export default {
     },
     computedLinkTo (item, filename) {
       console.log(item, filename)
-      return '';
+      return ''
       // if (item === '') {
       // }
     },

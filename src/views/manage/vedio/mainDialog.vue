@@ -13,10 +13,9 @@
           action="/uploadPhoto"
           :show-file-list="false"
           :on-success="uploadHeaderImg"
-          :disabled="disabled"
           :on-error="uploadError"
         >
-          <gov-button type="primary" text="上传封面图片" :disabled="disabled"></gov-button>
+          <gov-button type="primary" text="上传封面图片"></gov-button>
         </el-upload>
       </el-col>
     </el-row>
@@ -39,8 +38,8 @@
 </template>
 
 <script>
-import { mainDialogTableOption, mainDialogFormOption } from './const';
-import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/vedio';
+import { mainDialogTableOption, mainDialogFormOption } from './const'
+import { saveCaseArticle, updateCaseArticle } from '@/views/manage/apis/vedio'
 
 export default {
   name: 'mainDialog',
@@ -63,7 +62,6 @@ export default {
       ], // 文章主体内容
       form: {}, // 外层内容
       openRowIndex: 0,
-      disabled: false,
     }
   },
   computed: {
@@ -82,7 +80,6 @@ export default {
   },
   methods: {
     open (formData) {
-      console.log('formData', formData)
       if (formData) {
         this.form = formData
         this.mainTableData = formData.data ? formData.data : []
@@ -126,25 +123,17 @@ export default {
       console.log('rowUpdate', form, index)
       done()
     },
-    uploadSuccess (response) {
-      if (response.msg) {
-        this.$message.error(response.msg)
-        this.$router.push({ name: 'login' })
-      }
-      this.$set(
-        this.mainTableData[this.openRowIndex],
-        'context',
-        response.data
-      )
-      this.$message.success('图片上传成功')
-    },
     uploadHeaderImg (response) {
+      if (response.code === 7) {
+        this.$message.error('用户未登录，请先登陆')
+        this.$router.push({ path: '/login' })
+        return false
+      }
       this.form.img = response.data
       this.$message.success('封面图上传成功')
-      this.disabled = true
     },
     uploadError (err) {
-      this.$message.success(`图片上传失败${err}`)
+      this.$message.error(`图片上传失败${err}`)
     },
     uploadRowIndex (index) {
       this.openRowIndex = index

@@ -22,10 +22,10 @@
 </template>
 
 <script>
-import mixins from '@/mixins/index';
-import { searchOption, mainTableOption } from './const/index';
-import { getMainTableData } from '@/views/manage/apis/case';
-import mainDialog from './mainDialog';
+import mixins from '@/mixins/index'
+import { searchOption, mainTableOption } from './const/index'
+import { getMainTableData } from '@/views/manage/apis/case'
+import mainDialog from './mainDialog'
 
 export default {
   name: 'appCase',
@@ -61,11 +61,11 @@ export default {
       })
     },
     newly () {
-      this.status = 'create';
+      this.status = 'create'
       this.$refs['mainDialog'].open()
     },
     handleUpdate (row) {
-      this.status = 'update';
+      this.status = 'update'
       this.axios
         .get(`/getArticle`, {
           params: {

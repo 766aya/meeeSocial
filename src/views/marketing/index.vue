@@ -4,12 +4,16 @@
       <img class="img" src="https://www.meetsocial.cn/templates/default/images/nybanner4.jpg">
     </div>
     <crumbs></crumbs>
-    <div class="gov-title">在线课堂</div>
     <div class="gov-title">课程回顾</div>
     <div class="classes">
-      <router-link class="class-item" :to="{path: item.router}" v-for="(item, index) in classesData" :key="index">
+      <router-link
+        class="class-item"
+        :to="{path: `/marketing/course/${item.filename}`}"
+        v-for="(item, index) in classesData"
+        :key="index"
+      >
         <div class="img">
-          <img :src="item.img">
+          <img :src="`/getPhoto?filename=${item.img}`">
         </div>
         <div class="title" v-text="item.title"></div>
       </router-link>
@@ -20,7 +24,12 @@
       </div>
       <el-tab-pane label="营销百科" name="yingxiaobaike">
         <div class="change-content">
-          <router-link class="change-item" v-for="item in yingxiaobaike" :key="item.id" :to="{path: item.router}">
+          <router-link
+            class="change-item"
+            v-for="item in yingxiaobaike"
+            :key="item.id"
+            :to="{path: `/marketing/wiki/${item.filename}`}"
+          >
             <span class="title">{{ item.title }}</span>
             <span class="create-time">{{ item.createTime }}</span>
           </router-link>
@@ -28,7 +37,12 @@
       </el-tab-pane>
       <el-tab-pane label="行业白皮书" name="baipishu">
         <div class="change-content">
-          <router-link class="change-item" v-for="item in baipishu" :key="item.id" :to="{path: item.router}">
+          <router-link
+            class="change-item"
+            v-for="item in baipishu"
+            :key="item.id"
+            :to="{path: `/marketing/parper/${item.filename}`}"
+          >
             <span class="title">{{ item.title }}</span>
             <span class="create-time">{{ item.createTime }}</span>
           </router-link>
@@ -38,12 +52,17 @@
     <div class="faq-box">
       <div class="title-box">
         <span class="title">常见问题</span>
-        <router-link class="learn-more" :to="{path: '/'}">更多</router-link>
+        <router-link class="learn-more" :to="{path: '/marketing/faq'}">更多</router-link>
       </div>
       <div class="content">
-        <router-link class="faq-item" v-for="(item, index) in faqData" :key="index" :to="item.router">
-          <p class="questions iconfont icon-icon_tiwen">{{ item.questions }}</p>
-          <p class="answer">{{ item.answer }}</p>
+        <router-link
+          class="faq-item"
+          v-for="(item, index) in faqData"
+          :key="index"
+          :to="{path: `/marketing/faq/${item.filename}`}"
+        >
+          <p class="questions iconfont icon-icon_tiwen">{{ item.title }}</p>
+          <p class="answer">{{ item.desc }}</p>
         </router-link>
       </div>
     </div>
@@ -54,61 +73,53 @@
       <div class="text-box">
         <div class="title">
           <span class="title">行业资讯</span>
-          <router-link class="learn-more" :to="{path: '/'}">更多</router-link>
+          <router-link class="learn-more" :to="{path: '/marketing/wiki'}">更多</router-link>
         </div>
-        <p class="desc">
+        <div class="desc">
           <ul>
-            <li>
-              <router-link :to="{path: '/'}">
-                善用Facebook数字营销，领跑消费电子品市场
-              </router-link>
-            </li>
-            <li>
-              <router-link :to="{path: '/'}">
-                情感牌怎么打才能赢?六招教你与客户“走心”
-              </router-link>
-            </li>
-            <li>
-              <router-link :to="{path: '/'}">
-                24区丨2019内容营销七大关键趋势，你猜中了几个？
-              </router-link>
-            </li>
-            <li>
-              <router-link :to="{path: '/'}">
-                想出海，就来pick一下Facebook营销入门指南
-              </router-link>
+            <li v-for="item in wikiList" :key="item.createTime">
+              <router-link :to="{path: `/marketing/wiki/${item.filename}`}">善用Facebook数字营销，领跑消费电子品市场</router-link>
             </li>
           </ul>
-        </p>
+        </div>
       </div>
     </div>
-    <div class="tips-box">
+    <!-- <div class="tips-box">
       <h3 class="title">热门标签</h3>
       <div class="tips-content">
-        <router-link class="tip-item" v-for="(item, index) in tipsData" :key="index" :to="{path: item.router}">{{ item.title }}</router-link>
+        <router-link
+          class="tip-item"
+          v-for="(item, index) in tipsData"
+          :key="index"
+          :to="{path: item.router}"
+        >{{ item.title }}</router-link>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
-import classesData from './classes.json'
-import yingxiaobaike from './yingxiaobaike.json'
-import baipishu from './baipishu.json'
-import faqData from './faq.json'
 import tipsData from './tips.json'
 
 export default {
   name: 'marketing',
   data () {
     return {
-      classesData: classesData,
-      yingxiaobaike: yingxiaobaike,
-      baipishu: baipishu,
-      faqData: faqData,
+      classesData: [],
+      yingxiaobaike: [],
+      baipishu: [],
+      faqData: [],
+      wikiList: [],
       tipsData: tipsData,
       activeName: 'yingxiaobaike',
     }
+  },
+  created () {
+    this.getClassesData()
+    this.getYingxiaobaike()
+    this.getPaperList()
+    this.getFAQList()
+    this.getWikiList()
   },
   methods: {
     learnMore () {
@@ -117,6 +128,86 @@ export default {
       } else {
         this.$router.push({ path: '/marketing/paper' })
       }
+    },
+    getClassesData () {
+      this.axios
+        .get('/getBreviaryArticleList', {
+          params: {
+            page: 0,
+            pageNum: 9999,
+            title: '',
+            tags: JSON.stringify(['在线课堂']),
+          },
+        })
+        .then(({ data }) => {
+          this.classesData = data.data.data.map(item => {
+            return JSON.parse(item)
+          })
+        })
+    },
+    getYingxiaobaike () {
+      this.axios
+        .get('/getBreviaryArticleList', {
+          params: {
+            page: 0,
+            pageNum: 10,
+            title: '',
+            tags: JSON.stringify(['营销百科']),
+          },
+        })
+        .then(({ data }) => {
+          this.yingxiaobaike = data.data.data.map(item => {
+            return JSON.parse(item)
+          })
+        })
+    },
+    getPaperList () {
+      this.axios
+        .get('/getBreviaryArticleList', {
+          params: {
+            page: 0,
+            pageNum: 10,
+            title: '',
+            tags: JSON.stringify(['行业白皮书']),
+          },
+        })
+        .then(({ data }) => {
+          this.baipishu = data.data.data.map(item => {
+            return JSON.parse(item)
+          })
+        })
+    },
+    getFAQList () {
+      this.axios
+        .get('/getBreviaryArticleList', {
+          params: {
+            page: 0,
+            pageNum: 5,
+            title: '',
+            tags: JSON.stringify(['互动问答']),
+          },
+        })
+        .then(({ data }) => {
+          this.faqData = data.data.data.map(item => {
+            return JSON.parse(item)
+          })
+        })
+    },
+    getWikiList () {
+      this.axios
+        .get('/getBreviaryArticleList', {
+          params: {
+            page: 0,
+            pageNum: 4,
+            title: '',
+            tags: JSON.stringify(['营销百科']),
+          },
+        })
+        .then(({ data }) => {
+          this.wikiList = data.data.data.map(item => {
+            return JSON.parse(item)
+          })
+        })
     },
   },
 }
@@ -140,9 +231,14 @@ export default {
     .class-item {
       width: calc(25% - 20px);
       margin: 10px 10px;
-      background: #F4F4F4;
+      background: #f4f4f4;
       .title {
         padding: 10px 0.5em;
+      }
+      img {
+        width: 100%;
+        height: 150px;
+        overflow: hidden;
       }
     }
   }
@@ -188,7 +284,7 @@ export default {
     width: calc(1200px - 60px);
     margin: 0 auto 50px auto;
     padding: 30px;
-    background: #F4F4F4;
+    background: #f4f4f4;
     .title-box {
       display: flex;
       flex-direction: row;
@@ -203,7 +299,7 @@ export default {
         font-size: 20px;
         font-weight: 700;
         line-height: 25px;
-        color: #2872ED;
+        color: #2872ed;
       }
     }
     .content {
@@ -211,7 +307,7 @@ export default {
       flex-direction: column;
       .faq-item {
         .questions {
-          color: #2872ED;
+          color: #2872ed;
           &::before {
             display: inline-block;
             line-height: 35px;
@@ -230,7 +326,7 @@ export default {
     margin: 50px auto;
     display: flex;
     flex-direction: row;
-    background: #F4F4F4;
+    background: #f4f4f4;
     .img-box {
       width: 400px;
       height: 100%;

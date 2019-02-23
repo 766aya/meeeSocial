@@ -24,108 +24,108 @@
 
 <script>
 export default {
-  name: "listMap",
-  data() {
+  name: 'listMap',
+  data () {
     return {
       dataList: [],
-      routeActive: ""
-    };
+      routeActive: '',
+    }
   },
   watch: {
-    $route() {
-      this.getList();
-    }
+    $route () {
+      this.getList()
+    },
   },
   methods: {
-    itemComputed(item) {
-      return JSON.parse(item);
+    itemComputed (item) {
+      return JSON.parse(item)
     },
-    getList() {
-      var routeInfo = this.$route.fullPath;
+    getList () {
+      var routeInfo = this.$route.fullPath
 
-      if (routeInfo.indexOf("faq") > -1) {
-        this.routeActive = "faq";
-        this.getFAQList();
-      } else if (routeInfo.indexOf("wiki") > -1) {
-        this.routeActive = "wiki";
-        this.getWikiList();
-      } else if (routeInfo.indexOf("course") > -1) {
-        this.routeActive = "course";
-        this.getVedioList();
+      if (routeInfo.indexOf('faq') > -1) {
+        this.routeActive = 'faq'
+        this.getFAQList()
+      } else if (routeInfo.indexOf('wiki') > -1) {
+        this.routeActive = 'wiki'
+        this.getWikiList()
+      } else if (routeInfo.indexOf('course') > -1) {
+        this.routeActive = 'course'
+        this.getVedioList()
       } else {
-        this.routeActive = "paper";
-        this.getPaperList();
+        this.routeActive = 'paper'
+        this.getPaperList()
       }
     },
-    getPaperList() {
+    getPaperList () {
       this.axios
-        .get("/getBreviaryArticleList", {
+        .get('/getBreviaryArticleList', {
           params: {
             page: 0,
             pageNum: 9999,
-            title: "",
-            tags: JSON.stringify(["行业白皮书"])
-          }
+            title: '',
+            tags: JSON.stringify(['行业白皮书']),
+          },
         })
         .then(({ data }) => {
           this.dataList = data.data.data.map(item => {
-            return JSON.parse(item);
-          });
-        });
+            return JSON.parse(item)
+          })
+        })
     },
-    getFAQList() {
+    getFAQList () {
       this.axios
-        .get("/getBreviaryArticleList", {
+        .get('/getBreviaryArticleList', {
           params: {
             page: 0,
             pageNum: 9999,
-            title: "",
-            tags: JSON.stringify(["互动问答"])
-          }
+            title: '',
+            tags: JSON.stringify(['互动问答']),
+          },
         })
         .then(({ data }) => {
           this.dataList = data.data.data.map(item => {
-            return JSON.parse(item);
-          });
-        });
+            return JSON.parse(item)
+          })
+        })
     },
-    getVedioList() {
+    getVedioList () {
       this.axios
-        .get("/getBreviaryArticleList", {
+        .get('/getBreviaryArticleList', {
           params: {
             page: 0,
             pageNum: 9999,
-            title: "",
-            tags: JSON.stringify(["在线课堂"])
-          }
+            title: '',
+            tags: JSON.stringify(['在线课堂']),
+          },
         })
         .then(({ data }) => {
           this.dataList = data.data.data.map(item => {
-            return JSON.parse(item);
-          });
-        });
+            return JSON.parse(item)
+          })
+        })
     },
-    getWikiList() {
+    getWikiList () {
       this.axios
-        .get("/getBreviaryArticleList", {
+        .get('/getBreviaryArticleList', {
           params: {
             page: 0,
             pageNum: 9999,
-            title: "",
-            tags: JSON.stringify(["营销百科"])
-          }
+            title: '',
+            tags: JSON.stringify(['营销百科']),
+          },
         })
         .then(({ data }) => {
           this.dataList = data.data.data.map(item => {
-            return JSON.parse(item);
-          });
-        });
-    }
+            return JSON.parse(item)
+          })
+        })
+    },
   },
-  created() {
-    this.getList();
-  }
-};
+  created () {
+    this.getList()
+  },
+}
 </script>
 
 <style lang="scss" scoped>
