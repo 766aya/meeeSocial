@@ -27,6 +27,6 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'developme
     },
     error (error) {
       console.error('Error during service worker registration:', error)
-    }
+    },
   })
 }

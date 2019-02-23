@@ -50,121 +50,38 @@ export default {
         },
       ],
       carouselList: {
-        game: [
-          {
-            img: 'https://www.meetsocial.cn/upload/case/1529893926227707371.jpg',
-            name: '无敌炫斗王',
-            pName: '游戏案例',
-            router: 'https://www.meetsocial.cn/case/37.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529892440819307215.jpg',
-            name: 'ludia games',
-            pName: '游戏案例',
-            router: 'https://www.meetsocial.cn/case/36.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529890446794444472.jpg',
-            name: 'Dungeon Crash',
-            pName: '游戏案例',
-            router: 'https://www.meetsocial.cn/case/35.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529886793930613814.png',
-            name: 'Trivia Crack',
-            pName: '游戏案例',
-            router: 'https://www.meetsocial.cn/case/33.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528685529958282150.jpg',
-            name: '太极熊猫',
-            pName: '游戏案例',
-            router: 'https://www.meetsocial.cn/case/15.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528675440518132319.jpg',
-            name: '九阴真经',
-            pName: '游戏案例',
-            router: 'https://www.meetsocial.cn/case/3.html',
-          },
-        ],
-        app: [
-          {
-            img: 'https://www.meetsocial.cn/upload/case/1530581243995960603.jpg',
-            name: 'Jump Ramp',
-            pName: 'APP案例',
-            router: 'https://www.meetsocial.cn/case/43.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528858021948287535.jpg',
-            name: '点心省电',
-            pName: 'APP案例',
-            router: 'https://www.meetsocial.cn/case/24.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528771763903825185.jpg',
-            name: 'Apus',
-            pName: 'APP案例',
-            router: 'https://www.meetsocial.cn/case/23.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528766981395664010.jpg',
-            name: 'Blued',
-            pName: 'APP案例',
-            router: 'https://www.meetsocial.cn/case/22.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528766995837829128.jpg',
-            name: 'ofo',
-            pName: 'APP案例',
-            router: 'https://www.meetsocial.cn/case/19.html',
-          },
-        ],
-        brand: [
-          {
-            img: 'https://www.meetsocial.cn/upload/case/1530580715536700385.jpg',
-            name: 'iDEAL of Sweden',
-            pName: '品牌案例',
-            router: 'https://www.meetsocial.cn/case/41.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529888977186589346.jpg',
-            name: 'InMyFace.com',
-            pName: '品牌案例',
-            router: 'https://www.meetsocial.cn/case/34.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529887136241604556.jpg',
-            name: '途风',
-            pName: '品牌案例',
-            router: 'https://www.meetsocial.cn/case/32.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529888038373268070.jpg',
-            name: 'App Mahal',
-            pName: '品牌案例',
-            router: 'https://www.meetsocial.cn/case/31.html',
-          },
-        ],
-        ec: [
-          {
-            img: 'https://www.meetsocial.cn/upload/case/1530581031473434033.jpg',
-            name: 'iDEAL of Sweden',
-            pName: '电商案例',
-            router: 'https://www.meetsocial.cn/case/42.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1530572532639684818.jpg',
-            name: 'Panli',
-            pName: '电商案例',
-            router: 'https://www.meetsocial.cn/case/39.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1529951528502291971.jpg',
-            name: 'PUFII',
-            pName: '电商案例',
-            router: 'https://www.meetsocial.cn/case/38.html',
-          }, {
-            img: 'https://www.meetsocial.cn/upload/case/1528746174613061040.jpg',
-            name: 'Cilory.com',
-            pName: '电商案例',
-            router: 'https://www.meetsocial.cn/case/18.html',
-          },
-        ],
+        game: [],
+        app: [],
+        brand: [],
+        ec: [],
       },
       actived: 'game',
     }
   },
+  created () {
+    this.getArticle()
+  },
   methods: {
     changeBanner (key) {
-      console.log(key)
       this.actived = key
+    },
+    getArticle () {
+      let tags = [
+        JSON.stringify(['案例', "游戏案例"]),
+        JSON.stringify(['案例', "APP案例"]),
+        JSON.stringify(['案例', "品牌案例"]),
+        JSON.stringify(['案例', "电商案例"]),
+      ]
+      tags.forEach(item=>{
+        this.axios.get('/getBreviaryArticleList', {
+          params: {
+            page: 0,
+            pageNum: 6,
+            title: '',
+            tags: item,
+          },
+        })
+      })
     },
   },
 }

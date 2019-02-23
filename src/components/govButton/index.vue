@@ -29,64 +29,64 @@ export default {
   name: 'GovButton',
   data () {
     return {
-      defaultType: false
+      defaultType: false,
     }
   },
   props: {
     // 按钮类型
     type: {
       type: String,
-      default: 'default'
+      default: 'default',
     },
     // 按钮文本
     text: {
       type: String,
-      default: ''
+      default: '',
     },
     // 图标
     icon: {
       type: String,
-      default: ''
+      default: '',
     },
     // large/medium/small/mini
     size: {
       type: String,
-      default: 'small'
+      default: 'small',
     },
     // 自定义样式
     style: {
-      default: () => {}
+      default: () => {},
     },
     // 是否禁用状态
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否加载中状态
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否圆角按钮
     round: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否圆形按钮
     circle: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 是否朴素按钮
     plain: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 权限
     permission: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
     buttonType () {
@@ -132,7 +132,7 @@ export default {
     permissions () {
       let permissions = JSON.parse(window.sessionStorage.getItem('permissions')).content
       return permissions
-    }
+    },
   },
   methods: {
     handleClick () {
@@ -145,11 +145,11 @@ export default {
           this.defaultType = true
         }
       })
-    }
+    },
   },
   created () {
     this.isDefaultType()
-  }
+  },
 }
 </script>
 

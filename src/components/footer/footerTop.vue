@@ -47,9 +47,9 @@ export default {
   name: 'footerTop',
   data () {
     return {
-      formData: {}
+      formData: {},
     }
-  }
+  },
 }
 </script>
 

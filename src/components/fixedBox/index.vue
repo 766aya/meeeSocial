@@ -19,7 +19,7 @@ export default {
       isTop: true,
       timer: null,
       isShow: false,
-      weixinShow: false
+      weixinShow: false,
     }
   },
   methods: {
@@ -50,11 +50,11 @@ export default {
           self.isTop = false
         }
       }
-    }
+    },
   },
   mounted () {
     this.needScroll()
-  }
+  },
 }
 </script>
 

@@ -13,9 +13,9 @@ export default {
   name: 'advantage',
   data () {
     return {
-      learnMoreUrl: 'http://www.sinoclick.com/'
+      learnMoreUrl: 'http://www.sinoclick.com/',
     }
-  }
+  },
 }
 </script>
 

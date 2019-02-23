@@ -20,7 +20,7 @@
         </div>
       </template>
     </avue-crud>
-    <mainDialog ref="mainDialog"></mainDialog>
+    <mainDialog ref="mainDialog" :status="status"></mainDialog>
   </div>
 </template>
 
@@ -37,6 +37,7 @@ export default {
   data () {
     return {
       mainTableData: [],
+      status: 'create',
     }
   },
   computed: {
@@ -63,10 +64,19 @@ export default {
       })
     },
     newly () {
+      this.status = 'create'
       this.$refs['mainDialog'].open()
     },
     handleUpdate (row) {
-      console.log('handleUpdate', row)
+      this.status = 'update'
+      this.axios.get(`/getArticle`, {
+        params: {
+          filename: row.filename,
+        },
+      }).then(({ data }) => {
+        let content = JSON.parse(data.data)
+        this.$refs['mainDialog'].open(content)
+      })
     },
     handleDelete (row) {
       console.log('handleDelete', row)

@@ -19,14 +19,14 @@ export default {
   name: 'crumbs',
   data () {
     return {
-      routerList: []
+      routerList: [],
     }
   },
   created () {
     this.routerList = this.$route.matched.map(item => {
       return { name: item.meta.label, path: item.path, text: item.meta.text }
     })
-  }
+  },
 }
 </script>
 

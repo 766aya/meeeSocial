@@ -23,37 +23,37 @@ export default {
     return {
       titleText: {
         zh: '飞书互动专注于为出海企业提供基于Facebook营销矩阵的推广服务',
-        en: 'Meetsocial + Facebook + Instagram = Your Global Clients'
+        en: 'Meetsocial + Facebook + Instagram = Your Global Clients',
       },
       mainList: [
         {
           nameCn: '海外市场洞察',
           nameEn: 'OVERSEAS MARKET ANALYSIS',
-          icon: 'icon-shichangtuiguang'
+          icon: 'icon-shichangtuiguang',
         }, {
           nameCn: '广告优化服务',
           nameEn: 'ADVERTISING OPTIMIZATION',
-          icon: 'icon-shichangfenxi'
+          icon: 'icon-shichangfenxi',
         }, {
           nameCn: '社交内容营销',
           nameEn: 'SOCIAL MARKETING',
-          icon: 'icon-yingxiaoguanli'
+          icon: 'icon-yingxiaoguanli',
         }, {
           nameCn: '广告创意服务',
           nameEn: 'CREATIVITY AND DESIGN',
-          icon: 'icon-guanggao'
+          icon: 'icon-guanggao',
         }, {
           nameCn: '技术支持服务',
           nameEn: 'TECHNICAL SUPPORT',
-          icon: 'icon-iosworldoutline'
+          icon: 'icon-iosworldoutline',
         }, {
           nameCn: '账户管理服务',
           nameEn: 'ACCOUNT MANAGEMENT',
-          icon: 'icon-fa-pagelines'
-        }
-      ]
+          icon: 'icon-fa-pagelines',
+        },
+      ],
     }
-  }
+  },
 }
 </script>
 

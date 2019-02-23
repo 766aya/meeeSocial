@@ -6,10 +6,10 @@ export default {
         currentPage: 1, // 当前页码
         pageSize: 10, // 显示多少条
         total: 0, // 总条数
-        pageSizes: [10, 20, 30, 40, 50]
+        pageSizes: [10, 20, 30, 40, 50],
       },
       listQuery: {},
-      tableLoading: false
+      tableLoading: false,
     }
   },
   watch: {
@@ -18,15 +18,15 @@ export default {
         this.listQuery.page = newVal
       },
       deep: true,
-      immediate: true
+      immediate: true,
     },
     'pagination.pageSize': {
       handler (newVal) {
         this.listQuery.pageNum = newVal
       },
       deep: true,
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
     // 列表
@@ -63,6 +63,6 @@ export default {
       this.resetFormData(this.listQuery)
       this.listQuery.page = this.pagination.currentPage
       this.listQuery.pageNum = this.pagination.pageSize
-    }
-  }
+    },
+  },
 }

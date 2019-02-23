@@ -24,7 +24,9 @@ export function saveCaseArticle (formData) {
 
 export function updateCaseArticle (formData) {
   let date = new Date()
-  !formData.tips.includes('在线课堂') ? formData.tips.push('在线课堂') : ''
+  if (!formData.tips.includes('在线课堂')) {
+    formData.tips.push('在线课堂')
+  }
   formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
   return axios.post(`/updateArticle`, { data: JSON.stringify(formData) })
 }

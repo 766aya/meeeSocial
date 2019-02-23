@@ -31,47 +31,47 @@ export default {
         {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-17',
-          id: 10
+          id: 10,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-18',
-          id: 11
+          id: 11,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-19',
-          id: 12
+          id: 12,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 13
+          id: 13,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 14
+          id: 14,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 15
+          id: 15,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 16
+          id: 16,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 17
+          id: 17,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 18
+          id: 18,
         }, {
           title: 'faceBook怎么做推广?',
           createTime: '2018-08-20',
-          id: 19
-        }
-      ]
+          id: 19,
+        },
+      ],
     }
-  }
+  },
 }
 </script>
 

@@ -25,7 +25,9 @@ export function saveArticle (formData) {
 export function updateArticle (formData) {
   let date = new Date()
 
-  !formData.tips.includes('文章') ? formData.tips.push('文章') : ""
+  if (!formData.tips.includes('文章')) {
+    formData.tips.push('文章')
+  }
 
   formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
   return axios.post('/updateArticle', {

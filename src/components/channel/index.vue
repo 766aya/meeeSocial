@@ -17,9 +17,9 @@ export default {
   data () {
     return {
       fuwuUrl1: 'https://www.meetsocial.cn/channel/facebook',
-      fuwuUrl2: 'https://www.meetsocial.cn/channel/instagram'
+      fuwuUrl2: 'https://www.meetsocial.cn/channel/instagram',
     }
-  }
+  },
 }
 </script>
 

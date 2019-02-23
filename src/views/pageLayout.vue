@@ -13,7 +13,7 @@ import footerLayout from '@/components/footer/index'
 import fixedBox from '@/components/fixedBox/index'
 
 export default {
-  components: { headerLayout, footerLayout, fixedBox }
+  components: { headerLayout, footerLayout, fixedBox },
 }
 </script>
 

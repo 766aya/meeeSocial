@@ -18,10 +18,10 @@ export default {
         return {
           publisher: '飞书互动',
           createTime: '2018-07-03',
-          tips: ['Facebook案例', 'App案例', 'Audience', 'Network']
+          tips: ['Facebook案例', 'App案例', 'Audience', 'Network'],
         }
-      }
-    }
+      },
+    },
   },
   computed: {
     publisher () {
@@ -32,8 +32,8 @@ export default {
     },
     tips () {
       return this.option.tips ? this.option.tips : []
-    }
-  }
+    },
+  },
 }
 </script>
 

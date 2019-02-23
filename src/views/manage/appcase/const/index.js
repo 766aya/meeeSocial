@@ -66,8 +66,8 @@ export const mainDialogTableOption = {
         },
       ],
       rules: [
-        {}
-      ]
+        {},
+      ],
     }, {
       label: '内容',
       prop: 'context',
@@ -108,10 +108,10 @@ export const mainDialogFormOption = {
       type: 'select',
       multiple: true,
       dicData: [
-        { label: 'FaceBook', value: 'FaceBook' },
-        { label: 'faceBook推广', value: 'faceBook推广' },
-        { label: 'Instagram广告', value: 'Instagram广告' },
-        { label: 'Instagram广告投放', value: 'Instagram广告投放' },
+        { label: '游戏案例', value: '游戏案例' },
+        { label: 'APP案例', value: 'APP案例' },
+        { label: '品牌案例', value: '品牌案例' },
+        { label: '电商案例', value: '电商案例' },
       ],
     },
   ],

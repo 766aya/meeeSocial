@@ -7,7 +7,6 @@ export function getMainTableData (listQuery) {
   }
   params.tags = JSON.stringify(['案例'])
   params.page--
-  console.log(params)
   return axios.get('/getBreviaryArticleList', {
     params: params,
   })
@@ -24,7 +23,9 @@ export function saveCaseArticle (formData) {
 
 export function updateCaseArticle (formData) {
   let date = new Date()
-  !formData.tips.includes('案例') ? formData.tips.push('案例') : ''
+  if (formData.tips.includes('案例')) {
+    formData.tips.push('案例')
+  }
   formData.updateTime = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
   return axios.post(`/updateArticle`, { data: JSON.stringify(formData) })
 }

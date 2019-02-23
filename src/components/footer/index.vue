@@ -11,7 +11,7 @@ import footerBottom from './footerBottom'
 
 export default {
   name: 'govFooter',
-  components: { footerTop, footerBottom }
+  components: { footerTop, footerBottom },
 }
 </script>
 

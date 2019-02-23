@@ -27,21 +27,21 @@ export default {
   props: {
     position: {
       type: String,
-      default: 'left'
+      default: 'left',
     },
     img: {
       type: String,
-      default: ''
+      default: '',
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     desc: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 

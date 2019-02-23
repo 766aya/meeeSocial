@@ -11,13 +11,13 @@ export default {
   props: {
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     path: {
       type: String,
-      default: '/'
-    }
-  }
+      default: '/',
+    },
+  },
 }
 </script>
 

@@ -17,13 +17,13 @@ export default {
   props: {
     height: {
       default: '150px',
-      type: String
+      type: String,
     },
     bannerList: {
       default: () => [],
-      type: Array
-    }
-  }
+      type: Array,
+    },
+  },
 }
 </script>
 

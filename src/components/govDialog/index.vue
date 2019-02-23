@@ -52,7 +52,7 @@ export default {
     return {
       visible: false, // 控制弹窗的隐藏显示
       clientHeight: 250,
-      style: {}
+      style: {},
     }
   },
   computed: {
@@ -68,7 +68,7 @@ export default {
             type: 'primary',
             show: true,
             disabled: false,
-            fn: 'handleSubmit'
+            fn: 'handleSubmit',
           },
           {
             label: '取 消',
@@ -76,28 +76,28 @@ export default {
             show: true,
             type: 'default',
             disabled: false,
-            fn: 'handleCancel'
-          }
+            fn: 'handleCancel',
+          },
         ]
       }
       return btnGroups
-    }
+    },
   },
   props: {
     // 是否在 Dialog 出现时将 body 滚动锁定
     lockScroll: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 弹窗标题
     title: {
       type: String,
-      default: '无标题弹窗'
+      default: '无标题弹窗',
     },
     // 弹窗宽度
     width: {
       type: String,
-      default: '50%'
+      default: '50%',
     },
     /**
      *  [{
@@ -111,48 +111,48 @@ export default {
     */
     btnGroup: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     // 是否全屏弹窗
     fullscreen: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 距离顶部距离
     top: {
       type: String,
-      default: '15vh'
+      default: '15vh',
     },
     // 是否显示遮罩
     modal: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 是否插入到body元素
     appendToBody: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 传入的类名
     customClass: {
       type: String,
-      default: ''
+      default: '',
     },
     // 是否显示关闭按钮
     showClose: {
       type: Boolean,
-      default: true
+      default: true,
     },
     // 是否居中对齐
     center: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 控制弹窗底部按钮的有无
     isBtnGroup: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   methods: {
     // 打开弹窗
@@ -205,7 +205,7 @@ export default {
       if (documentClientHeight - otherHeight <= bodyHeight) {
         this.style = {
           height: documentClientHeight - otherHeight + 'px',
-          overflow: 'auto'
+          overflow: 'auto',
         }
       } else {
         this.style = {}
@@ -226,8 +226,8 @@ export default {
           break
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

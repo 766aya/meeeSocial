@@ -21,9 +21,8 @@
           action="/uploadPhoto"
           :show-file-list="false"
           :on-success="uploadHeaderImg"
-          :disabled="disabled"
           :on-error="uploadError">
-          <gov-button type="primary" text="上传封面图片" :disabled="disabled"></gov-button>
+          <gov-button type="primary" text="上传封面图片"></gov-button>
         </el-upload>
       </el-col>
     </el-row>
@@ -75,7 +74,6 @@ export default {
       ], // 文章主体内容
       form: {}, // 外层内容
       openRowIndex: 0,
-      disabled: false,
     }
   },
   computed: {
@@ -96,7 +94,22 @@ export default {
     open (formData) {
       if (formData) {
         this.form = formData
-        this.mainTableData = formData.content ? formData.content : []
+        this.mainTableData = formData.content
+        console.log(this.mainTableData)
+      } else {
+        this.mainTableData = [
+          {
+            type: '成功案例',
+          }, {
+            type: '品牌故事',
+          }, {
+            type: '营销目标',
+          }, {
+            type: '解决方案',
+          }, {
+            type: '品牌成功',
+          }
+        ]
       }
       this.$nextTick(() => {
         this.$refs['dialog'].open()
@@ -106,6 +119,7 @@ export default {
       this.$refs['dialog'].close()
     },
     handleSubmit () {
+      console.log(this.form)
       if (!this.form.img) {
         this.$message.error('请上传封面图片！')
         return false
@@ -132,11 +146,9 @@ export default {
       })
     },
     rowCell (row, index) {
-      console.log(row, index)
       this.$refs.crud.rowCell(row, index)
     },
     rowUpdate (form, index, done) {
-      console.log('rowUpdate', form, index)
       done()
     },
     uploadSuccess (response) {
@@ -146,7 +158,6 @@ export default {
     uploadHeaderImg (response) {
       this.form.img = response.data
       this.$message.success('封面图上传成功')
-      this.disabled = true
     },
     uploadError (err) {
       this.$message.success(`图片上传失败${err}`)
