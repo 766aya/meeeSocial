@@ -211,9 +211,6 @@ export default {
       }
     },
   },
-  created () {
-    this.getList()
-  },
 }
 </script>
 
