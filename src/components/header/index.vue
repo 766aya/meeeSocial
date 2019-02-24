@@ -128,7 +128,7 @@ export default {
     },
     clearIsSearch () {
       this.isSearch = false
-      this.searchData = '';
+      this.searchData = ''
     },
     anchorLink (url) {
       let route = this.$route

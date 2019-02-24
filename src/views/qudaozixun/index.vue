@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import advantage from '../service/advantage';
-import sideBox from '../service/sideBox';
-import latestCase from '../service/latestCase';
+import advantage from '../service/advantage'
+import sideBox from '../service/sideBox'
+import latestCase from '../service/latestCase'
 export default {
   name: 'qudaozixun',
   components: {

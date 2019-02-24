@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import caseTabs from './caseTabs';
+import caseTabs from './caseTabs'
 
 export default {
   name: 'latestCase',
