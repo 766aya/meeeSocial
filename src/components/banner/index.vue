@@ -69,7 +69,8 @@ export default {
 
 <style lang="scss" scoped>
 .banner {
-  min-width: 1200px;
+  width: 100%;
+  overflow: hidden;
   .banner-box {
     display: block;
     height: 100%;
@@ -80,6 +81,13 @@ export default {
       width: auto;
       text-align: center;
       margin: 0 auto;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
+      a {
+        width: 100%;
+      }
     }
   }
 }

@@ -1,61 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>meee-social</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <style>
-      body {
-        margin: 0;
-      }
-      #app>.loading {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        height: 100vh;
-        width: 100vw;
-        background: #272822;
-        color: #FFFFFF;
-        text-align: center;
-        align-items: center;
-      }
 
-      #app>.loading>.content {
-        display: grid;
-        grid-template-rows: 80px 20px;
-      }
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>meee-social</title>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+    body {
+      margin: 0;
+    }
 
-      #app>.loading>.content>img {
-        display: inline-block;
-        height: 80px;
-        text-align: center;
-        width: 100%;
-      }
+    #app>.loading {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      background: #272822;
+      color: #FFFFFF;
+      text-align: center;
+      align-items: center;
+    }
 
-      #app>.loading>.content>span {
-        height: 20px;
-        line-height: 20px;
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but meee-social doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app">
-      <div class="loading">
-        <div class="content">
-          <img src="https://loading.io/spinners/message/index.messenger-typing-preloader.svg">
-          <span class="loading text">页面正在加载，请耐心等待</span>
-        </div>
+    #app>.loading>.content {
+      display: grid;
+      grid-template-rows: 80px 20px;
+    }
+
+    #app>.loading>.content>img {
+      display: inline-block;
+      height: 80px;
+      text-align: center;
+      width: 100%;
+    }
+
+    #app>.loading>.content>span {
+      height: 20px;
+      line-height: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but meee-social doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+  <div id="app">
+    <div class="loading">
+      <div class="content">
+        <img src="https://loading.io/spinners/message/index.messenger-typing-preloader.svg">
+        <span class="loading text">页面正在加载，请耐心等待</span>
       </div>
     </div>
-    <script src="//unpkg.com/vue@2.5.17/dist/vue.runtime.min.js"></script>
-    <script src="//unpkg.com/vue-router@3.0.1/dist/vue-router.min.js"></script>
-    <script src="//unpkg.com/element-ui@2.4.9/lib/index.js"></script>
-    <!-- built files will be auto injected -->
-  </body>
+  </div>
+  <script src="//unpkg.com/vue@2.5.17/dist/vue.runtime.min.js"></script>
+  <script src="//unpkg.com/vue-router@3.0.1/dist/vue-router.min.js"></script>
+  <script src="//unpkg.com/element-ui@2.4.9/lib/index.js"></script>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

@@ -188,18 +188,17 @@ export default {
   }
   .banner02 {
     width: 100%;
-    min-width: 1200px;
     background: url(/img/ditch_bg1.jpg) no-repeat center center;
     height: 785px;
   }
   .banner03 {
     width: 100%;
-    min-width: 1200px;
     background: url(/img/ditch_bg2.jpg) no-repeat center center;
     height: 785px;
   }
   .tabs-content {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 50px auto;
     .learn-more {
       display: flex;

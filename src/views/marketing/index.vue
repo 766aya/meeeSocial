@@ -223,7 +223,8 @@ export default {
     }
   }
   .classes {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -248,7 +249,8 @@ export default {
     padding: 20px;
   }
   .tabs-content {
-    width: 1200px;
+    max-width: 1200px;
+    width: 100%;
     margin: 50px auto;
     .learn-more {
       display: flex;
@@ -281,7 +283,8 @@ export default {
     }
   }
   .faq-box {
-    width: calc(1200px - 60px);
+    width: calc(100% - 60px);
+    max-width: calc(1200px - 60px);
     margin: 0 auto 50px auto;
     padding: 30px;
     background: #f4f4f4;
@@ -322,7 +325,8 @@ export default {
     }
   }
   .hangyezixun {
-    width: 1200px;
+    width: 100%;
+    max-width: calc(1200px - 60px);
     margin: 50px auto;
     display: flex;
     flex-direction: row;

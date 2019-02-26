@@ -158,7 +158,8 @@ export default {
   .content {
     display: flex;
     flex-direction: row;
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 50px auto;
     .lside {
       width: 340px;

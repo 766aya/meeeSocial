@@ -30,23 +30,28 @@ export default {
           nameCn: '海外市场洞察',
           nameEn: 'OVERSEAS MARKET ANALYSIS',
           icon: 'icon-shichangtuiguang',
-        }, {
+        },
+        {
           nameCn: '广告优化服务',
           nameEn: 'ADVERTISING OPTIMIZATION',
           icon: 'icon-shichangfenxi',
-        }, {
+        },
+        {
           nameCn: '社交内容营销',
           nameEn: 'SOCIAL MARKETING',
           icon: 'icon-yingxiaoguanli',
-        }, {
+        },
+        {
           nameCn: '广告创意服务',
           nameEn: 'CREATIVITY AND DESIGN',
           icon: 'icon-guanggao',
-        }, {
+        },
+        {
           nameCn: '技术支持服务',
           nameEn: 'TECHNICAL SUPPORT',
           icon: 'icon-iosworldoutline',
-        }, {
+        },
+        {
           nameCn: '账户管理服务',
           nameEn: 'ACCOUNT MANAGEMENT',
           icon: 'icon-fa-pagelines',
@@ -58,71 +63,73 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .content {
-    width: 1200px;
-    margin: 0 auto;
-    .title-text {
-      font-size: 18px;
-    }
-    .text {
-      color: #B1B0B0;
-      text-align: center;
-    }
-    &>.main {
+.content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  .title-text {
+    font-size: 18px;
+  }
+  .text {
+    color: #b1b0b0;
+    text-align: center;
+  }
+  & > .main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 50px;
+    .main-item {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      width: calc(100% / 3);
+      height: auto;
+      text-align: center;
       align-items: center;
-      margin-top: 50px;
-      .main-item {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: calc(100% / 3);
-        height: auto;
-        text-align: center;
-        align-items: center;
-        margin-bottom: 50px;
-        * {
-          cursor: default;
-        }
-        &:hover .icon {
-          color: #FFFFFF;
-          background: #2872ED;
-        }
-        .line {
-          margin: 15px auto;
-          width: 40px;
-          height: 1px;
-          background: #B1B0B0;
-        }
-        h2 {
-          margin: 0;
-          padding: 0;
-          font-weight: normal;
-          &.text-zh {
-            font-size: 25px;
-            color: #000000;
-          }
-          &.text-en {
-            font-size: 14px;
-            color: #B1B0B0;
-          }
-        }
-        .icon {
-          transition: 0.5s;
-          color: #FFFFFF;
-          border-radius: 50%;
-          width: 50px;
-          height: 50px;
-          background: #B1B0B0;
-          line-height: 50px;
-          text-align: center;
+      margin-bottom: 50px;
+      * {
+        cursor: default;
+      }
+      &:hover .icon {
+        color: #ffffff;
+        background: #2872ed;
+      }
+      .line {
+        margin: 15px auto;
+        width: 40px;
+        height: 1px;
+        background: #b1b0b0;
+      }
+      h2 {
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        &.text-zh {
           font-size: 25px;
-          border: 2px solid #FFFFFF;
-          margin-bottom: 15px;
+          color: #000000;
         }
+        &.text-en {
+          font-size: 14px;
+          color: #b1b0b0;
+        }
+      }
+      .icon {
+        transition: 0.5s;
+        color: #ffffff;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        background: #b1b0b0;
+        line-height: 50px;
+        text-align: center;
+        font-size: 25px;
+        border: 2px solid #ffffff;
+        margin-bottom: 15px;
       }
     }
   }
+}
 </style>

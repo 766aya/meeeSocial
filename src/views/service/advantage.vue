@@ -20,13 +20,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #advantage {
-    margin-bottom: 30px;
-  }
-  .content {
-    width: 1200px;
-    display: flex;
-    margin: 0 auto;
-    flex-direction: column;
-  }
+#advantage {
+  margin-bottom: 30px;
+}
+.content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
 </style>
