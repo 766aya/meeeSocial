@@ -2,24 +2,101 @@
   <div id="index">
     <banner height="600" tag="首页"></banner>
     <crumbs></crumbs>
+    <h1 class="gov-title">关于飞书</h1>
+    <div class="align center">
+      <p>飞书互动是Facebook中国区官方授权代理机构。</p>
+      <p>飞书互动聚焦Facebook业务多年，通过卓越的服务能力和领先的产品技术帮助中国企业通过Facebook和Instagram的全球网络于海外市场提升品牌声望和销售业绩，实现全球化发展。</p>
+      <img src="https://www.meetsocial.cn/templates/default/images/about_img1.jpg">
+    </div>
     <service></service>
+    <div class="youshi-content"></div>
     <latestCase></latestCase>
+    <div class="xueyuan-content">
+      <div class="player-box">
+        <video
+          id="myVideo"
+          class="video-js vjs-default-skin vjs-big-play-centered"
+          controls
+          preload="auto"
+          data-setup="{}"
+          style="width: 100%;height: auto"
+        >
+          <source
+            id="source"
+            poster="https://www.meetsocial.cn/upload/home/1547592756038739886.jpg"
+            src="https://www.meetsocial.cn/upload/course/1547592392238661040.mp4"
+            type="video/mp4"
+          >
+        </video>
+        <div class="desc">
+          <div class="title">飞书互动 X Facebook 线上游戏课程</div>
+          <router-link :to="{path: '/marketing/course'}" tag="div" class="learn-more">更多教学></router-link>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import service from '@/views/service/service.vue'
-import latestCase from '@/views/service/latestCase.vue'
+import service from "@/views/service/service.vue";
+import latestCase from "@/views/service/latestCase.vue";
 export default {
   components: { service, latestCase },
-  data () {
-    return {}
-  },
-}
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 #index {
   width: 100%;
+}
+.align {
+  &.center {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    img {
+      margin: 20px 0px;
+      box-shadow: 0px 0px 30px #dddddd;
+    }
+  }
+}
+.youshi-content {
+  height: 678px;
+  background: url("/img/home_bg2.jpg") no-repeat center center;
+}
+.xueyuan-content {
+  height: 1250px;
+  background: url("/img/home_bg3.jpg") no-repeat center center;
+  .player-box {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 200px;
+    .desc {
+      margin-top: -5px;
+      display: flex;
+      flex-direction: row;
+      height: 80px;
+      line-height: 80px;
+      background: #283a85;
+      color: #ffffff;
+      font-size: 20px;
+      .title {
+        padding-left: 20px;
+        flex: 1;
+      }
+      .learn-more {
+        width: 200px;
+        background: #2872ed;
+        height: 80px;
+        text-align: center;
+        cursor: pointer;
+      }
+    }
+  }
 }
 </style>
