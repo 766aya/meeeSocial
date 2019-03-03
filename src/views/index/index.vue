@@ -33,6 +33,7 @@
           <router-link :to="{path: '/marketing/course'}" tag="div" class="learn-more">更多教学></router-link>
         </div>
       </div>
+      <div class="yingxiao-content"></div>
     </div>
   </div>
 </template>
@@ -67,6 +68,10 @@ export default {
 .youshi-content {
   height: 678px;
   background: url("/img/home_bg2.jpg") no-repeat center center;
+}
+.yingxiao-content {
+  height: 785px;
+  background: url("/img/home_bg5.jpg") no-repeat center center;
 }
 .xueyuan-content {
   height: 1250px;
