@@ -46,7 +46,6 @@
                 class="menu-item"
                 :class="menuActive === index || menuChildrenShow === index ? 'router-link-active active' : ''"
                 :to="{ path: item.router }"
-                
               >{{ item.label }}</router-link>
               <div
                 class="menu-dropdown"
