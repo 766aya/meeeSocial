@@ -52,7 +52,7 @@ export default {
       } else if (routeInfo.indexOf('course') > -1) {
         this.routeActive = 'course'
         this.getVedioList()
-      } else {
+      } else if (routeInfo.indexOf('parper') > -1) {
         this.routeActive = 'paper'
         this.getPaperList()
       }

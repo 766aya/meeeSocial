@@ -123,7 +123,7 @@ export default {
       console.log(this.activeName)
     },
     learnMore () {
-      this.$router.push({ path: '/' })
+      this.$router.push({ path: '/marketing' })
     },
     getFaqList () {
       this.axios

@@ -6,6 +6,7 @@
           class="logo"
           src="/img/logo.jpg"
           alt="logo"
+          @click="() => { this.$router.push({ path: '/' }) }"
         >
       </div>
       <div class="main-layout">
@@ -151,10 +152,6 @@ export default {
     // })
     this.menuList = [
       {
-        label: '首页',
-        router: '/index',
-      },
-      {
         label: '电商服务',
         router: '/service',
         children: [
@@ -296,6 +293,7 @@ export default {
       .logo {
         width: 372px;
         height: 57px;
+        cursor: pointer;
       }
     }
     .main-layout {

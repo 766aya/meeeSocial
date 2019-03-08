@@ -84,22 +84,10 @@
         </div>
       </div>
     </div>
-    <!-- <div class="tips-box">
-      <h3 class="title">热门标签</h3>
-      <div class="tips-content">
-        <router-link
-          class="tip-item"
-          v-for="(item, index) in tipsData"
-          :key="index"
-          :to="{path: item.router}"
-        >{{ item.title }}</router-link>
-      </div>
-    </div>-->
   </div>
 </template>
 
 <script>
-import tipsData from './tips.json'
 
 export default {
   name: 'marketing',
@@ -110,7 +98,6 @@ export default {
       baipishu: [],
       faqData: [],
       wikiList: [],
-      tipsData: tipsData,
       activeName: 'yingxiaobaike',
     }
   },

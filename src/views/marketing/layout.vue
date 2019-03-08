@@ -4,17 +4,27 @@
       <img
         class="img"
         v-if="$route.path.indexOf('faq') > -1"
-        src="https://www.meetsocial.cn/templates/default/images/wendaxiangqing.jpg"
+        src="https://www.meetsocial.cn/templates/default/images/hudongliebiao.jpg"
       >
       <img
         class="img"
         v-else-if="$route.path.indexOf('news') > -1"
-        src="https://www.meetsocial.cn/templates/default/images/gongsixiangqing3.jpg"
+        src="https://www.meetsocial.cn/templates/default/images/g_banner3.jpg"
       >
       <img
         class="img"
-        v-else
+        v-else-if="$route.path.indexOf('wiki') > -1"
         src="https://www.meetsocial.cn/templates/default/images/g_banner1.jpg"
+      >
+      <img
+        class="img"
+        v-else-if="$route.path.indexOf('paper') > -1"
+        src="https://www.meetsocial.cn/upload/home/1530226294057930694.jpg"
+      >
+      <img
+        class="img"
+        v-else-if="$route.path.indexOf('course') > -1"
+        src="https://www.meetsocial.cn/upload/home/1545075684979257088.jpg"
       >
     </div>
     <crumbs></crumbs>
@@ -52,13 +62,10 @@
         </div>
         <listTitle title="热门标签"></listTitle>
         <div class="tips-box">
-          <!-- <router-link class="tip-item"  v-for="(item, index) in hotTipsList" :key="index" :to="{path: item.router}">{{ item.title }}</router-link> -->
-          <a
-            class="tip-item"
-            v-for="(item, index) in hotTipsList"
+          <span class="tip-item"  
+            v-for="(item, index) in hotTipsList" 
             :key="index"
-            href="javascript:;"
-          >{{ item.title }}</a>
+          >{{ item }}</span>
         </div>
       </div>
       <div class="rside">
@@ -135,8 +142,13 @@ export default {
         })
     },
     getHotTipsList () {
-      this.axios.get('/api/marketing/hotTips').then(({ data }) => {
-        this.hotTipsList = data.length > 4 ? data.slice(0, 4) : data
+      this.axios.get('/getHotTags', {
+          params: {
+            num: 4
+          },
+        })
+        .then(({ data }) => {
+        this.hotTipsList = data.data
       })
     },
   },
