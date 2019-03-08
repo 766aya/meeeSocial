@@ -1,8 +1,8 @@
 <template>
   <div id="article-two">
     <div class="header">
-      <div>
-        <img :src="`/getPhoto?filename=${content.img}`">
+      <div class="img-content">
+        <img class="header-img" :src="`/getPhoto?filename=${content.img}`">
         <img class="logo" v-if="content.logo" :src="content.logo">
       </div>
     </div>
@@ -80,6 +80,8 @@ export default {
       position: relative;
       width: 1200px;
       margin: 30px auto;
+      max-height: 600px;
+      overflow: hidden;
       .logo {
         position: absolute;
         width: 150px;
@@ -88,6 +90,12 @@ export default {
         left: 75px;
         margin-top: -75px;
         border: 1px solid #E5E5E5;
+      }
+      .img-content {
+        text-align: center;
+        .header-img {
+          width: 100%;
+        }
       }
     }
     h1.title {
