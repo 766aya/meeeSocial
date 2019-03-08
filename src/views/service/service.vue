@@ -1,7 +1,7 @@
 <template>
   <div id="service">
     <div class="content">
-      <h1 class="gov-title">飞书服务</h1>
+      <h1 class="gov-title">浩捷亚服务</h1>
       <p class="text title-text">{{ titleText.zh }}</p>
       <p class="text title-text">{{ titleText.en }}</p>
       <div class="main">
@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       titleText: {
-        zh: '飞书互动专注于为出海企业提供基于Facebook营销矩阵的推广服务',
+        zh: '浩捷亚互动专注于为出海企业提供基于Facebook营销矩阵的推广服务',
         en: 'Meetsocial + Facebook + Instagram = Your Global Clients',
       },
       mainList: [

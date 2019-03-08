@@ -4,7 +4,7 @@
       <div class="logo-layout">
         <img
           class="logo"
-          src="https://www.meetsocial.cn/templates/default/images/logo-new.png"
+          src="/img/logo.jpg"
           alt="logo"
         >
       </div>
@@ -13,10 +13,10 @@
           <div class="iconfont icon-icon-email gray">
             <a :href="`mailto:${email}`">{{email}}</a>
           </div>
-          <div class="iconfont icon-dianhua gray">400-869-9583</div>
-          <div>
+          <div class="iconfont icon-dianhua gray">173 2617 7986</div>
+          <!-- <div>
             <a href="https://www.meetsocial.cn/drive" class="brand">逸途</a>
-          </div>
+          </div> -->
           <div>
             <a
               href="javascript:;"
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="h50 menu-layout">
-          <div class="menus">
+          <div class="menus" @mouseleave="clearMenuShow">
             <div
               v-for="(item, index) in menuList"
               :key="item.label"
@@ -46,6 +46,7 @@
                 class="menu-item"
                 :class="menuActive === index || menuChildrenShow === index ? 'router-link-active active' : ''"
                 :to="{ path: item.router }"
+                
               >{{ item.label }}</router-link>
               <div
                 class="menu-dropdown"
@@ -92,7 +93,7 @@ export default {
   name: 'headerLayout',
   data () {
     return {
-      email: 'contact@meetsocial.cn',
+      email: 'wanghong@gjasian.com',
       lang: 'zh',
       menuList: [],
       menuChildrenShow: -1,
@@ -155,7 +156,7 @@ export default {
         router: '/index',
       },
       {
-        label: '飞书服务',
+        label: '电商服务',
         router: '/service',
         children: [
           {
@@ -164,7 +165,7 @@ export default {
             type: 1,
           },
           {
-            label: '飞书优势',
+            label: '电商优势',
             router: '/service#advantage',
             type: 1,
           },
@@ -173,24 +174,24 @@ export default {
       {
         label: '成功案例',
         router: '/case',
-        children: [
-          {
-            label: '游戏案例',
-            router: '/case/gameCase',
-          },
-          {
-            label: 'APP案例',
-            router: '/case/appCase',
-          },
-          {
-            label: '品牌案例',
-            router: '/case/brandCase',
-          },
-          {
-            label: '电商案例',
-            router: '/case/shopCase',
-          },
-        ],
+        // children: [
+        //   {
+        //     label: '游戏案例',
+        //     router: '/case/gameCase',
+        //   },
+        //   {
+        //     label: 'APP案例',
+        //     router: '/case/appCase',
+        //   },
+        //   {
+        //     label: '品牌案例',
+        //     router: '/case/brandCase',
+        //   },
+        //   {
+        //     label: '电商案例',
+        //     router: '/case/shopCase',
+        //   },
+        // ],
       },
       {
         label: '渠道资讯',
@@ -333,6 +334,8 @@ export default {
           flex-direction: row;
           .menu-box {
             position: relative;
+            padding: 0 10px;
+            margin: 0px 5px;
             .menu-item {
               display: block;
               background: rgba($color: #003399, $alpha: 0);

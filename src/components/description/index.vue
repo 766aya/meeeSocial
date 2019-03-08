@@ -16,7 +16,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          publisher: '飞书互动',
+          publisher: '浩捷亚互动',
           createTime: '2018-07-03',
           tips: ['Facebook案例', 'App案例', 'Audience', 'Network'],
         }

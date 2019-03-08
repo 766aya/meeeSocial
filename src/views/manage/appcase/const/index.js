@@ -106,7 +106,7 @@ export const mainDialogFormOption = {
       type: 'select',
       dicData: [
         { label: '管理员', value: 'admin' },
-        { label: '飞书互动', value: 'faceBook' },
+        { label: '浩捷亚互动', value: 'faceBook' },
       ],
       rules: [
         { required: true, message: '不能为空', trigger: 'change' },

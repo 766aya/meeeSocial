@@ -2,7 +2,7 @@
   <div id="fixed-box">
     <a href="javascript:;" class="item weixin iconfont icon-weixin">
       <transition name="fade">
-        <img class="img" src="https://www.meetsocial.cn/templates/default/images/ewm.jpg">
+        <img class="img" src="/img/qrcode.jpg">
       </transition>
     </a>
     <a href="javascript:;" class="item iconfont icon-weibo"></a>

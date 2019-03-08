@@ -23,7 +23,7 @@ export default new Router({
           path: '/service',
           component: () => import('@/views/service'),
           meta: {
-            label: '飞书服务',
+            label: '浩捷亚服务',
           },
         }, {
           name: 'case',

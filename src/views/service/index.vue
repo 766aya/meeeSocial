@@ -1,6 +1,6 @@
 <template>
   <div id="services">
-    <banner height="600" tag="飞书服务"></banner>
+    <banner height="600" tag="浩捷亚服务"></banner>
     <crumbs :routerList="routerList"></crumbs>
     <s-service></s-service>
     <s-advantage>
@@ -47,9 +47,9 @@ export default {
         {
           position: 'left',
           img: 'https://www.meetsocial.cn/templates/default/images/fuwu1.jpg',
-          title: 'Facebook中国区官方授权代理机构',
+          title: 'Facebook海外广告投放优化',
           desc:
-            '飞书互动能够为广告主获取最优Facebook官方资源及大数据支持，帮助中国广告主发掘最有潜力的市场和受众，并为客户开启绿色开户通道。',
+            '浩捷亚互动能够为广告主获取最优Facebook官方资源及大数据支持，帮助中国广告主发掘最有潜力的市场和受众，并为客户开启绿色开户通道。',
         },
         {
           position: 'right',
@@ -63,7 +63,7 @@ export default {
           img: 'https://www.meetsocial.cn/templates/default/images/fuwu3.jpg',
           title: '国际一流水准的创意团队',
           desc:
-            '飞书互动旗下海外广告创意专家，为客户提供基于广告历史数据以及市场现状数据的素材创意与制作服务。',
+            '浩捷亚互动旗下海外广告创意专家，为客户提供基于广告历史数据以及市场现状数据的素材创意与制作服务。',
         },
         {
           position: 'right',
