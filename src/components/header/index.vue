@@ -234,6 +234,7 @@ export default {
     max-width: 1300px;
     height: 100%;
     .logo-layout {
+      margin: 10px;
       display: flex;
       justify-content: center;
       align-items: center;
