@@ -44,7 +44,6 @@ export default {
           this.bannerList = data.data.data.map(item => {
             return JSON.parse(item)
           })
-          console.log(this.bannerList)
         })
     },
     getArticle (filename, cb) {

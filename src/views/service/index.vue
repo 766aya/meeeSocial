@@ -1,6 +1,6 @@
 <template>
   <div id="services">
-    <banner height="600" tag="浩捷亚服务"></banner>
+    <banner height="600" tag="飞书服务"></banner>
     <crumbs :routerList="routerList"></crumbs>
     <s-service></s-service>
     <s-advantage>

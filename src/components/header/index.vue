@@ -15,9 +15,6 @@
             <a :href="`mailto:${email}`">{{email}}</a>
           </div>
           <div class="iconfont icon-dianhua gray">173 2617 7986</div>
-          <!-- <div>
-            <a href="https://www.meetsocial.cn/drive" class="brand">逸途</a>
-          </div> -->
           <div>
             <a
               href="javascript:;"
@@ -147,9 +144,6 @@ export default {
   },
   created () {
     this.changeLanguage(this.lang)
-    // this.axios.get('/api/menuList').then(({ data }) => {
-    //   this.menuList = data
-    // })
     this.menuList = [
       {
         label: '电商服务',
@@ -169,39 +163,11 @@ export default {
       },
       {
         label: '成功案例',
-        router: '/case',
-        // children: [
-        //   {
-        //     label: '游戏案例',
-        //     router: '/case/gameCase',
-        //   },
-        //   {
-        //     label: 'APP案例',
-        //     router: '/case/appCase',
-        //   },
-        //   {
-        //     label: '品牌案例',
-        //     router: '/case/brandCase',
-        //   },
-        //   {
-        //     label: '电商案例',
-        //     router: '/case/shopCase',
-        //   },
-        // ],
+        router: '/case'
       },
       {
         label: '渠道资讯',
-        router: '/qudaozixun',
-        // children: [
-        //   {
-        //     label: 'Facebook',
-        //     router: '/',
-        //   },
-        //   {
-        //     label: 'Instagram',
-        //     router: '/',
-        //   },
-        // ],
+        router: '/qudaozixun'
       },
       {
         label: '营销学院',
@@ -219,28 +185,12 @@ export default {
             label: '营销百科',
             router: '/marketing/wiki',
           },
-          // {
-          //   'label': '行业资讯',
-          //   'router': '/marketing/information',
-          // },
           {
             label: '行业白皮书',
             router: '/marketing/paper',
           },
         ],
-      },
-      // {
-      //   'label': '最新动态',
-      //   'router': '/zuixindongtai',
-      // },
-      // {
-      //   'label': '驱动技术',
-      //   'router': '/qudongjishu',
-      // },
-      // {
-      //   'label': '关于我们',
-      //   'router': '/about',
-      // },
+      }
     ]
   },
 }
@@ -277,9 +227,8 @@ export default {
 }
 #header {
   width: 100%;
-  height: 110px;
+  height: 120px;
   .main {
-    margin: 0 auto;
     display: flex;
     width: 100%;
     max-width: 1300px;
@@ -298,10 +247,12 @@ export default {
     }
     .main-layout {
       width: 850px;
-      height: 100%;
+      margin: 10px;
       .text-layout {
         flex-direction: row;
         justify-content: flex-end;
+        margin: 10px;
+        margin-bottom: 0px;
         .brand {
           padding: 5px 10px;
           line-height: 30px;
@@ -326,6 +277,7 @@ export default {
       .menu-layout {
         flex-direction: row;
         justify-content: flex-end;
+        margin: 0px;
         .menus {
           display: flex;
           flex-direction: row;

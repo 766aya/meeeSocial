@@ -9,30 +9,7 @@
       <img src="https://www.meetsocial.cn/templates/default/images/about_img1.jpg">
     </div>
     <service></service>
-    <div class="youshi-content"></div>
     <latestCase></latestCase>
-    <div class="xueyuan-content">
-      <div class="player-box">
-        <video
-          id="myVideo"
-          class="video-js vjs-default-skin vjs-big-play-centered"
-          controls
-          preload="auto"
-          data-setup="{}"
-          style="width: 100%;height: auto"
-        >
-          <source
-            id="source"
-            poster="https://www.meetsocial.cn/upload/home/1547592756038739886.jpg"
-            src="https://www.meetsocial.cn/upload/course/1547592392238661040.mp4"
-            type="video/mp4"
-          >
-        </video>
-        <div class="desc">
-          <div class="title">浩捷亚互动 X Facebook 线上游戏课程</div>
-          <router-link :to="{path: '/marketing/course'}" tag="div" class="learn-more">更多教学></router-link>
-        </div>
-      </div>
       <div class="yingxiao-content"></div>
     </div>
   </div>
