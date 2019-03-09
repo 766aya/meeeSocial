@@ -4,7 +4,7 @@
     <el-container>
       <el-aside width="200px" class="aside-bar">
         <el-menu
-          default-active="2"
+          :default-active="activeIndex"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
@@ -46,8 +46,28 @@
 export default {
   name: 'manage',
   data () {
-    return {}
+    return {
+      activeIndex: '1'
+    }
   },
+  created: function()
+  {
+    var routeInfo = this.$route.fullPath
+
+    if (routeInfo.indexOf('acticel') > -1) {
+      this.activeIndex = '1'
+      this.getFAQList()
+    } else if (routeInfo.indexOf('appCaseManage') > -1) {
+      this.activeIndex = '2'
+      this.getWikiList()
+    } else if (routeInfo.indexOf('vedioManage') > -1) {
+      this.activeIndex = '3'
+      this.getVedioList()
+    } else if (routeInfo.indexOf('bannerManage') > -1) {
+      this.activeIndex = '4'
+      this.getPaperList()
+    }
+  }
 }
 </script>
 
