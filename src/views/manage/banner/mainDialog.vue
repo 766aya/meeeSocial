@@ -114,11 +114,9 @@ export default {
       })
     },
     rowCell (row, index) {
-      console.log(row, index)
       this.$refs.crud.rowCell(row, index)
     },
     rowUpdate (form, index, done) {
-      console.log('rowUpdate', form, index)
       done()
     },
     uploadHeaderImg (response) {
