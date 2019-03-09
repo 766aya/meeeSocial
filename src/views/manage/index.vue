@@ -67,7 +67,26 @@ export default {
       this.activeIndex = '4'
       this.getPaperList()
     }
-  }
+  },
+  watch: {
+    $route () {
+      var routeInfo = this.$route.fullPath
+
+      if (routeInfo.indexOf('acticel') > -1) {
+        this.activeIndex = '1'
+        this.getFAQList()
+      } else if (routeInfo.indexOf('appCaseManage') > -1) {
+        this.activeIndex = '2'
+        this.getWikiList()
+      } else if (routeInfo.indexOf('vedioManage') > -1) {
+        this.activeIndex = '3'
+        this.getVedioList()
+      } else if (routeInfo.indexOf('bannerManage') > -1) {
+        this.activeIndex = '4'
+        this.getPaperList()
+      }
+    },
+  },
 }
 </script>
 
