@@ -77,7 +77,7 @@ export default {
     .banner-img {
       display: block;
       height: 100%;
-      width: auto;
+      width: 100%;
       text-align: center;
       margin: 0 auto;
       overflow: hidden;
