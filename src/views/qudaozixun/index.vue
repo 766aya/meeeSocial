@@ -1,7 +1,7 @@
 <template>
   <div id="case">
     <div class="banner">
-      <img class="img" src="https://www.meetsocial.cn/templates/default/images/nybanner3.gif">
+      <img class="img" src="/img/2.jpg"></img>
     </div>
     <crumbs></crumbs>
     <div class="banner02"></div>
