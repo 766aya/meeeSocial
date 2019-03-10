@@ -15,7 +15,7 @@ module.exports = {
         },
       },
       '/': {
-        target: 'http://123.157.68.243:10014/',
+        target: 'http://localhost:8080/',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
