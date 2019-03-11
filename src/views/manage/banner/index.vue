@@ -61,6 +61,7 @@ export default {
       })
     },
     newly () {
+      this.status = 'create'
       this.$refs['mainDialog'].open()
     },
     handleUpdate (row) {

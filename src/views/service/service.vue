@@ -70,9 +70,10 @@ export default {
   overflow: hidden;
   .title-text {
     font-size: 18px;
+    color: #666666;
   }
   .text {
-    color: #b1b0b0;
+    color: #666666;
     text-align: center;
   }
   & > .main {
@@ -113,7 +114,7 @@ export default {
         }
         &.text-en {
           font-size: 14px;
-          color: #b1b0b0;
+          color: #666666;
         }
       }
       .icon {

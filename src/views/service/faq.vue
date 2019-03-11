@@ -19,12 +19,6 @@
         </router-link>
       </div>
     </div>
-    <router-link class="n-number-link" :to="{path: '/'}">
-      <img
-        class="n-number-img"
-        src="https://www.meetsocial.cn/upload/service/1547599946369852254.png"
-      >
-    </router-link>
   </div>
 </template>
 
@@ -114,16 +108,6 @@ export default {
           text-align: right;
         }
       }
-    }
-  }
-  .n-number-link {
-    display: block;
-    width: 100%;
-    min-width: 800px;
-    max-width: 1060px;
-    margin: 50px auto 0px auto;
-    .n-number-img {
-      width: 100%;
     }
   }
 }

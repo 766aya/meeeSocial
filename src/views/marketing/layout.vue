@@ -24,7 +24,7 @@
       <img
         class="img"
         v-else-if="$route.path.indexOf('course') > -1"
-        src="https://www.meetsocial.cn/upload/home/1545075684979257088.jpg"
+        src="/img/1.jpg"
       >
     </div>
     <crumbs></crumbs>
