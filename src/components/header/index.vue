@@ -228,7 +228,11 @@ export default {
 #header {
   width: 100%;
   height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .main {
+    max-width: 1200px;
     display: flex;
     width: 100%;
     max-width: 1300px;

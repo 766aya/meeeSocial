@@ -1,6 +1,6 @@
 <template>
   <div id="index">
-    <banner height="600" tag="首页"></banner>
+    <banner height="800" tag="首页"></banner>
     <crumbs></crumbs>
     <h1 class="gov-title">关于浩捷亚</h1>
     <div class="align center">
