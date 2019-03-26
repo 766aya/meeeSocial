@@ -3,7 +3,7 @@
     <fixed-box></fixed-box>
     <header-layout></header-layout>
     <router-view/>
-    <!-- <footer-layout></footer-layout> -->
+    <footer-layout></footer-layout>
   </div>
 </template>
 

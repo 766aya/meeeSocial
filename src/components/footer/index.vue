@@ -1,20 +1,19 @@
 <template>
   <div id="gov-footer">
-    <footer-top></footer-top>
-    <footer-bottom></footer-bottom>
+    <span style="text-align:center" href="http://www.miitbeian.gov.cn">苏ICP备19012764号-1</span>
   </div>
 </template>
 
 <script>
-import footerTop from './footerTop'
-import footerBottom from './footerBottom'
-
 export default {
-  name: 'govFooter',
-  components: { footerTop, footerBottom },
+  name: 'govFooter'
 }
 </script>
 
 <style lang="scss" scoped>
-
+.gov-footer {
+	text-align: center;
+	height: 300px;
+	background-color: yellow;
+}
 </style>
